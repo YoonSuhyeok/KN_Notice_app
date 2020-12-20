@@ -29,20 +29,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        var settingButton:ImageButton = findViewById(R.id.setting_button)
-        settingButton.setOnClickListener(View.OnClickListener {
+        findViewById<Button>(R.id.setting_button).setOnClickListener {
             startActivity(Intent(this, settingpage::class.java))
-        })
+        }
 
-        var LodingButton: Button = findViewById(R.id.Loding)
-        LodingButton.setOnClickListener(View.OnClickListener{
+        findViewById<Button>(R.id.Loding).setOnClickListener {
             sendRequest()
-        })
+        }
+
         NoticeList.add(0, Notice("이름", "제목", "URI", "date"))
         recyclerview.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
         recyclerview.setHasFixedSize(true)
         recyclerview.adapter = noticeAdapter
-
+        val spaceDecoration = RecyclerDecoration(0)
+        recyclerview.addItemDecoration(spaceDecoration)
         sendRequest()
     }
 
@@ -69,10 +69,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun CheckPreference(repos: JsonObject?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(this)
-        var isKangwon = prefs.getBoolean("강원대 학사 공지", false)
-        var isComputer = prefs.getBoolean("강원대 컴공학부", false)
-        var isEdu = prefs.getBoolean("강원대 교육혁신원", false)
-        var isSW= prefs.getBoolean("강원대 SW중심대학", false)
+        val isKangwon = prefs.getBoolean("강원대 학사 공지", false)
+        val isComputer = prefs.getBoolean("강원대 컴공학부", false)
+        val isEdu = prefs.getBoolean("강원대 교육혁신원", false)
+        val isSW= prefs.getBoolean("강원대 SW중심대학", false)
 
         if(isKangwon) addNotice("강원대 학사 공지", repos)
         if(isComputer) addNotice("강원대 컴공학부", repos)
@@ -90,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         var lists = repos?.getAsJsonArray(name)
         if(lists != null){
             for( i in 0 until lists.size()){
-                var a: JsonObject = lists?.get(i) as JsonObject
+                val a: JsonObject = lists.get(i) as JsonObject
                 NoticeList.add( Notice(name, a.get("title").toString(), a.get("url").toString(), a.get("date").toString() ) )
             }
         }

@@ -52,7 +52,8 @@
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="@string/_2020_03_18"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:layout_marginStart="10dp" />
 
     <TextView
         android:id="@+id/bar"
@@ -91,6 +92,7 @@
         android:layout_marginRight="10dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/Barsket"
-        android:src="@drawable/bracket2" />
+        android:src="@drawable/bracket2"
+        android:layout_marginEnd="10dp" />
 
 </RelativeLayout>

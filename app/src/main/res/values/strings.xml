@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">noticekangwon</string>
     <string name="setting">setting</string>
+    <string name="news">new</string>
+    <string name="_2020_03_18">2020.03.18</string>
+    <string name="Department">예비군연대</string>
+    <string name="Title">학생예비군(학부생, 대학원생) 전입신고 안내</string>
+    <string name="Barsket">꺽새 버튼</string>
+    <string name="bar">|</string>
 </resources>

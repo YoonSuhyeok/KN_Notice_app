@@ -1,44 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="10dp"
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView4"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:id="@+id/new_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
         android:background="@drawable/ic_rectangle_8"
         android:fontFamily="@font/font"
-        android:paddingLeft="7.5dp"
+        android:paddingStart="10dp"
+        android:paddingLeft="4dp"
         android:paddingTop="2dp"
-        android:paddingRight="7.5dp"
+        android:paddingEnd="10dp"
         android:paddingBottom="1dp"
-        android:text="NEW"
+        android:text="@string/news"
         android:textColor="#FF6939"
-        app:srcCompat="@drawable/ic_rectangle_8" />
+        android:textSize="13sp"
+        android:textStyle="bold"
+        android:layout_alignParentStart="true" />
 
-    <LinearLayout
+    <TextView
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/new_tag"
+        android:id="@+id/Title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="0"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanumsquare_aceb"
+        android:maxWidth="100dp"
+        android:text="@string/Title"
+        android:textColor="#4B4B4B"
+        android:textSize="16sp"
+        android:typeface="sans" />
 
-        <TextView
-            android:id="@+id/Title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0"
-            android:text="타이틀" />
+    <TextView
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/Title"
+        android:id="@+id/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanumsquare_acr"
+        android:text="@string/_2020_03_18"
+        android:textSize="12sp" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/bracket"
-            />
-    </LinearLayout>
+    <TextView
+        android:layout_below="@+id/Title"
+        android:layout_toRightOf="@+id/date"
+        android:id="@+id/bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4sp"
+        android:layout_marginLeft="4sp"
+        android:layout_marginEnd="4sp"
+        android:layout_marginRight="4sp"
+        android:fontFamily="@font/nanumsquare_acr"
+        android:text="@string/bar"
+        android:layout_toEndOf="@+id/date" />
 
-</LinearLayout>
+    <TextView
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/Title"
+        android:layout_toRightOf="@+id/bar"
+        android:id="@+id/department"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nanumsquare_acr"
+        android:text="@string/Department"
+        android:textSize="12sp"
+        android:layout_toEndOf="@+id/bar" />
+
+    <ImageButton
+        android:layout_marginTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/Barsket"
+        android:src="@drawable/bracket2"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>

@@ -21,7 +21,8 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
-
+    
+    // branch 테스트용 텍스트
     // 중복 제거 필요하지 않나?
     val NoticeList: ArrayList<Notice> = arrayListOf<Notice>()
     var noticeAdapter = NoticeAdapter(NoticeList)

@@ -19,7 +19,9 @@ class NoticeAdapter(var NoticeList: ArrayList<Notice>): RecyclerView.Adapter<Not
             itemView.setOnClickListener {
                 val curPos: Int = adapterPosition
                 // Move to the URI_Site
-                Toast.makeText(parent.context, "클릭 테스트 ${curPos}", Toast.LENGTH_LONG).show()
+                val url:String = NoticeList[curPos].url.substring(6, NoticeList[curPos].url.length-1)
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http"+url))
+                parent.context.startActivity(intent)
             }
 
         }
@@ -28,13 +30,13 @@ class NoticeAdapter(var NoticeList: ArrayList<Notice>): RecyclerView.Adapter<Not
         return NoticeList.size
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.noticeSubject.text = NoticeList.get(position).name
-        holder.noticeText.text = NoticeList.get(position).title
+        holder.noticeSubject.text = NoticeList[position].name
+        holder.noticeText.text = NoticeList[position].title
     }
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val noticeText = itemView.findViewById<TextView>(R.id.noticeTextView)
-        val noticeSubject = itemView.findViewById<TextView>(R.id.subjectName)
+        val noticeText = itemView.findViewById<TextView>(R.id.Title)
+        val noticeSubject = itemView.findViewById<TextView>(R.id.department)
     }
 
 }

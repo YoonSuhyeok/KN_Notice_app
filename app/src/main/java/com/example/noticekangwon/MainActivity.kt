@@ -3,11 +3,7 @@ package com.example.noticekangwon
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.View
 import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.JsonObject
@@ -22,7 +18,6 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    // dasdasd
     // 중복 제거 필요하지 않나?
     val NoticeList: ArrayList<Notice> = arrayListOf<Notice>()
     var noticeAdapter = NoticeAdapter(NoticeList)

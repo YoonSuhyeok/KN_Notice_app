@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class College {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int cId;
     private String cName;
 

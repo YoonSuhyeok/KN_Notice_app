@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.example.noticekangwon.DataBase.MajorDB.AppDataBase
 import com.google.gson.JsonObject
 import kotlinx.android.synthetic.main.activity_main.*
 import retrofit2.Call
@@ -24,6 +26,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build();
 
         findViewById<Button>(R.id.setting_button).setOnClickListener {
             startActivity(Intent(this, settingpage::class.java))

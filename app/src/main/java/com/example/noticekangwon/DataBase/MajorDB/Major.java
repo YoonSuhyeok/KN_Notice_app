@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Major {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int mId;
     private String mName;
 

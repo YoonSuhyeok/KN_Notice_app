@@ -10,14 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="23dp"
         android:background="@color/colorBlueMarin"/>
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/search_lin"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="55dp">
         <EditText
             android:id="@+id/search"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="55dp"
             android:background="@drawable/edit_shadow"
             android:hint="검색할 키워드를 입력해주세요"
             android:paddingLeft="20dp"
@@ -26,8 +27,16 @@
             android:layout_marginBottom="-5dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"/>
+        <Button
+            android:layout_alignParentEnd="true"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/ic_baseline_search_24"
+            android:layout_alignParentRight="true" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/linear2"

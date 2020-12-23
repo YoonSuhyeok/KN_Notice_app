@@ -6,6 +6,6 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Notice {
     @PrimaryKey(autoGenerate = true)
-    private int nId;
-    private String title;
+    protected int nId;
+    protected String title;
 }

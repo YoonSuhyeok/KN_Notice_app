@@ -1,4 +1,4 @@
-package com.example.noticekangwon
+package com.example.noticekangwon.Recyclerviews
 
 import android.graphics.Rect
 import android.view.View

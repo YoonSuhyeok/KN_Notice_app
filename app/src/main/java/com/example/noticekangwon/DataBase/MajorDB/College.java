@@ -6,9 +6,12 @@ import androidx.room.PrimaryKey;
 @Entity
 public class College {
 
+    public College(String cName){
+        this.cName = cName;
+    }
     @PrimaryKey(autoGenerate = true)
-    private int cId;
-    private String cName;
+    protected int cId;
+    protected String cName;
 
     public void setcId(int cId) {
         this.cId = cId;

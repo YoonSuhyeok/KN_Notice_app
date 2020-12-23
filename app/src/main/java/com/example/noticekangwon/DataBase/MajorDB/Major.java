@@ -7,9 +7,12 @@ import androidx.room.PrimaryKey;
 @Entity
 public class Major {
 
+    public Major(String mName){
+        this.mName = mName;
+    }
     @PrimaryKey(autoGenerate = true)
-    private int mId;
-    private String mName;
+    protected int mId;
+    protected String mName;
 
     public void setId(int mId) {
         this.mId = mId;

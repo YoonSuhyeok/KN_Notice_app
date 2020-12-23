@@ -1,9 +1,9 @@
-package com.example.noticekangwon
+package com.example.noticekangwon.Activity
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
+import com.example.noticekangwon.R
 
 class SplashActivity: AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

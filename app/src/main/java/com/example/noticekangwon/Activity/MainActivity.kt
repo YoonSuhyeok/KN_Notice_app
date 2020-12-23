@@ -3,6 +3,9 @@ package com.example.noticekangwon.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.noticekangwon.*
@@ -31,12 +34,21 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        val toolbar:Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        actionBar?.title = "과제 정리 앱"
+
         recyclerview.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
         recyclerview.setHasFixedSize(true)
         recyclerview.adapter = noticeAdapter
         val spaceDecoration = RecyclerDecoration(0)
         recyclerview.addItemDecoration(spaceDecoration)
         sendRequest()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
     private fun sendRequest(){
@@ -59,7 +71,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initDB(){
-        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build();
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
         var majorlist = resources.getStringArray(R.array.major)
         var colleaelist = resources.getStringArray(R.array.colleage)
         for (element in majorlist) db.majorDao().insert(Major(element))

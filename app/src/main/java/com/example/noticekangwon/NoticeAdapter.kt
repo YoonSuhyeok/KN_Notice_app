@@ -19,9 +19,9 @@ class NoticeAdapter(var NoticeList: ArrayList<Notice>): RecyclerView.Adapter<Not
             itemView.setOnClickListener {
                 val curPos: Int = adapterPosition
                 // Move to the URI_Site
-                val url:String = NoticeList[curPos].url.substring(6, NoticeList[curPos].url.length-1)
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http"+url))
-                parent.context.startActivity(intent)
+//                val url:String = NoticeList[curPos].url.substring(6, NoticeList[curPos].url.length-1)
+//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http"+url))
+//                parent.context.startActivity(intent)
             }
 
         }
@@ -30,8 +30,8 @@ class NoticeAdapter(var NoticeList: ArrayList<Notice>): RecyclerView.Adapter<Not
         return NoticeList.size
     }
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.noticeSubject.text = NoticeList[position].name
-        holder.noticeText.text = NoticeList[position].title
+//        holder.noticeSubject.text = NoticeList[position].name
+//        holder.noticeText.text = NoticeList[position].title
     }
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){

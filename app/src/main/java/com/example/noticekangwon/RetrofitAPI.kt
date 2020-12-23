@@ -6,5 +6,5 @@ import retrofit2.http.GET
 
 interface RetrofitAPI {
     @GET("/")
-    fun getNotice(): Call<JsonObject>
+    fun getNotice(): Call<Notice>
 }

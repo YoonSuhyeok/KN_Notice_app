@@ -10,21 +10,28 @@
         android:layout_width="match_parent"
         android:layout_height="23dp"
         android:background="@color/colorBlueMarin"/>
-    <EditText
-        android:id="@+id/search"
+    <LinearLayout
+        android:id="@+id/search_lin"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:background="@drawable/edit_shadow"
-        android:hint="검색할 키워드를 입력해주세요"
-        android:paddingLeft="20dp"
-        android:textSize="15dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"/>
+        android:layout_height="45dp">
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@drawable/edit_shadow"
+            android:hint="검색할 키워드를 입력해주세요"
+            android:paddingLeft="20dp"
+            android:textSize="15dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="-5dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"/>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linear2"
-        android:layout_below="@id/search"
+        android:layout_below="@id/search_lin"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="50dp">

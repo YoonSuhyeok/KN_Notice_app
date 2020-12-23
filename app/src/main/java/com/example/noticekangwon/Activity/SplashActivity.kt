@@ -1,5 +1,6 @@
 package com.example.noticekangwon.Activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
@@ -10,9 +11,9 @@ class SplashActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
 
-        var handler = Handler()
-        handler.postDelayed(Runnable {
+        Handler().postDelayed(Runnable {
+            startActivity(Intent(this, MainActivity::class.java))
             finish()
-        }, 1000)
+        }, 3000)
     }
 }

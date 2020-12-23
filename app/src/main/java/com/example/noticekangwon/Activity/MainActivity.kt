@@ -26,12 +26,10 @@ class MainActivity : AppCompatActivity() {
 
     val noticeList: ArrayList<Notice> = arrayListOf<Notice>()
     var noticeAdapter = NoticeAdapter(noticeList)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        var intent = Intent(this, SplashActivity::class.java)
-        startActivity(intent)
 
         recyclerview.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
         recyclerview.setHasFixedSize(true)

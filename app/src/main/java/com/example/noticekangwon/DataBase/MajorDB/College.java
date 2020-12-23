@@ -10,19 +10,19 @@ public class College {
     private int cId;
     private String cName;
 
-    public void setId(int cId) {
+    public void setcId(int cId) {
         this.cId = cId;
     }
 
-    public void setName(String cName) {
+    public void setcName(String cName) {
         this.cName = cName;
     }
 
-    public int getId() {
+    public int getcId() {
         return cId;
     }
 
-    public String getName() {
+    public String getcName() {
         return cName;
     }
 }

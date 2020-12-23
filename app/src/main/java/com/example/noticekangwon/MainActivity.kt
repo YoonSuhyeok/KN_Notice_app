@@ -29,13 +29,13 @@ class MainActivity : AppCompatActivity() {
 
         var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build();
 
-        findViewById<Button>(R.id.setting_button).setOnClickListener {
-            startActivity(Intent(this, settingpage::class.java))
-        }
-
-        findViewById<Button>(R.id.Loding).setOnClickListener {
-            sendRequest()
-        }
+//        findViewById<Button>(R.id.setting_button).setOnClickListener {
+//            startActivity(Intent(this, settingpage::class.java))
+//        }
+//
+//        findViewById<Button>(R.id.Loding).setOnClickListener {
+//            sendRequest()
+//        }
 
         NoticeList.add(0, Notice("이름", "제목", "URI", "date"))
         recyclerview.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
@@ -95,4 +95,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+//    public void moveDevelop(View view) {
+//        startActivity(new Intent(this, DevelopInfoActivity.class));
+//    }
 }

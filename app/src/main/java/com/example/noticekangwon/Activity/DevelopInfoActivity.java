@@ -17,7 +17,7 @@ public class DevelopInfoActivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.devToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

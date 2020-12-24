@@ -4,14 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.noticekangwon.*
-import com.example.noticekangwon.DataBase.MajorDB.AppDataBase
-import com.example.noticekangwon.DataBase.MajorDB.College
-import com.example.noticekangwon.DataBase.MajorDB.Major
+import com.example.noticekangwon.DataBase.AppDataBase
+import com.example.noticekangwon.DataBase.College
+import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.Recyclerviews.NoticeAdapter
 import com.example.noticekangwon.Recyclerviews.RecyclerDecoration
 import com.example.noticekangwon.Retrofit.RetrofitAPI
@@ -49,6 +49,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        var temp = item.itemId
+        if(temp == R.id.developInfo) {
+            startActivity(Intent(this, DevelopInfoActivity::class.java))
+        } else {
+
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     private fun sendRequest(){

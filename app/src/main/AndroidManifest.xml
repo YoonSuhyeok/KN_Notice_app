@@ -20,6 +20,8 @@
         <activity android:name=".Activity.MainActivity">
         </activity>
 
+        <activity android:name=".Activity.DevelopInfoActivity" android:parentActivityName=".Activity.MainActivity"></activity>
+
         <activity android:name=".Activity.settingpage"></activity>
     </application>
     <uses-permission android:name="android.permission.INTERNET" />

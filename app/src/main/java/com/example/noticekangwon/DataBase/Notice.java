@@ -16,5 +16,7 @@ public class Notice {
     public int mIdFk;
     @PrimaryKey(autoGenerate = true)
     public int nId;
+    public String title;
+    public String date;
     public String contents;
 }

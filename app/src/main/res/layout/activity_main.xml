@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@color/colorBlueMarin"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+        android:theme="@style/AppTheme.Light">
 
     </androidx.appcompat.widget.Toolbar>
 
@@ -37,7 +36,6 @@
             android:paddingLeft="20dp"
             android:textSize="15dp"
             android:layout_marginTop="2dp"
-            android:layout_marginBottom="-5dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="4dp"/>
         <Button
@@ -51,20 +49,22 @@
 
     </RelativeLayout>
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linear2"
         android:layout_below="@id/search_lin"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="40dp">
 
         <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:layout_alignParentRight="true"
+            android:textAlignment="textEnd"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
             style="?android:attr/borderlessButtonStyle"
-            android:text="필터"/>
-    </LinearLayout>
+            android:text="필터"
+            android:gravity="end" />
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"

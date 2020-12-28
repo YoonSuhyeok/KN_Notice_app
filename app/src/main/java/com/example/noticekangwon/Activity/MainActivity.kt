@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.widget.ThemeUtils
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -56,7 +58,13 @@ class MainActivity : AppCompatActivity() {
         if(temp == R.id.developInfo) {
             startActivity(Intent(this, DevelopInfoActivity::class.java))
         } else {
-
+            if(item.title == "다크 모드") {
+                item.title = "화이트 모드"
+                setTheme(R.style.AppTheme_Dark)
+            } else {
+                item.title = "다크 모드"
+                setTheme(R.style.AppTheme_Light)
+            }
         }
         return super.onOptionsItemSelected(item)
     }

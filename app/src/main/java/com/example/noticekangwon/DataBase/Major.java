@@ -7,18 +7,11 @@ import androidx.room.PrimaryKey;
 
 import java.lang.reflect.Array;
 
-@Entity(tableName = "major",
-        foreignKeys = @ForeignKey(
-                entity = College.class,
-                parentColumns = "cId",
-                childColumns = "cIdFk",
-                onDelete = ForeignKey.CASCADE
-        ),
-        indices = @Index("cIdFk")
-)
+@Entity
 public class Major {
 
-    public Major(String mName){
+    public Major(int cIdFk, String mName){
+        this.cIdFk = cIdFk;
         this.mName = mName;
     }
     @PrimaryKey(autoGenerate = true)

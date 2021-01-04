@@ -1,3 +1,4 @@
+/*
 package com.example.noticekangwon.DataBase;
 
 import androidx.room.Dao;
@@ -22,3 +23,4 @@ public interface NoticeDao {
     @Update
     void update(Notice notice);
 }
+*/

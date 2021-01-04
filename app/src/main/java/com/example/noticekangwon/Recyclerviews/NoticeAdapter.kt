@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.noticekangwon.Notice
 import com.example.noticekangwon.R
 
-class NoticeAdapter(var NoticeList: ArrayList<Notice>): RecyclerView.Adapter<NoticeAdapter.Holder>() {
+class NoticeAdapter(private val NoticeList: ArrayList<Notice>): RecyclerView.Adapter<NoticeAdapter.Holder>() {
     // 화면을 최초 로딩하여 만들어진 View가 없는 경우, xml 파일을 inflate하여 ViewHolder를 생성한다.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_notice, parent, false)
@@ -32,8 +32,8 @@ class NoticeAdapter(var NoticeList: ArrayList<Notice>): RecyclerView.Adapter<Not
     }
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val noticeText = itemView.findViewById<TextView>(R.id.Title)
-        val noticeSubject = itemView.findViewById<TextView>(R.id.department)
+        var noticeText: TextView = itemView.findViewById(R.id.Title)
+        var noticeSubject: TextView = itemView.findViewById(R.id.department)
     }
 
 }

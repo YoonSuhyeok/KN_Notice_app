@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +17,7 @@ import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.Recyclerviews.NoticeAdapter
 import com.example.noticekangwon.Recyclerviews.RecyclerDecoration
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.delay
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -59,8 +61,14 @@ class MainActivity : AppCompatActivity() {
         var temp = item.itemId
         if (temp == R.id.developInfo) {
             startActivity(Intent(this, DevelopInfoActivity::class.java))
-        } else {
-
+        } else if(temp == R.id.switchBtn){
+            if(item.title == "다크 모드") {
+                ThemeSet.applyTheme("dark")
+                item.title = "화이트 모드"
+            } else {
+                item.title = "다크 모드"
+                ThemeSet.applyTheme("light")
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -74,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initDB() {
-        var colleageList: Array<String> = resources.getStringArray(R.array.colleage)
+        var collegeList: Array<String> = resources.getStringArray(R.array.college)
         val array = arrayOf(
             R.array.간호대학,
             R.array.경영대학,
@@ -99,9 +107,9 @@ class MainActivity : AppCompatActivity() {
             Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
                 .build()
         var num: Int
-        for (x in colleageList.indices) {
-            db.collegeDao().insert(College(colleageList[x]))
-            println(colleageList[x])
+        for (x in collegeList.indices) {
+            db.collegeDao().insert(College(collegeList[x]))
+            println(collegeList[x])
             num = array[x]
             var majorlist = resources.getStringArray(num)
             for (y in majorlist) {
@@ -109,8 +117,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-//    public void moveDevelop(View view) {
-//        startActivity(new Intent(this, DevelopInfoActivity.class));
-//    }
 }

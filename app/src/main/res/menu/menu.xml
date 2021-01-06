@@ -4,6 +4,6 @@
         android:id="@+id/developInfo"/>
     <item android:title="설정"
         android:id="@+id/settingBtn"/>
-    <item android:title="다크모드">
-    </item>
+    <item android:title="다크 모드"
+        android:id="@+id/switchBtn"/>
 </menu>

@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "notice",
         foreignKeys =
+
             @ForeignKey(entity = Major.class,
             parentColumns = "mId",
             childColumns = "mIdFk",
@@ -31,5 +32,5 @@ public class Notice {
     public String mUrl;
     public String mDate;
     public boolean mExtension;
-
 }
+

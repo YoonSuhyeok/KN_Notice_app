@@ -80,12 +80,41 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun initDB(){
-        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
-        var majorlist = resources.getStringArray(R.array.major)
-        var colleaelist = resources.getStringArray(R.array.colleage)
-        for (element in majorlist) db.majorDao().insert(Major(element))
-        for (element in colleaelist) db.collegeDao().insert(College(element))
+    private fun initDB() {
+        var colleageList: Array<String> = resources.getStringArray(R.array.college)
+        val array = arrayOf(
+            R.array.간호대학,
+            R.array.경영대학,
+            R.array.농업생명과학대학,
+            R.array.동물생명과학대학,
+            R.array.문화예술공과대학,
+            R.array.사범대학,
+            R.array.사회과학대학,
+            R.array.산림과학대학,
+            R.array.수의과대학,
+            R.array.약학대학,
+            R.array.의과대학,
+            R.array.의생명과학대학,
+            R.array.인문대학,
+            R.array.자연과학대학,
+            R.array.아이티대학,
+            R.array.기타학부,
+            R.array.주요공지사항
+        )
+
+        var db =
+            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
+                .build()
+        var num: Int
+        for (x in colleageList.indices) {
+            db.collegeDao().insert(College(colleageList[x]))
+            println(colleageList[x])
+            num = array[x]
+            var majorlist = resources.getStringArray(num)
+            for (y in majorlist) {
+                db.majorDao().insert(Major(x, y))
+            }
+        }
     }
 
 //    public void moveDevelop(View view) {

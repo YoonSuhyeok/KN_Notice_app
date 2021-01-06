@@ -11,7 +11,9 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="147dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 

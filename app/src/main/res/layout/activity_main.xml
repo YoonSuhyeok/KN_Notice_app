@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".Activity.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -18,66 +19,53 @@
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
-        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="23dp"
-        android:background="@color/colorBlueMarin"/>
+        android:layout_below="@id/toolbar"
+        android:background="@color/colorBlueMarin" />
+
     <RelativeLayout
         android:id="@+id/search_lin"
-        android:layout_below="@id/toolbar"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="55dp">
+        android:layout_height="55dp"
+        android:layout_below="@id/toolbar"
+        android:orientation="horizontal">
+
         <EditText
             android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="55dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="-5dp"
             android:background="@drawable/edit_shadow"
             android:hint="검색할 키워드를 입력해주세요"
             android:paddingLeft="20dp"
-            android:textSize="15dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="-5dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginRight="4dp"/>
+            android:textSize="15dp" />
+
         <Button
-            android:layout_alignParentEnd="true"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="12dp"
-            android:layout_marginRight="20dp"
-            android:background="@drawable/ic_baseline_search_24"
-            android:layout_alignParentRight="true" />
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:id="@+id/linear2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/search_lin"
-        android:layout_marginTop="0dp"
-        android:orientation="vertical">
+            android:layout_toLeftOf="@+id/filterbutton"
+            android:background="@drawable/ic_baseline_search_24" />
 
         <Button
             android:id="@+id/filterbutton"
             style="?android:attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:text="필터" />
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="20dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/ic_filter" />
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/linear2" />
+        android:layout_below="@id/search_lin" />
 </RelativeLayout>

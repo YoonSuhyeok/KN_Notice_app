@@ -1,6 +1,5 @@
 package com.example.noticekangwon.DataBase;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 

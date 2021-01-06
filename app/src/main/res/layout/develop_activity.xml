@@ -29,7 +29,7 @@
             android:textAlignment="center"
             android:linksClickable="true"
             android:autoLink="web"
-            android:textColorLink="@color/colorBlueMarin"
+            android:textColorLink="@color/topColor"
             android:text="Git 사이트\n송승재 / https://github.com/song127\n윤수혁 / https://github.com/YoonSuhyeok"
             android:gravity="center_horizontal" />
         <TextView

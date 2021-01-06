@@ -53,26 +53,17 @@
 
     <LinearLayout
         android:id="@+id/linear2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:layout_below="@id/search_lin"
-        android:layout_marginTop="0dp"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
         <Button
-            android:id="@+id/filterbutton"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            android:text="필터" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
+            style="?android:attr/borderlessButtonStyle"
+            android:text="필터"/>
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView

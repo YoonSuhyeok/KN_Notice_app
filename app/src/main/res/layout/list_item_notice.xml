@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/sublist_item_border"
+    android:background="@color/Background"
     android:orientation="vertical">
 
     <TextView
@@ -34,7 +34,7 @@
         android:fontFamily="@font/nanumsquare_aceb"
         android:maxWidth="100dp"
         android:text="@string/Title"
-        android:textColor="#4B4B4B"
+        android:textColor="@color/fontColor"
         android:textSize="16sp"
         android:typeface="sans" />
 

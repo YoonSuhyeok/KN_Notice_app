@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:background="@color/colorBlueMarin"
+        android:background="@color/topColor"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="23dp"
         android:layout_below="@id/toolbar"
-        android:background="@color/colorBlueMarin" />
+        android:background="@color/topColor" />
 
     <RelativeLayout
         android:id="@+id/search_lin"

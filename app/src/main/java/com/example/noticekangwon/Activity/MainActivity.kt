@@ -87,7 +87,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initDB() {
-        var colleageList: Array<String> = resources.getStringArray(R.array.colleage)
+        var collegeList: Array<String> = resources.getStringArray(R.array.college)
         val array = arrayOf(
             R.array.간호대학,
             R.array.경영대학,
@@ -112,15 +112,18 @@ class MainActivity : AppCompatActivity() {
             Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
                 .build()
         var num: Int
-        for (x in colleageList.indices) {
-            db.collegeDao().insert(College(colleageList[x]))
-            println(colleageList[x])
+        for (x in collegeList.indices) {
+            db.collegeDao().insert(College(collegeList[x]))
+            println(collegeList[x])
             num = array[x]
             var majorlist = resources.getStringArray(num)
             for (y in majorlist) {
                 db.majorDao().insert(Major(x, y))
             }
         }
+
+        db.noticeDao().insert(Notice(1, "1", "11", "1", false))
+        db.noticeDao().insert(Notice(1, "1", "11", "1", false))
     }
 
 //    fun fetchData(id: Int) {

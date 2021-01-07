@@ -1,10 +1,13 @@
 package com.example.noticekangwon;
 
+import android.os.Build;
+
 import androidx.appcompat.app.AppCompatDelegate;
 
 public class ThemeSet {
     public static final String LIGHT_MODE = "light";
     public static final String DARK_MODE = "dark";
+    public static final String DEFAULT_MODE = "default";
 
     public static void applyTheme(String themeColor) {
         switch (themeColor) {
@@ -14,6 +17,17 @@ public class ThemeSet {
 
             case DARK_MODE:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+
+            default:
+                // 안드로이드 10 이상
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                }
+                // 안드로이드 10 미만
+                else {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY);
+                }
                 break;
         }
     }

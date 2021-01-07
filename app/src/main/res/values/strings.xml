@@ -7,7 +7,7 @@
     <string name="Title">학생예비군(학부생, 대학원생) 전입신고 안내</string>
     <string name="Barsket">꺽새 버튼</string>
     <string name="bar">|</string>
-    <string-array name="colleage">
+    <string-array name="college">
         <item>간호대학</item>
         <item>경영대학</item>
         <item>농업생명과학대학</item>

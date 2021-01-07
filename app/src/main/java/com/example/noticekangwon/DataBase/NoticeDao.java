@@ -3,6 +3,7 @@ package com.example.noticekangwon.DataBase;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
@@ -13,7 +14,7 @@ public interface NoticeDao {
     @Query("SELECT * FROM Notice")
     List<Notice> getAll();
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Notice notice);
 
     @Delete

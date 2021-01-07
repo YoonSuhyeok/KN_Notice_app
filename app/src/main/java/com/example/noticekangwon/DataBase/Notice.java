@@ -1,5 +1,6 @@
 package com.example.noticekangwon.DataBase;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
@@ -14,19 +15,17 @@ import androidx.room.PrimaryKey;
         indices = @Index("mIdFk"))
 public class Notice {
 
-    public Notice(){}
-
-    public Notice(int mIdFk ,String mTitle, String mUri, String mDate, boolean mExtension){
+    public Notice(int mIdFk , String mTitle, String mUrl, String mDate, boolean mExtension){
         this.mIdFk = mIdFk;
         this.mTitle = mTitle;
-        this.mUrl = mUri;
+        this.mUrl = mUrl;
         this.mDate = mDate;
         this.mExtension = mExtension;
     }
 
     public int mIdFk;
-    @PrimaryKey(autoGenerate = true)
-    public int nId;
+    @NonNull
+    @PrimaryKey
     public String mTitle;
     public String mUrl;
     public String mDate;

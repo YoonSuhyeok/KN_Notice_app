@@ -2,6 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="개발자 정보"
         android:id="@+id/developInfo"/>
-    <item android:title="다크 모드"
+    <item android:title="Dark Mode"
         android:id="@+id/switchBtn"/>
 </menu>

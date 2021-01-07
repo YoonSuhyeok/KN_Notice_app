@@ -21,7 +21,6 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var menu: Menu
     var noticeList: List<Notice> = arrayListOf<Notice>()
 //    var noticeAdapter = NoticeAdapter(noticeList, "학사 공지")
 
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        actionBar?.title = "과제 정리 앱"
+        supportActionBar?.title = "과제 정리 앱"
 
         initDB()
         filterbutton.setOnClickListener {
@@ -60,7 +59,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
-
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -69,25 +67,15 @@ class MainActivity : AppCompatActivity() {
         if (temp == R.id.developInfo) {
             startActivity(Intent(this, DevelopInfoActivity::class.java))
         } else if(temp == R.id.switchBtn) {
-            if(item.title == "다크 모드") {
-                updateMenuTitle("화이트 모드")
+            if(item.title == "Dark Mode") {
+                item.title = "White Mode"
                 ThemeSet.applyTheme("dark")
             } else {
-                updateMenuTitle("다크 모드")
+                item.title = "Dark Mode"
                 ThemeSet.applyTheme("light")
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    fun updateMenuTitle(mode: String) {
-        var mItem: MenuItem = menu.findItem(R.id.switchBtn)
-        if(mode == "다크 모드") {
-            mItem.title = "화이트 모드"
-        } else {
-            mItem.title = "다크 모드"
-        }
-
     }
 
     private fun updateList() {

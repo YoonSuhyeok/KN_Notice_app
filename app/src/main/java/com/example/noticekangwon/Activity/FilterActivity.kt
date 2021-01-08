@@ -19,6 +19,11 @@ class FilterActivity : AppCompatActivity() {
         collegeList.add("간호대학")
 
         var collegeAdapter = CollegeAdapter(collegeList)
+        collegeAdapter.itemClick = object: CollegeAdapter.ItemClick {
+            override fun onClick(view: View, position: Int) {
+                Toast.makeText(this@FilterActivity, position.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
 
         collegeRecyler.layoutManager = LinearLayoutManager(
             this@FilterActivity,
@@ -26,6 +31,7 @@ class FilterActivity : AppCompatActivity() {
             false
         )
         collegeRecyler.setHasFixedSize(true)
+
         collegeRecyler.adapter = collegeAdapter
 
         val majorList: ArrayList<String> = arrayListOf()

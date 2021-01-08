@@ -2,10 +2,10 @@ package com.example.noticekangwon.Activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -18,6 +18,7 @@ import com.example.noticekangwon.Recyclerviews.NoticeAdapter
 import com.example.noticekangwon.Recyclerviews.RecyclerDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -63,19 +64,27 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        var temp = item.itemId
-        if (temp == R.id.developInfo) {
-            startActivity(Intent(this, DevelopInfoActivity::class.java))
-        } else if(temp == R.id.switchBtn) {
-            if(item.title == "Dark Mode") {
-                item.title = "White Mode"
-                ThemeSet.applyTheme("dark")
-            } else {
-                item.title = "Dark Mode"
-                ThemeSet.applyTheme("light")
+        return when(item.itemId){
+            R.id.developInfo -> {
+                startActivity(Intent(this, DevelopInfoActivity::class.java))
+                true
             }
+            R.id.switchBtn -> {
+                when (item.title) {
+                    "Dark Mode" -> {
+                        item.title = "White Mode"
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                    }
+                    "White Mode" -> {
+                        item.title = "Dark Mode"
+                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                    }
+                }
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-        return super.onOptionsItemSelected(item)
+
     }
 
     private fun updateList() {

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Dao
 public interface NoticeDao {
-    @Query("SELECT * FROM Notice")
+    @Query("SELECT * FROM Notice ORDER BY mDate")
     List<Notice> getAll();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

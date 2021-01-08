@@ -30,7 +30,7 @@ import org.jsoup.select.Elements
 import java.util.*
 
 
-class MainActivity : AppCompatActivity(){
+class MainActivity : AppCompatActivity(), TextWatcher{
 
     var noticeList: List<Notice> = arrayListOf<Notice>()
     private lateinit var noticeAdapter:NoticeAdapter

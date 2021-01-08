@@ -2,8 +2,11 @@ package com.example.noticekangwon.Activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -148,7 +151,7 @@ class MainActivity : AppCompatActivity() {
         // 일단 넣자
         // db.majorDao().select(id)
 
-        CoroutineScope(Main).launch(Dispatchers.IO){
+        CoroutineScope(Main).launch (Dispatchers.IO){
             val fk = 1
             val doc: Document? =
                 Jsoup.connect("https://www.kangwon.ac.kr/www/selectBbsNttList.do?bbsNo=37&key=1176")
@@ -178,4 +181,7 @@ class MainActivity : AppCompatActivity() {
         db.close()
     }
 
+    fun searchList(view: View) {
+        noticeAdapter.filter.filter(search.text.toString())
+    }
 }

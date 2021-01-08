@@ -14,6 +14,9 @@ public interface NoticeDao {
     @Query("SELECT * FROM Notice ORDER BY mDate")
     List<Notice> getAll();
 
+    @Query("SELECT * FROM Notice WHERE mIdFk = :id")
+    List<Notice> getFil(int id);
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Notice notice);
 

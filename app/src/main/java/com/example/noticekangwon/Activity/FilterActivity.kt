@@ -1,8 +1,13 @@
 package com.example.noticekangwon.Activity
 
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Room
+import com.example.noticekangwon.DataBase.AppDataBase
+import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.R
 import com.example.noticekangwon.Recyclerviews.CollegeAdapter
 import com.example.noticekangwon.Recyclerviews.MajorAdapter
@@ -14,30 +19,9 @@ class FilterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filter_page)
 
-        val collegeList: ArrayList<String> = arrayListOf()
-        collegeList.add("IT대학")
-        collegeList.add("간호대학")
+        var db =Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
-        var collegeAdapter = CollegeAdapter(collegeList)
-        collegeAdapter.itemClick = object: CollegeAdapter.ItemClick {
-            override fun onClick(view: View, position: Int) {
-                Toast.makeText(this@FilterActivity, position.toString(), Toast.LENGTH_SHORT).show()
-            }
-        }
-
-        collegeRecyler.layoutManager = LinearLayoutManager(
-            this@FilterActivity,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
-        collegeRecyler.setHasFixedSize(true)
-
-        collegeRecyler.adapter = collegeAdapter
-
-        val majorList: ArrayList<String> = arrayListOf()
-        majorList.add("컴공")
-        majorList.add("전기전자")
-
+        val majorList = db.majorDao().all
         var majorAdapter = MajorAdapter(majorList)
 
         majorRecyler.layoutManager = LinearLayoutManager(
@@ -47,6 +31,26 @@ class FilterActivity : AppCompatActivity() {
         )
         majorRecyler.setHasFixedSize(true)
         majorRecyler.adapter = majorAdapter
+
+        val collegeList = db.collegeDao().all
+        var collegeAdapter = CollegeAdapter(collegeList, majorAdapter)
+
+        collegeRecyler.layoutManager = LinearLayoutManager(
+            this@FilterActivity,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+        collegeRecyler.setHasFixedSize(true)
+        collegeRecyler.adapter = collegeAdapter
+
+
+
+//        collegeAdapter.itemClick = object: CollegeAdapter.ItemClick {
+//            override fun onClick(view: View, position: Int) {
+//
+//                majorAdapter.filter.filter(position.toString())
+//            }
+//        }
 
     }
 }

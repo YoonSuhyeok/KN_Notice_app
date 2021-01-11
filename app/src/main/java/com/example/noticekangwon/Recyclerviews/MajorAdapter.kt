@@ -62,19 +62,21 @@ class MajorAdapter(private val MajorList: MutableList<Major>): RecyclerView.Adap
         }
     }
 
-    fun plusfilterPatten(plusElement: Int){
+    fun plusFilterPatten(plusElement: Int){
         if(!filterLists.contains(plusElement))
             filterLists.add(plusElement)
     }
 
-    fun minusfilterPatten(minusElement: Int){
-        if(filterLists.contains(minusElement)){
-            for( x in filterLists.indices){
+    fun minusFilterPatten(minusElement: Int){
+        if(filterLists.contains(minusElement))
+            for( x in filterLists.indices)
                 if( minusElement == filterLists[x]){
                     filterLists.removeAt(x)
                     break
                 }
-            }
-        }
+    }
+
+    fun getMajorList(): MutableList<Major>{
+        return MajorList
     }
 }

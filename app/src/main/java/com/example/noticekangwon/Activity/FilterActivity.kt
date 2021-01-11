@@ -47,5 +47,13 @@ class FilterActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        button.setOnClickListener {
+            val sharedObject = getSharedPreferences("filter", 0)
+            val sharedEditer = sharedObject.edit()
+            val list = majorAdapter.getMajorList()
+            for(x in list){
+                sharedEditer.putInt("${x.mName}", x.mId)
+            }
+        }
     }
 }

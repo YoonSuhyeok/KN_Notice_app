@@ -23,14 +23,13 @@ class CollegeAdapter(private val CollegeList: MutableList<College>, private val 
 
                 if(itemView.background == null) {
                     itemView.setBackgroundColor(Color.BLUE)
-                    empty.plusfilterPatten(CollegeList[position].cId)
-                    println(CollegeList[position].cId)
+                    empty.plusFilterPatten(CollegeList[position].cId)
                 } else if( (itemView.background as ColorDrawable).color == Color.BLUE ){
                     itemView.setBackgroundColor(Color.TRANSPARENT)
-                    empty.minusfilterPatten(CollegeList[position].cId)
+                    empty.minusFilterPatten(CollegeList[position].cId)
                 } else{
                     itemView.setBackgroundColor(Color.BLUE)
-                    empty.plusfilterPatten(CollegeList[position].cId)
+                    empty.plusFilterPatten(CollegeList[position].cId)
                 }
                 empty.filter.filter("")
             }
@@ -39,11 +38,6 @@ class CollegeAdapter(private val CollegeList: MutableList<College>, private val 
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.collegeText.text = CollegeList[position].cName
-//        if(itemClick != null){
-//            holder?.itemView?.setOnClickListener { v ->
-//                itemClick?.onClick(v, position)
-//            }
-//        }
     }
 
     override fun getItemCount(): Int {

@@ -1,6 +1,7 @@
 package com.example.noticekangwon.Activity
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -10,6 +11,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.noticekangwon.*
@@ -34,6 +36,8 @@ class MainActivity : AppCompatActivity(){
 
     var noticeList: List<Notice> = arrayListOf<Notice>()
     private lateinit var noticeAdapter:NoticeAdapter
+    private var preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
+    private lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -36,8 +37,6 @@ class MainActivity : AppCompatActivity(){
 
     var noticeList: List<Notice> = arrayListOf<Notice>()
     private lateinit var noticeAdapter:NoticeAdapter
-    private var preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(this)
-    private lateinit var editor: SharedPreferences.Editor
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +71,22 @@ class MainActivity : AppCompatActivity(){
             false
         )
 
+//        var shared:SharedPreferences = getSharedPreferences("filter",0)
+//        var value = shared.getString("testKey", "")
+//        var edit: EditText = findViewById(R.id.search)
+//        edit.setText(value)
+
         noticeAdapter.filter.filter("")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+//        var shared:SharedPreferences = getSharedPreferences("filter",0)
+//        var editor:SharedPreferences.Editor = shared.edit()
+//        var value = "test"
+//        editor.putString("testKey", value)
+//        editor.commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

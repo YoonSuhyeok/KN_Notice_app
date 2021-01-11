@@ -30,10 +30,10 @@ import org.jsoup.select.Elements
 import java.util.*
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(){
 
     var noticeList: List<Notice> = arrayListOf<Notice>()
-//    var noticeAdapter = NoticeAdapter(noticeList, "학사 공지")
+    private lateinit var noticeAdapter:NoticeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,29 +43,32 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "과제 정리 앱"
 
-        initDB()
-        filterbutton.setOnClickListener {
+        //initDB()
+        filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
         }
 
-//        fetchData(0)
+        fetchData(0)
 
         var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB")
             .allowMainThreadQueries().build()
         noticeList = db.noticeDao().getAll()
         db.close()
 
-        var noticeAdapter = NoticeAdapter(noticeList, "학사공지")
+        noticeAdapter = NoticeAdapter(noticeList, "학사공지")
+
+        recyclerview.adapter = noticeAdapter
+        recyclerview.setHasFixedSize(true)
+        val spaceDecoration = RecyclerDecoration(0)
+        recyclerview.addItemDecoration(spaceDecoration)
 
         recyclerview.layoutManager = LinearLayoutManager(
             this@MainActivity,
             LinearLayoutManager.VERTICAL,
             false
         )
-        recyclerview.setHasFixedSize(true)
-        recyclerview.adapter = noticeAdapter
-        val spaceDecoration = RecyclerDecoration(0)
-        recyclerview.addItemDecoration(spaceDecoration)
+
+        noticeAdapter.filter.filter("")
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -137,7 +140,7 @@ class MainActivity : AppCompatActivity() {
             num = array[x]
             var majorlist = resources.getStringArray(num)
             for (y in majorlist) {
-                db.majorDao().insert(Major(x, y))
+                db.majorDao().insert(Major(x+1, y))
             }
         }
 

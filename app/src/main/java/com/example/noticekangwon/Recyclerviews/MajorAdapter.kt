@@ -12,7 +12,8 @@ import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.R
 
 class MajorAdapter(private val MajorList: MutableList<Major>): RecyclerView.Adapter<MajorAdapter.Holder>(), Filterable {
-    var littleMajor: MutableList<Major>
+    private val filterLists:ArrayList<Int> = ArrayList()
+    private var littleMajor: MutableList<Major>
 
     init {
         littleMajor = MajorList
@@ -37,12 +38,15 @@ class MajorAdapter(private val MajorList: MutableList<Major>): RecyclerView.Adap
 
     override fun getFilter(): Filter {
         return object: Filter(){
-            override fun performFiltering(constraint: CharSequence?): FilterResults? {
-                val SelectID = constraint.toString().toInt()
+            override fun performFiltering(constraint:CharSequence): FilterResults? {
                 var SelectList = mutableListOf<Major>()
-                for( x in MajorList){
-                    if(x.cIdFk == SelectID){
-                        SelectList.add(x)
+                filterLists.sort()
+                for(y in filterLists){
+                    val SelectID = y
+                    for( x in MajorList){
+                        if(x.cIdFk == SelectID){
+                            SelectList.add(x)
+                        }
                     }
                 }
                 val filterResults = FilterResults()
@@ -58,4 +62,19 @@ class MajorAdapter(private val MajorList: MutableList<Major>): RecyclerView.Adap
         }
     }
 
+    fun plusfilterPatten(plusElement: Int){
+        if(!filterLists.contains(plusElement))
+            filterLists.add(plusElement)
+    }
+
+    fun minusfilterPatten(minusElement: Int){
+        if(filterLists.contains(minusElement)){
+            for( x in filterLists.indices){
+                if( minusElement == filterLists[x]){
+                    filterLists.removeAt(x)
+                    break
+                }
+            }
+        }
+    }
 }

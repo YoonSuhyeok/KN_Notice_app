@@ -31,7 +31,7 @@ class FilterActivity : AppCompatActivity() {
         )
         majorRecyler.setHasFixedSize(true)
         majorRecyler.adapter = majorAdapter
-
+        majorAdapter.filter.filter("")
         val collegeList = db.collegeDao().all
         var collegeAdapter = CollegeAdapter(collegeList, majorAdapter)
 
@@ -43,14 +43,9 @@ class FilterActivity : AppCompatActivity() {
         collegeRecyler.setHasFixedSize(true)
         collegeRecyler.adapter = collegeAdapter
 
-
-
-//        collegeAdapter.itemClick = object: CollegeAdapter.ItemClick {
-//            override fun onClick(view: View, position: Int) {
-//
-//                majorAdapter.filter.filter(position.toString())
-//            }
-//        }
+        imageButton.setOnClickListener {
+            onBackPressed()
+        }
 
     }
 }

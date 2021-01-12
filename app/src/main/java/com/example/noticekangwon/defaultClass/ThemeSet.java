@@ -1,4 +1,4 @@
-package com.example.noticekangwon;
+package com.example.noticekangwon.defaultClass;
 
 import android.os.Build;
 

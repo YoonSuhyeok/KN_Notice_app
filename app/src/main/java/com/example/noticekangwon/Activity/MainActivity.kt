@@ -1,18 +1,13 @@
 package com.example.noticekangwon.Activity
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
-import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.noticekangwon.*
@@ -22,6 +17,7 @@ import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.Recyclerviews.NoticeAdapter
 import com.example.noticekangwon.Recyclerviews.RecyclerDecoration
+import com.example.noticekangwon.notifiThread.MyService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -50,6 +46,9 @@ class MainActivity : AppCompatActivity(){
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
         }
+
+        // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
+        startService(Intent(applicationContext, MyService::class.java))
 
         fetchData(0)
 

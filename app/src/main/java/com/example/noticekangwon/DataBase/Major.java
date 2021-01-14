@@ -5,7 +5,6 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.lang.reflect.Array;
 
 @Entity
 public class Major {
@@ -18,5 +17,4 @@ public class Major {
     public int mId;
     public int cIdFk;
     public String mName;
-
 }

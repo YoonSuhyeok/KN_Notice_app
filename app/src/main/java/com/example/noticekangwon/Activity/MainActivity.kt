@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity(){
         setSupportActionBar(toolbar)
         supportActionBar?.title = "과제 정리 앱"
 
-        initDB()
+        //initDB()
+
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
         }
@@ -157,7 +158,7 @@ class MainActivity : AppCompatActivity(){
             num = array[x]
             var majorlist = resources.getStringArray(num)
             for (y in majorlist) {
-                db.majorDao().insert(Major(x, y))
+                db.majorDao().insert(Major(x+1, y))
             }
         }
 

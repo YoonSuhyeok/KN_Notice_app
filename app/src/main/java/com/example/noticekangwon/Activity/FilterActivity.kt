@@ -1,5 +1,7 @@
 package com.example.noticekangwon.Activity
 
+import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,11 +16,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filter_page.*
 
 class FilterActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filter_page)
 
-        var db =Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         val majorList = db.majorDao().all
         var majorAdapter = MajorAdapter(majorList, loadSharedPreferencesMajor(majorList))
@@ -65,6 +68,15 @@ class FilterActivity : AppCompatActivity() {
                 sharedEditor.putBoolean("major_${x.mName}", maps.get("major_${x.mName}")!!)
             }
             sharedEditor.commit()
+
+            sharedObject = getSharedPreferences("isFirstSP", 0)
+            var isFirst = sharedObject.getBoolean("isFirst", false)
+            if(!isFirst) {
+                sharedEditor = sharedObject.edit()
+                sharedEditor.putBoolean("isFirst", true)
+                sharedEditor.commit()
+                startActivity(Intent(this, MainActivity::class.java))
+            }
 
             finish()
         }

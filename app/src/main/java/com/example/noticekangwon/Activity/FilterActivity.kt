@@ -1,13 +1,12 @@
 package com.example.noticekangwon.Activity
 
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.noticekangwon.DataBase.AppDataBase
-import com.example.noticekangwon.DataBase.Notice
+import com.example.noticekangwon.DataBase.College
+import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.R
 import com.example.noticekangwon.Recyclerviews.CollegeAdapter
 import com.example.noticekangwon.Recyclerviews.MajorAdapter
@@ -22,7 +21,7 @@ class FilterActivity : AppCompatActivity() {
         var db =Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         val majorList = db.majorDao().all
-        var majorAdapter = MajorAdapter(majorList)
+        var majorAdapter = MajorAdapter(majorList, loadSharedPreferencesMajor(majorList))
 
         majorRecyler.layoutManager = LinearLayoutManager(
             this@FilterActivity,
@@ -31,9 +30,10 @@ class FilterActivity : AppCompatActivity() {
         )
         majorRecyler.setHasFixedSize(true)
         majorRecyler.adapter = majorAdapter
+
         majorAdapter.filter.filter("")
         val collegeList = db.collegeDao().all
-        var collegeAdapter = CollegeAdapter(collegeList, majorAdapter)
+        var collegeAdapter = CollegeAdapter(collegeList, majorList, majorAdapter, loadSharedPreferencesCollege(collegeList))
 
         collegeRecyler.layoutManager = LinearLayoutManager(
             this@FilterActivity,
@@ -43,17 +43,69 @@ class FilterActivity : AppCompatActivity() {
         collegeRecyler.setHasFixedSize(true)
         collegeRecyler.adapter = collegeAdapter
 
-        imageButton.setOnClickListener {
-            onBackPressed()
-        }
+        initSharedPreferencesFile(collegeList, majorList)
+
+        imageButton.setOnClickListener { onBackPressed() }
 
         button.setOnClickListener {
-            val sharedObject = getSharedPreferences("filter", 0)
-            val sharedEditer = sharedObject.edit()
-            val list = majorAdapter.getMajorList()
-            for(x in list){
-                sharedEditer.putInt("${x.mName}", x.mId)
+            var sharedObject = getSharedPreferences("college", 0)
+            var sharedEditor = sharedObject.edit()
+
+            var maps = collegeAdapter.getMap()
+            for(x in collegeList){
+                sharedEditor.putBoolean("college_${x.cName}", maps.get("college_${x.cName}")!!)
             }
+
+            sharedEditor.commit()
+
+            sharedObject = getSharedPreferences("major", 0)
+            sharedEditor = sharedObject.edit()
+            maps = majorAdapter.getMap()
+            for(x in majorList){
+                sharedEditor.putBoolean("major_${x.mName}", maps.get("major_${x.mName}")!!)
+            }
+            sharedEditor.commit()
+
+            finish()
         }
+    }
+
+    private fun initSharedPreferencesFile(collegeList: List<College>, majorList: List<Major>){
+        var sharedObject = getSharedPreferences("college", 0)
+        var sharedEditor = sharedObject.edit()
+
+        for( x in collegeList){
+            sharedEditor.putBoolean("college_${x.cName}", false)
+        }
+
+        sharedEditor.commit()
+
+        sharedObject = getSharedPreferences("major", 0)
+        sharedEditor = sharedObject.edit()
+        for( x in majorList){
+            sharedEditor.putBoolean("major_${x.mName}", false)
+        }
+
+        sharedEditor.commit()
+    }
+
+    private fun loadSharedPreferencesCollege(collegeList: List<College>): MutableMap<String, Boolean> {
+        val sharedObject = getSharedPreferences("college", 0)
+        val loadMap = mutableMapOf<String, Boolean>()
+        for( x in collegeList){
+            val isSelect = sharedObject.getBoolean("college_${x.cName}", false)
+            loadMap["college_${x.cName}"] = isSelect
+        }
+        return loadMap
+    }
+
+    private fun loadSharedPreferencesMajor(majorList: List<Major>): MutableMap<String, Boolean> {
+        val sharedObject = getSharedPreferences("major", 0)
+        val loadMap = mutableMapOf<String, Boolean>()
+        for( x in majorList){
+            val isSelect = sharedObject.getBoolean("major_${x.mName}", false)
+            loadMap["major_${x.mName}"] = isSelect
+        }
+        return loadMap
     }
 }

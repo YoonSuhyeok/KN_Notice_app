@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity(){
         supportActionBar?.title = "과제 정리 앱"
 
         //initDB()
+
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
         }

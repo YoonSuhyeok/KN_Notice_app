@@ -22,11 +22,12 @@ class NoticeAdapter(private var NoticeList: List<Notice>, private val subject: S
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_notice, parent, false)
         return Holder(view).apply {
             itemView.setOnClickListener {
+                // getBindingAdapterPosition
                 val curPos: Int = adapterPosition
                 // Move to the URI_Site
-//                val url:String = NoticeList[curPos].mUrl.substring(6, NoticeList[curPos].mUrl.length-1)
-//                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http"+url))
-//                parent.context.startActivity(intent)
+                val url:String = NoticeList[curPos].mUrl.substring(7, NoticeList[curPos].mUrl.length)
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://"+url))
+                parent.context.startActivity(intent)
             }
 
         }

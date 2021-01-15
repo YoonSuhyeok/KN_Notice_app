@@ -48,11 +48,14 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
-        startService(Intent(applicationContext, MyService::class.java))
+        val intent = Intent(this, MyService::class.java)
+        startService(intent)
 
         var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB")
             .allowMainThreadQueries().build()
-        noticeList = db.noticeDao().getAll()
+        noticeList = db.noticeDao().all
+        // ?: DB 내에서 정렬하여 나오는 방법은 없나?
+        noticeList = noticeList.sortedByDescending{ it -> it.mDate }
         db.close()
 
         noticeAdapter = NoticeAdapter(noticeList, "학사공지")
@@ -99,39 +102,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun fetchData(id: Int) {
-        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB")
-            .allowMainThreadQueries().build()
-        // 일단 넣자
-        // db.majorDao().select(id)
-
-        CoroutineScope(Main).launch(Dispatchers.IO) {
-            val fk = 1
-            val doc: Document? =
-                Jsoup.connect("https://www.kangwon.ac.kr/www/selectBbsNttList.do?bbsNo=37&key=1176")
-                    .get()
-            var contents: Elements
-            if (doc != null) {
-                contents = doc.select("table.bbs_default.list tbody tr")
-
-                for (content in contents) {
-                    // 링크
-                    val url = "http://www.kangwon.ac.kr/www/" + content.select("td")[2].select("a")
-                        .attr("href").substring(2)
-                    // 제목
-                    val title = content.select("td")[2].text()
-                    // 첨부파일 유무 <td class="web_block"> </td> 의 size값에 따라 다르게 해줘야할 것 같음
-                    // val extension = content.select("td")[4]
-                    val extension = false;
-                    // 날짜
-                    val date = content.select("td")[5].text()
-
-                    db.noticeDao().insert(Notice(fk, title, url, date, extension))
-                    println(title)
-                }
-            }
-        }
-
-        db.close()
-    }
 }

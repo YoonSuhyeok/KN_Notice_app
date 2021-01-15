@@ -6,6 +6,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.CompoundButton
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -18,8 +21,10 @@ import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.Recyclerviews.NoticeAdapter
 import com.example.noticekangwon.Recyclerviews.RecyclerDecoration
+import com.example.noticekangwon.defaultClass.ThemeSet
 import com.example.noticekangwon.notifiThread.MyService
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_custom.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -33,6 +38,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     private var noticeList: List<Notice> = arrayListOf<Notice>()
+    private lateinit var dialog: CustomDialog
     private lateinit var noticeAdapter: NoticeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +48,42 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "과제 정리 앱"
+
+        dialog = CustomDialog.CustomDialogBuilder()
+            .setTitle("모드 설정")
+            .create()
+
+        var shared: SharedPreferences = getSharedPreferences("isFirstSP", 0)
+        var edit = shared.edit()
+        var rdIndex = shared.getInt("themeMode", 1)
+
+        if(rdIndex == R.id.radioBtn1) {
+            radioBtn1.isChecked = true
+        } else if(rdIndex == R.id.radioBtn2) {
+            radioBtn1.isChecked = true
+        } else if(rdIndex == R.id.radioBtn3) {
+            radioBtn1.isChecked = true
+        }
+
+        rdG1.setOnCheckedChangeListener { radioGroup, i ->
+            when(i) {
+                R.id.radioBtn1 -> {
+                    edit.clear()
+                    edit.putInt("themeMode", R.id.radioBtn1)
+                    edit.apply()
+                }
+                R.id.radioBtn2 -> {
+                    edit.clear()
+                    edit.putInt("themeMode", R.id.radioBtn2)
+                    edit.apply()
+                }
+                R.id.radioBtn3 -> {
+                    edit.clear()
+                    edit.putInt("themeMode", R.id.radioBtn3)
+                    edit.apply()
+                }
+            }
+        }
 
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
@@ -83,16 +125,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.switchBtn -> {
-                when (item.title) {
-                    "Dark Mode" -> {
-                        item.title = "White Mode"
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    }
-                    "White Mode" -> {
-                        item.title = "Dark Mode"
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    }
-                }
+                dialog.show(supportFragmentManager, dialog.tag)
                 true
             }
             else -> super.onOptionsItemSelected(item)

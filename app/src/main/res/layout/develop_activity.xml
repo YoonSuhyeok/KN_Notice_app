@@ -7,37 +7,56 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/devToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="개발자 정보\n"
             android:textColor="#000000"
-            android:textStyle="bold"
-            android:textSize="20dp"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:linksClickable="true"
             android:autoLink="web"
-            android:textColorLink="@color/topColor"
-            android:text="Git 사이트\n송승재 / https://github.com/song127\n윤수혁 / https://github.com/YoonSuhyeok"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:linksClickable="true"
+            android:text="Git 사이트\n\n송승재 / https://github.com/song127\n윤수혁 / https://github.com/YoonSuhyeok"
+            android:textAlignment="center"
+            android:textColorLink="@color/topColor" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
             android:layout_marginTop="15dp"
-            android:text="이메일\n송승재 / thdtmdwo789@naver.com\n윤수혁 / Email"
-            android:gravity="center_horizontal" />
+            android:gravity="center_horizontal"
+            android:text="이메일\n\n송승재 / thdtmdwo789@naver.com\n윤수혁 / Email"
+            android:textAlignment="center" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:text="디자이너 정보"
+            android:textColor="#000000"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="이메일\n\n이정 / Email"
+            android:textAlignment="center" />
     </LinearLayout>
 </RelativeLayout>

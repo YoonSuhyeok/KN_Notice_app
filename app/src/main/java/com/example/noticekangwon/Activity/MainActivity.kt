@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.CompoundButton
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
@@ -19,8 +22,10 @@ import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.Recyclerviews.NoticeAdapter
 import com.example.noticekangwon.Recyclerviews.RecyclerDecoration
+import com.example.noticekangwon.defaultClass.ThemeSet
 import com.example.noticekangwon.notifiThread.MyService
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_custom.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
@@ -33,7 +38,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var noticeList: List<Notice> = arrayListOf<Notice>()
+    private var noticeList: List<Notice> = arrayListOf()
+    private var selectedList: List<Integer> = arrayListOf()
     private lateinit var noticeAdapter: NoticeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,7 +49,6 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = "Extension KNU Notice"
-
 
         var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
@@ -77,16 +82,10 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.switchBtn -> {
-                when (item.title) {
-                    "Dark Mode" -> {
-                        item.title = "White Mode"
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                    }
-                    "White Mode" -> {
-                        item.title = "Dark Mode"
-                        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                    }
-                }
+                val dialog = CustomDialog.CustomDialogBuilder()
+                    .setTitle("모드 설정", this)
+                    .create()
+                dialog.show(supportFragmentManager, dialog.tag)
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -137,5 +136,9 @@ class MainActivity : AppCompatActivity() {
                 noticeAdapter.filter.filter("")
             }
         }
+    }
+
+    fun searchList(view: View) {
+        noticeAdapter.filter.filter(search.text)
     }
 }

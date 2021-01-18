@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:title="개발자 정보"
+    <item android:title="개발팀 정보"
         android:id="@+id/developInfo"/>
-    <item android:title="Dark Mode"
+    <item android:title="다크 모드 설정"
         android:id="@+id/switchBtn"/>
 </menu>

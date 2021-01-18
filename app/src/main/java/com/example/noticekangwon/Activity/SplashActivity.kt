@@ -11,19 +11,27 @@ import com.example.noticekangwon.DataBase.College
 import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.R
-import com.example.noticekangwon.notifiThread.MyService
+import com.example.noticekangwon.defaultClass.ThemeSet
+import kotlinx.android.synthetic.main.dialog_custom.*
+import kotlinx.android.synthetic.main.dialog_custom.view.*
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
 
+        var shared: SharedPreferences = getSharedPreferences("themeSetSP", 0)
+        var mode = shared?.getString("themeMode", ThemeSet.LIGHT_MODE)
+
+        ThemeSet.applyTheme(mode)
+
         Handler().postDelayed(Runnable {
-            var shared: SharedPreferences = getSharedPreferences("isFirstSP", 0)
+            shared = getSharedPreferences("isFirstSP", 0)
             var isInit = shared.getBoolean("isInitDB", false)
             var isFirst = shared.getBoolean("isFirst", false)
 
             if (!isInit) {
+                println("initDB Run")
                 initDB()
                 var editor: SharedPreferences.Editor = shared.edit()
                 editor.putBoolean("isInitDB", true)

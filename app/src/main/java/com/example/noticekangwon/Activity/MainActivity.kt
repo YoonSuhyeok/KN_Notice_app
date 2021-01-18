@@ -33,6 +33,7 @@ import kotlinx.coroutines.launch
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -61,9 +62,29 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager.VERTICAL,
             false
         )
-        
-        progressBar.visibility = View.VISIBLE
-        fetchData(db, 0)
+
+        var shared: SharedPreferences = getSharedPreferences("updateDate", 0)
+        var edit: SharedPreferences.Editor = shared.edit()
+        var f: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.KOREA)
+        var beforeTime = shared.getString("lastUpdate", null)
+        if(beforeTime == null) {
+            println("날짜 초기 저장")
+            progressBar.visibility = View.VISIBLE
+            fetchData(db, 0)
+            edit.putString("lastUpdate", f.format(Date()).toString())
+            edit.commit()
+        } else {
+            var beforeDate: Date = f.parse(beforeTime)
+            var now: Date = f.parse(f.format(Date()))
+            var diff = (now.time - beforeDate.time)/(1000*60*60)
+            if(diff >= 1) {
+                println("패치 재실행")
+                progressBar.visibility = View.VISIBLE
+                fetchData(db, 0)
+                edit.putString("lastUpdate", f.format(Date()).toString())
+                edit.commit()
+            }
+        }
 
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))

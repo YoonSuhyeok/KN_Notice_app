@@ -37,8 +37,8 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var noticeList: List<Notice> = arrayListOf<Notice>()
-    private lateinit var dialog: CustomDialog
+    private var noticeList: List<Notice> = arrayListOf()
+    private var selectedList: List<Integer> = arrayListOf()
     private lateinit var noticeAdapter: NoticeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,45 +49,11 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = "과제 정리 앱"
 
-        dialog = CustomDialog.CustomDialogBuilder()
-            .setTitle("모드 설정")
-            .create()
-
-        var shared: SharedPreferences = getSharedPreferences("isFirstSP", 0)
-        var edit = shared.edit()
-        var rdIndex = shared.getInt("themeMode", 1)
-
-        if(rdIndex == R.id.radioBtn1) {
-            radioBtn1.isChecked = true
-        } else if(rdIndex == R.id.radioBtn2) {
-            radioBtn1.isChecked = true
-        } else if(rdIndex == R.id.radioBtn3) {
-            radioBtn1.isChecked = true
-        }
-
-        rdG1.setOnCheckedChangeListener { radioGroup, i ->
-            when(i) {
-                R.id.radioBtn1 -> {
-                    edit.clear()
-                    edit.putInt("themeMode", R.id.radioBtn1)
-                    edit.apply()
-                }
-                R.id.radioBtn2 -> {
-                    edit.clear()
-                    edit.putInt("themeMode", R.id.radioBtn2)
-                    edit.apply()
-                }
-                R.id.radioBtn3 -> {
-                    edit.clear()
-                    edit.putInt("themeMode", R.id.radioBtn3)
-                    edit.apply()
-                }
-            }
-        }
-
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
         }
+
+//        fetchData(0)
 
         // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
         startService(Intent(applicationContext, MyService::class.java))
@@ -125,6 +91,9 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.switchBtn -> {
+                val dialog = CustomDialog.CustomDialogBuilder()
+                    .setTitle("모드 설정", this)
+                    .create()
                 dialog.show(supportFragmentManager, dialog.tag)
                 true
             }
@@ -166,5 +135,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         db.close()
+    }
+
+    fun searchList(view: View) {
+        noticeAdapter.filter.filter(search.text)
     }
 }

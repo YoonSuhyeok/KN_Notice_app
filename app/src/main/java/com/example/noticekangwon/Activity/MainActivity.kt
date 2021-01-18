@@ -1,5 +1,6 @@
 package com.example.noticekangwon.Activity
 
+import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -47,25 +48,10 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "과제 정리 앱"
+        supportActionBar?.title = "Extension KNU Notice"
 
-        filBtn.setOnClickListener {
-            startActivity(Intent(this, FilterActivity::class.java))
-        }
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
-//        fetchData(0)
-
-        // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
-        startService(Intent(applicationContext, MyService::class.java))
-
-        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB")
-            .allowMainThreadQueries().build()
-        noticeList = db.noticeDao().getAll()
-        db.close()
-
-        noticeAdapter = NoticeAdapter(noticeList, "학사공지")
-
-        recyclerview.adapter = noticeAdapter
         recyclerview.setHasFixedSize(true)
         val spaceDecoration = RecyclerDecoration(0)
         recyclerview.addItemDecoration(spaceDecoration)
@@ -75,8 +61,13 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager.VERTICAL,
             false
         )
+        
+        progressBar.visibility = View.VISIBLE
+        fetchData(db, 0)
 
-        noticeAdapter.filter.filter("")
+        filBtn.setOnClickListener {
+            startActivity(Intent(this, FilterActivity::class.java))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -101,11 +92,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun fetchData(id: Int) {
-        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB")
-            .allowMainThreadQueries().build()
-        // 일단 넣자
-        // db.majorDao().select(id)
+    fun fetchData(appdatabse: AppDataBase, id: Int) {
 
         CoroutineScope(Main).launch(Dispatchers.IO) {
             val fk = 1
@@ -128,13 +115,27 @@ class MainActivity : AppCompatActivity() {
                     // 날짜
                     val date = content.select("td")[5].text()
 
-                    db.noticeDao().insert(Notice(fk, title, url, date, extension))
+                    appdatabse.noticeDao().insert(Notice(fk, title, url, date, extension))
                     println(title)
                 }
             }
-        }
+            CoroutineScope(Main).launch {
+                progressBar.visibility = View.GONE
+                noticeList = appdatabse.noticeDao().all
+                // ?: DB 내에서 정렬하여 나오는 방법은 없나?
+                if(noticeList.isNotEmpty())
+                    noticeList = noticeList.sortedByDescending{ it -> it.mDate }
+                // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
 
-        db.close()
+                appdatabse.close()
+
+                noticeAdapter = NoticeAdapter(noticeList, "학사공지")
+
+                recyclerview.adapter = noticeAdapter
+
+                noticeAdapter.filter.filter("")
+            }
+        }
     }
 
     fun searchList(view: View) {

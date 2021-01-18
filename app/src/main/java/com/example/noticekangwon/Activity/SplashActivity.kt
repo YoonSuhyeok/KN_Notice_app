@@ -40,6 +40,8 @@ class SplashActivity : AppCompatActivity() {
 
             if (!isFirst) {
                 startActivity(Intent(this, FilterActivity::class.java))
+                // val intent = Intent(this, MyService::class.java)
+                // startService(intent)
             } else {
                 startActivity(Intent(this, MainActivity::class.java))
             }
@@ -82,5 +84,6 @@ class SplashActivity : AppCompatActivity() {
                 db.majorDao().insert(Major(x + 1, y))
             }
         }
+        db.close()
     }
 }

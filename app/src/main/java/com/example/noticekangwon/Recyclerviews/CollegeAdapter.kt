@@ -23,7 +23,7 @@ class CollegeAdapter(private val collegeList: MutableList<College>, private val 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         println("onBindViewHolder")
         holder.collegeText.text = collegeList[position].cName
-        val name = "college_" + collegeList[position].cName
+        val name = "$position ${collegeList[position].cName}"
         if( isSelectList[name] == true){
             holder.collegeText.setBackgroundColor(Color.BLUE)
             majorAdapter.plusFilterPatten(collegeList[position].cId)
@@ -49,9 +49,9 @@ class CollegeAdapter(private val collegeList: MutableList<College>, private val 
 
     private fun offSelect(cId: Int) {
         val map = majorAdapter.getMap()
-        for( x in majorList){
-            if(x.cIdFk == cId)
-                map["major_"+x.mName] = false
+        for( x in majorList.indices){
+            if(majorList[x].cIdFk == cId)
+                map["$x ${majorList[x].mName}"] = false
         }
         majorAdapter.setMap(map)
     }

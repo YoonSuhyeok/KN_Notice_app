@@ -30,7 +30,7 @@ class MajorAdapter(private val MajorList: MutableList<Major>, private var isSele
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.majorName.text = littleMajor[position].mName
-        val name = "major_" + MajorList[position].mName
+        var name = "major_" + holder.majorName.text
         if( isSelectList[name] == true){
             holder.majorName.setBackgroundColor(Color.YELLOW)
         } else {

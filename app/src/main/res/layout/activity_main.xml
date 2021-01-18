@@ -18,57 +18,69 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_lin"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:background="@color/Background"
         android:layout_below="@id/toolbar"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="26dp"
-            android:background="@color/topColor" />
-
-        <EditText
-            android:id="@+id/search"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="4dp"
-            android:layout_marginBottom="-5dp"
-            android:background="@drawable/edit_shadow"
-            android:hint="검색할 키워드를 입력해주세요"
-            android:paddingLeft="20dp"
-            android:textSize="15dp" />
+        android:background="@drawable/edit_shadow">
 
         <Button
             android:id="@+id/searchBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="12dp"
-            android:layout_toLeftOf="@+id/filBtn"
             android:background="@drawable/ic_baseline_search_24"
-            android:onClick="searchList"/>
+            android:onClick="searchList"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/filBtn"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Button
             android:id="@+id/filBtn"
-            style="?android:attr/borderlessButtonStyle"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentRight="true"
-            android:background="@drawable/ic_filter" />
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_filter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </RelativeLayout>
+        <EditText
+            android:id="@+id/search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:background="@android:color/transparent"
+            android:hint="검색할 키워드를 입력해주세요"
+            android:maxLines="1"
+            android:paddingLeft="20dp"
+            android:textSize="15dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/searchBtn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/search_lin"
-        android:background="@color/Background"/>
+        android:background="@color/Background">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <ProgressBar
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 </RelativeLayout>

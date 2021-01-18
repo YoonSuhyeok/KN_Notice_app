@@ -1,5 +1,6 @@
 package com.example.noticekangwon.Activity
 
+import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -41,26 +42,11 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "과제 정리 앱"
+        supportActionBar?.title = "Extension KNU Notice"
 
-        filBtn.setOnClickListener {
-            startActivity(Intent(this, FilterActivity::class.java))
-        }
 
-        // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
-        val intent = Intent(this, MyService::class.java)
-        startService(intent)
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
-        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB")
-            .allowMainThreadQueries().build()
-        noticeList = db.noticeDao().all
-        // ?: DB 내에서 정렬하여 나오는 방법은 없나?
-        noticeList = noticeList.sortedByDescending{ it -> it.mDate }
-        db.close()
-
-        noticeAdapter = NoticeAdapter(noticeList, "학사공지")
-
-        recyclerview.adapter = noticeAdapter
         recyclerview.setHasFixedSize(true)
         val spaceDecoration = RecyclerDecoration(0)
         recyclerview.addItemDecoration(spaceDecoration)
@@ -70,8 +56,13 @@ class MainActivity : AppCompatActivity() {
             LinearLayoutManager.VERTICAL,
             false
         )
+        
+        progressBar.visibility = View.VISIBLE
+        fetchData(db, 0)
 
-        noticeAdapter.filter.filter("")
+        filBtn.setOnClickListener {
+            startActivity(Intent(this, FilterActivity::class.java))
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -102,4 +93,49 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun fetchData(appdatabse: AppDataBase, id: Int) {
+
+        CoroutineScope(Main).launch(Dispatchers.IO) {
+            val fk = 1
+            val doc: Document? =
+                Jsoup.connect("https://www.kangwon.ac.kr/www/selectBbsNttList.do?bbsNo=37&key=1176")
+                    .get()
+            var contents: Elements
+            if (doc != null) {
+                contents = doc.select("table.bbs_default.list tbody tr")
+
+                for (content in contents) {
+                    // 링크
+                    val url = "http://www.kangwon.ac.kr/www/" + content.select("td")[2].select("a")
+                        .attr("href").substring(2)
+                    // 제목
+                    val title = content.select("td")[2].text()
+                    // 첨부파일 유무 <td class="web_block"> </td> 의 size값에 따라 다르게 해줘야할 것 같음
+                    // val extension = content.select("td")[4]
+                    val extension = false;
+                    // 날짜
+                    val date = content.select("td")[5].text()
+
+                    appdatabse.noticeDao().insert(Notice(fk, title, url, date, extension))
+                    println(title)
+                }
+            }
+            CoroutineScope(Main).launch {
+                progressBar.visibility = View.GONE
+                noticeList = appdatabse.noticeDao().all
+                // ?: DB 내에서 정렬하여 나오는 방법은 없나?
+                if(noticeList.isNotEmpty())
+                    noticeList = noticeList.sortedByDescending{ it -> it.mDate }
+                // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
+
+                appdatabse.close()
+
+                noticeAdapter = NoticeAdapter(noticeList, "학사공지")
+
+                recyclerview.adapter = noticeAdapter
+
+                noticeAdapter.filter.filter("")
+            }
+        }
+    }
 }

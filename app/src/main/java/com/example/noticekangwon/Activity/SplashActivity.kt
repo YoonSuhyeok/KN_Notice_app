@@ -11,6 +11,7 @@ import com.example.noticekangwon.DataBase.College
 import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.R
+import com.example.noticekangwon.notifiThread.MyService
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +32,8 @@ class SplashActivity : AppCompatActivity() {
 
             if (!isFirst) {
                 startActivity(Intent(this, FilterActivity::class.java))
+                // val intent = Intent(this, MyService::class.java)
+                // startService(intent)
             } else {
                 startActivity(Intent(this, MainActivity::class.java))
             }
@@ -73,5 +76,6 @@ class SplashActivity : AppCompatActivity() {
                 db.majorDao().insert(Major(x + 1, y))
             }
         }
+        db.close()
     }
 }

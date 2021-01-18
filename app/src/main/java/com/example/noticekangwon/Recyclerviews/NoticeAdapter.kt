@@ -21,7 +21,7 @@ import kotlin.collections.ArrayList
 
 class NoticeAdapter(private var NoticeList: List<Notice>, private val subject: String): RecyclerView.Adapter<NoticeAdapter.Holder>(), Filterable {
 
-    private val unFilList = NoticeList
+    private var unFilList = NoticeList
     private var filList : List<Notice> = arrayListOf<Notice>()
     private val today = SimpleDateFormat("yyyy.MM.dd",Locale.KOREA).format(Calendar.getInstance().time)
 
@@ -29,7 +29,7 @@ class NoticeAdapter(private var NoticeList: List<Notice>, private val subject: S
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_notice, parent, false)
         return Holder(view).apply {
-            itemView.setOnClickListener {
+            itemView.ImageButton.setOnClickListener {
                 // getBindingAdapterPosition
                 val curPos: Int = adapterPosition
                 // Move to the URI_Site
@@ -52,8 +52,9 @@ class NoticeAdapter(private var NoticeList: List<Notice>, private val subject: S
             holder.newTag.visibility = View.INVISIBLE
         }
         holder.noticeSubject.text = subject
-        holder.noticeText.text = filList[position].mTitle
+        holder.noticeTitle.text = filList[position].mTitle
         holder.date.text = filList[position].mDate
+        holder.noticeTitle.isSelected = true
     }
 
     override fun getFilter(): Filter {
@@ -75,15 +76,19 @@ class NoticeAdapter(private var NoticeList: List<Notice>, private val subject: S
             }
 
             override fun publishResults(str: CharSequence?, result: FilterResults?) {
-                filList = result?.values as MutableList<Notice>
+                filList = result?.values as List<Notice>
                 notifyDataSetChanged()
             }
         }
     }
 
+    fun changeList(list: List<Notice>){
+        unFilList = list
+    }
+
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val newTag       : TextView = itemView.new_tag
-        val noticeText   : TextView = itemView.Title
+        val noticeTitle   : TextView = itemView.Title
         val noticeSubject: TextView = itemView.department
         val date         : TextView = itemView.date
     }

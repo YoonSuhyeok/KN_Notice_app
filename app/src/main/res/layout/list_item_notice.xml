@@ -29,15 +29,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/new_tag"
+        android:layout_toLeftOf="@+id/ImageButton"
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="2dp"
         android:fontFamily="@font/nanumsquare_aceb"
         android:maxWidth="100dp"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="3"
         android:text="@string/Title"
         android:textColor="@color/fontColor"
         android:textSize="16sp"
-        android:typeface="sans" />
+        android:typeface="sans"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/date"
@@ -65,7 +69,7 @@
         android:layout_toEndOf="@+id/date"
         android:layout_toRightOf="@+id/date"
         android:fontFamily="@font/nanumsquare_acr"
-        android:text="@string/bar"
+        android:text="|"
         android:textSize="12sp" />
 
     <TextView
@@ -81,15 +85,16 @@
         android:textSize="12sp" />
 
     <ImageButton
+        android:id="@+id/ImageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/Barsket"
-        android:src="@drawable/bracket2"
-        android:layout_marginEnd="10dp" />
+        android:src="@drawable/bracket2" />
 
 </RelativeLayout>

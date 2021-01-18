@@ -14,9 +14,12 @@ import org.jsoup.select.Elements
 class Jsoup(val applicationContext: Context) {
 
     fun fetchData(id: Int):ArrayList<Notice> {
-         var db = Room.databaseBuilder(applicationContext, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
-        val lists = ArrayList<Notice>()
-        CoroutineScope(Dispatchers.Main).launch(Dispatchers.IO) {
+        var db: AppDataBase = if(id == 1) Room.databaseBuilder(applicationContext, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
+        else Room.databaseBuilder(applicationContext, AppDataBase::class.java, "Major-DB").build()
+
+        val oldlists = db.noticeDao().all
+        val newlists = ArrayList<Notice>()
+        CoroutineScope(Dispatchers.IO).launch(Dispatchers.IO) {
             val fk = 1
             val doc: Document? =
                 Jsoup.connect("https://www.kangwon.ac.kr/www/selectBbsNttList.do?bbsNo=37&key=1176")
@@ -37,12 +40,20 @@ class Jsoup(val applicationContext: Context) {
                     // 날짜
                     val date = content.select("td")[5].text()
 
-                    lists.add(Notice(fk, title, url, date, extension))
-                     db.noticeDao().insert(Notice(fk, title, url, date, extension))
+                    newlists.add(Notice(fk, title, url, date, extension))
+                    db.noticeDao().insert(Notice(fk, title, url, date, extension))
                 }
             }
         }
         db.close()
-        return lists
+
+        val returnLists = ArrayList<Notice>()
+        returnLists.add(Notice(0, "테스트1", "url", "date", false))
+        for( x in newlists){
+            if(oldlists.contains(x) == false){
+                returnLists.add(x)
+            }
+        }
+        return returnLists
     }
 }

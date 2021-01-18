@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, FilterActivity::class.java))
         }
 
-        fetchData(0)
+//        fetchData(0)
 
         // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
         startService(Intent(applicationContext, MyService::class.java))

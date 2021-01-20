@@ -14,7 +14,7 @@ public interface NoticeDao {
     @Query("SELECT * FROM Notice ORDER BY mDate")
     List<Notice> getAll();
 
-    @Query("SELECT * FROM Notice WHERE mIdFk IN (:ids)")
+    @Query("SELECT * FROM Notice WHERE mIdFk IN (:ids) ORDER BY mDate")
     List<Notice> getFil(List<Integer> ids);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

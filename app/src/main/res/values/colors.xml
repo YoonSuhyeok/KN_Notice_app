@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#5E81FF</color>
-    <color name="topColor">#5E81FF</color>
+    <!-- Layouts -->
+    <color name="colorPrimary">#5076FF</color>
+    <color name="topColor">#5076FF</color>
+    <color name="layoutBackground">#FFFFFF</color>
+    <color name="background">#FFFFFF</color>
+    <!-- Fonts -->
+    <color name="mainTitleFontColor">#FFFFFF</color>
     <color name="mainFontColor">#FFFFFF</color>
     <color name="fontColor">#000000</color>
-    <color name="Background">#FFFFFF</color>
+    <color name="subFontColor">#787878</color>
+    <!-- Button -->
+    <color name="btnColor">#5076FF</color>
+    <!-- Border -->
+    <color name="noticeBorderColor">#E5E5E5</color>
+    <!-- Shadow -->
+    <color name="shadow4">#00CCCCCC</color>
+    <color name="shadow1">#10CCCCCC</color>
+    <color name="shadow2">#20CCCCCC</color>
+    <color name="shadow3">#30CCCCCC</color>
+    <!-- Splash Gradient -->
+    <color name="sStartColor">#5076FF</color>
+    <color name="sCenterColor">#3392FF</color>
+    <color name="sEndColor">#0DB7FE</color>
+    <!-- Toolbar Gradient -->
+    <color name="startColor">#5076FF</color>
+    <color name="centerColor">#3392FF</color>
+    <color name="endColor">#0DB7FE</color>
 </resources>

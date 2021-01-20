@@ -51,9 +51,11 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
-        supportActionBar?.title = "Extension KNU Notice"
+        supportActionBar?.title = ""
 
-        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
+        var db =
+            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
+                .build()
 
         recyclerview.setHasFixedSize(true)
         val spaceDecoration = RecyclerDecoration(0)
@@ -69,7 +71,7 @@ class MainActivity : AppCompatActivity() {
         var edit: SharedPreferences.Editor = shared.edit()
         var f: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.KOREA)
         var beforeTime = shared.getString("lastUpdate", null)
-        if(beforeTime == null) {
+        if (beforeTime == null) {
             println("날짜 초기 저장")
             progressBar.visibility = View.VISIBLE
             fetchData(db, 91)
@@ -80,8 +82,8 @@ class MainActivity : AppCompatActivity() {
             println(beforeTime)
             var now: Date = f.parse(f.format(Date()))
             println(f.format(Date()))
-            var diff = (now.time - beforeDate.time)/(1000*60*60)
-            if(diff >= 1) {
+            var diff = (now.time - beforeDate.time) / (1000 * 60 * 60)
+            if (diff >= 1) {
                 println("패치 재실행")
                 progressBar.visibility = View.VISIBLE
                 fetchData(db, 91)
@@ -89,6 +91,10 @@ class MainActivity : AppCompatActivity() {
                 edit.commit()
             }
         }
+
+        shared = getSharedPreferences("themeSetSP", 0)
+        var mode = shared?.getString("themeMode", ThemeSet.LIGHT_MODE)
+        ThemeSet.applyTheme(mode)
 
         fetchAdapter()
 
@@ -129,16 +135,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun fetchAdapter() {
-        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
+        var db =
+            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
+                .build()
 
         var shared: SharedPreferences = getSharedPreferences("major", 0)
         var mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
         selectedList = ArrayList(mutSet)
         for (sel in selectedList) {
-            if(shared.all[sel] == true) {
+            if (shared.all[sel] == true) {
                 var tmp = sel.split(" ")
-                selectedIds.add(Integer.parseInt(tmp[0])+1)
+                selectedIds.add(Integer.parseInt(tmp[0]) + 1)
             }
         }
 
@@ -151,8 +159,8 @@ class MainActivity : AppCompatActivity() {
         for (tmp in noticeList)
             println(tmp.mTitle)
         println("필터적용 끝")
-        if(noticeList.isNotEmpty())
-            noticeList = noticeList.sortedByDescending{ it -> it.mDate }
+        if (noticeList.isNotEmpty())
+            noticeList = noticeList.sortedByDescending { it -> it.mDate }
         // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
 
         db.close()

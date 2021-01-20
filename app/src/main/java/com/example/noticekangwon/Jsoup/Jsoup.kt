@@ -13,8 +13,12 @@ import org.jsoup.select.Elements
 
 class Jsoup(val applicationContext: Context) {
 
-    fun fetchData(id: Int):ArrayList<Notice> {
-        var db: AppDataBase = if(id == 1) Room.databaseBuilder(applicationContext, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
+    fun fetchData(id: Int): ArrayList<Notice> {
+        var db: AppDataBase = if (id == 1) Room.databaseBuilder(
+            applicationContext,
+            AppDataBase::class.java,
+            "Major-DB"
+        ).allowMainThreadQueries().build()
         else Room.databaseBuilder(applicationContext, AppDataBase::class.java, "Major-DB").build()
 
         val oldlists = db.noticeDao().all
@@ -49,8 +53,8 @@ class Jsoup(val applicationContext: Context) {
 
         val returnLists = ArrayList<Notice>()
         returnLists.add(Notice(0, "테스트1", "url", "date", false))
-        for( x in newlists){
-            if(oldlists.contains(x) == false){
+        for (x in newlists) {
+            if (oldlists.contains(x) == false) {
                 returnLists.add(x)
             }
         }

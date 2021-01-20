@@ -48,7 +48,7 @@ class CustomDialog : DialogFragment() {
             var edit = shared?.edit()
             var mode = shared?.getString("themeMode", ThemeSet.LIGHT_MODE)
 
-            when(mode) {
+            when (mode) {
                 ThemeSet.LIGHT_MODE -> radioBtn1.isChecked = true
                 ThemeSet.DARK_MODE -> radioBtn2.isChecked = true
                 ThemeSet.DEFAULT_MODE -> radioBtn3.isChecked = true

@@ -36,10 +36,12 @@ public class MyService extends Service {
     private int sleepTime = basicTime;
     private Jsoup jsoup;
 
-    private static final String TAG ="### MyService";
+    private static final String TAG = "### MyService";
 
-    @SuppressLint("WrongConstant") NotificationCompat.Builder builder;
+    @SuppressLint("WrongConstant")
+    NotificationCompat.Builder builder;
     NotificationManager notificationManager;
+
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
@@ -60,30 +62,30 @@ public class MyService extends Service {
         Intent intent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
-                //.setContentIntent(intent)
+        //.setContentIntent(intent)
         builder.setContentIntent(pendingIntent);
 
         // 오레오에선 채널 설정해줘야함
-        notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-        notificationManager.createNotificationChannel(new NotificationChannel("default","기본 채널",
-                NotificationManager.IMPORTANCE_DEFAULT));
+        notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+            notificationManager.createNotificationChannel(new NotificationChannel("default", "기본 채널",
+                    NotificationManager.IMPORTANCE_DEFAULT));
         notificationManager.notify(0, builder.build());
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        new Thread(){
+        new Thread() {
             @Override
             public void run() {
                 super.run();
                 while (isRun == false) {
                     ArrayList<Notice> lists = jsoup.fetchData(0);
-                    for(int i=0; i<lists.size(); i++){
+                    for (int i = 0; i < lists.size(); i++) {
                         builder.setContentTitle(lists.get(i).mTitle);
                     }
                     notificationManager.notify(0, builder.build());
-                    sleepTime = basicTime + rand.nextInt(randomTime)*1000*60;
+                    sleepTime = basicTime + rand.nextInt(randomTime) * 1000 * 60;
                     System.out.println("Waiting " + sleepTime / 1000 + " sec");
                     try {
                         Thread.sleep(sleepTime);

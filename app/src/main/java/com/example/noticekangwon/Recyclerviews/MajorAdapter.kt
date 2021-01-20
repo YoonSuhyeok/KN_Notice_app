@@ -14,8 +14,12 @@ import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.R
 import kotlinx.android.synthetic.main.list_item_filter_major.view.*
 
-class MajorAdapter(private val MajorList: MutableList<Major>, private var isSelectList: MutableMap<String,Boolean>): RecyclerView.Adapter<MajorAdapter.Holder>(), Filterable {
-    private val filterLists:ArrayList<Int> = ArrayList()
+class MajorAdapter(
+    private val MajorList: MutableList<Major>,
+    private var isSelectList: MutableMap<String, Boolean>
+) : RecyclerView.Adapter<MajorAdapter.Holder>(), Filterable {
+    private val filterLists: ArrayList<Int> = ArrayList()
+
     // private val mainToLists:ArrayList<Int> = ArrayList()
     private var littleMajor: MutableList<Major>
 
@@ -24,20 +28,21 @@ class MajorAdapter(private val MajorList: MutableList<Major>, private var isSele
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_filter_major, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.list_item_filter_major, parent, false)
         return Holder(view)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        holder.majorName.text = "${littleMajor[position].mId-1} ${littleMajor[position].mName}"
+        holder.majorName.text = "${littleMajor[position].mId - 1} ${littleMajor[position].mName}"
         var name = "${holder.majorName.text}"
-        if( isSelectList[name] == true){
+        if (isSelectList[name] == true) {
             holder.majorName.setBackgroundColor(Color.YELLOW)
         } else {
             holder.majorName.setBackgroundColor(Color.TRANSPARENT)
         }
         holder.itemView.setOnClickListener {
-            if(isSelectList[name] == true) {
+            if (isSelectList[name] == true) {
                 holder.majorName.setBackgroundColor(Color.TRANSPARENT)
                 isSelectList[name] = false
             } else {
@@ -51,19 +56,19 @@ class MajorAdapter(private val MajorList: MutableList<Major>, private var isSele
         return littleMajor.size
     }
 
-    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var majorName: TextView = itemView.MajorName
     }
 
     override fun getFilter(): Filter {
-        return object: Filter(){
-            override fun performFiltering(constraint:CharSequence): FilterResults? {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence): FilterResults? {
                 var SelectList = mutableListOf<Major>()
                 filterLists.sort()
-                for(y in filterLists){
+                for (y in filterLists) {
                     val SelectID = y
-                    for( x in MajorList){
-                        if(x.cIdFk == SelectID){
+                    for (x in MajorList) {
+                        if (x.cIdFk == SelectID) {
                             SelectList.add(x)
                         }
                     }
@@ -81,15 +86,15 @@ class MajorAdapter(private val MajorList: MutableList<Major>, private var isSele
         }
     }
 
-    fun plusFilterPatten(plusElement: Int){
-        if(!filterLists.contains(plusElement))
+    fun plusFilterPatten(plusElement: Int) {
+        if (!filterLists.contains(plusElement))
             filterLists.add(plusElement)
     }
 
-    fun minusFilterPatten(minusElement: Int){
-        if(filterLists.contains(minusElement))
-            for( x in filterLists.indices)
-                if( minusElement == filterLists[x]){
+    fun minusFilterPatten(minusElement: Int) {
+        if (filterLists.contains(minusElement))
+            for (x in filterLists.indices)
+                if (minusElement == filterLists[x]) {
                     filterLists.removeAt(x)
                     break
                 }
@@ -99,7 +104,7 @@ class MajorAdapter(private val MajorList: MutableList<Major>, private var isSele
         return isSelectList
     }
 
-    fun setMap(map: MutableMap<String, Boolean>){
+    fun setMap(map: MutableMap<String, Boolean>) {
         isSelectList = map
     }
 }

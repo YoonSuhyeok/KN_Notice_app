@@ -3,7 +3,13 @@ package com.example.noticekangwon.Jsoup
 import android.os.Parcel
 import android.os.Parcelable
 
-data class Jnotice(val mIdFk: Int, val mTitle: String?, val mUrl: String?, val mDate: String?, val mExtension: Boolean): Parcelable {
+data class Jnotice(
+    val mIdFk: Int,
+    val mTitle: String?,
+    val mUrl: String?,
+    val mDate: String?,
+    val mExtension: Boolean
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString(),

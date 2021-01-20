@@ -21,7 +21,9 @@ class FilterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filter_page)
 
-        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
+        var db =
+            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
+                .build()
 
         val majorList = db.majorDao().all
         var majorAdapter = MajorAdapter(majorList, loadSharedPreferencesMajor(majorList))
@@ -37,7 +39,12 @@ class FilterActivity : AppCompatActivity() {
         majorAdapter.filter.filter("")
 
         val collegeList = db.collegeDao().all
-        var collegeAdapter = CollegeAdapter(collegeList, majorList, majorAdapter, loadSharedPreferencesCollege(collegeList))
+        var collegeAdapter = CollegeAdapter(
+            collegeList,
+            majorList,
+            majorAdapter,
+            loadSharedPreferencesCollege(collegeList)
+        )
 
         collegeRecyler.layoutManager = LinearLayoutManager(
             this@FilterActivity,
@@ -56,10 +63,10 @@ class FilterActivity : AppCompatActivity() {
             var sharedEditor = sharedObject.edit()
 
             var maps = collegeAdapter.getMap()
-            for(x in collegeList.indices){
+            for (x in collegeList.indices) {
                 val empty = maps.get("$x ${collegeList[x].cName}")
                 if (empty != null) {
-                    sharedEditor.putBoolean("$x ${collegeList[x].cName}", empty )
+                    sharedEditor.putBoolean("$x ${collegeList[x].cName}", empty)
                 }
             }
 
@@ -68,14 +75,17 @@ class FilterActivity : AppCompatActivity() {
             sharedObject = getSharedPreferences("major", 0)
             sharedEditor = sharedObject.edit()
             maps = majorAdapter.getMap()
-            for(x in majorList.indices){
-                sharedEditor.putBoolean("$x ${majorList[x].mName}", maps.get("$x ${majorList[x].mName}")!!)
+            for (x in majorList.indices) {
+                sharedEditor.putBoolean(
+                    "$x ${majorList[x].mName}",
+                    maps.get("$x ${majorList[x].mName}")!!
+                )
             }
             sharedEditor.commit()
 
             sharedObject = getSharedPreferences("isFirstSP", 0)
             var isFirst = sharedObject.getBoolean("isFirst", false)
-            if(!isFirst) {
+            if (!isFirst) {
                 sharedEditor = sharedObject.edit()
                 sharedEditor.putBoolean("isFirst", true)
                 sharedEditor.commit()
@@ -86,11 +96,11 @@ class FilterActivity : AppCompatActivity() {
         }
     }
 
-    private fun initSharedPreferencesFile(collegeList: List<College>, majorList: List<Major>){
+    private fun initSharedPreferencesFile(collegeList: List<College>, majorList: List<Major>) {
         var sharedObject = getSharedPreferences("college", 0)
         var sharedEditor = sharedObject.edit()
 
-        for( x in collegeList.indices){
+        for (x in collegeList.indices) {
             sharedEditor.putBoolean("$x ${collegeList[x].cName}", false)
         }
 
@@ -98,7 +108,7 @@ class FilterActivity : AppCompatActivity() {
 
         sharedObject = getSharedPreferences("major", 0)
         sharedEditor = sharedObject.edit()
-        for( x in majorList.indices){
+        for (x in majorList.indices) {
             sharedEditor.putBoolean("$x ${majorList[x].mName}", false)
         }
 
@@ -108,7 +118,7 @@ class FilterActivity : AppCompatActivity() {
     private fun loadSharedPreferencesCollege(collegeList: List<College>): MutableMap<String, Boolean> {
         val sharedObject = getSharedPreferences("college", 0)
         val loadMap = mutableMapOf<String, Boolean>()
-        for( x in collegeList.indices){
+        for (x in collegeList.indices) {
             val isSelect = sharedObject.getBoolean("$x ${collegeList[x].cName}", false)
             loadMap["$x ${collegeList[x].cName}"] = isSelect
         }
@@ -118,7 +128,7 @@ class FilterActivity : AppCompatActivity() {
     private fun loadSharedPreferencesMajor(majorList: List<Major>): MutableMap<String, Boolean> {
         val sharedObject = getSharedPreferences("major", 0)
         val loadMap = mutableMapOf<String, Boolean>()
-        for( x in majorList.indices){
+        for (x in majorList.indices) {
             val isSelect = sharedObject.getBoolean("$x ${majorList[x].mName}", false)
             loadMap["$x ${majorList[x].mName}"] = isSelect
         }

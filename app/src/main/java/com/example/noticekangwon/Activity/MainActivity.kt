@@ -75,7 +75,9 @@ class MainActivity : AppCompatActivity() {
             edit.commit()
         } else {
             var beforeDate: Date = f.parse(beforeTime)
+            println(beforeTime)
             var now: Date = f.parse(f.format(Date()))
+            println(f.format(Date()))
             var diff = (now.time - beforeDate.time)/(1000*60*60)
             if(diff >= 1) {
                 println("패치 재실행")
@@ -85,6 +87,8 @@ class MainActivity : AppCompatActivity() {
                 edit.commit()
             }
         }
+
+        fetchAdapter(db)
 
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
@@ -113,8 +117,34 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun fetchData(appdatabse: AppDataBase, id: Int) {
+    fun searchList(view: View) {
+        noticeAdapter.filter.filter(search.text)
+    }
 
+    fun fetchAdapter(appdatabase: AppDataBase) {
+
+        var shared: SharedPreferences = getSharedPreferences("major", 0)
+//        selectedList = shared.all.toList()
+
+        progressBar.visibility = View.GONE
+
+
+        noticeList = appdatabase.noticeDao().getFil()
+        // ?: DB 내에서 정렬하여 나오는 방법은 없나?
+        if(noticeList.isNotEmpty())
+            noticeList = noticeList.sortedByDescending{ it -> it.mDate }
+        // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
+
+        appdatabase.close()
+
+        noticeAdapter = NoticeAdapter(noticeList, "학사공지")
+
+        recyclerview.adapter = noticeAdapter
+
+        noticeAdapter.filter.filter("")
+    }
+
+    fun fetchData(appdatabase: AppDataBase, id: Int) {
         CoroutineScope(Main).launch(Dispatchers.IO) {
             val fk = 1
             val doc: Document? =
@@ -136,30 +166,13 @@ class MainActivity : AppCompatActivity() {
                     // 날짜
                     val date = content.select("td")[5].text()
 
-                    appdatabse.noticeDao().insert(Notice(fk, title, url, date, extension))
+                    appdatabase.noticeDao().insert(Notice(fk, title, url, date, extension))
                     println(title)
                 }
             }
             CoroutineScope(Main).launch {
-                progressBar.visibility = View.GONE
-                noticeList = appdatabse.noticeDao().all
-                // ?: DB 내에서 정렬하여 나오는 방법은 없나?
-                if(noticeList.isNotEmpty())
-                    noticeList = noticeList.sortedByDescending{ it -> it.mDate }
-                // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
-
-                appdatabse.close()
-
-                noticeAdapter = NoticeAdapter(noticeList, "학사공지")
-
-                recyclerview.adapter = noticeAdapter
-
-                noticeAdapter.filter.filter("")
+                fetchAdapter(appdatabase)
             }
         }
-    }
-
-    fun searchList(view: View) {
-        noticeAdapter.filter.filter(search.text)
     }
 }

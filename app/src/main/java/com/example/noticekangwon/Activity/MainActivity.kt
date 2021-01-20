@@ -35,12 +35,14 @@ import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 class MainActivity : AppCompatActivity() {
 
     private var noticeList: List<Notice> = arrayListOf()
-    private var selectedList: List<Integer> = arrayListOf()
+    private var selectedList: List<String> = arrayListOf()
+    private var selectedIds: ArrayList<Int> = arrayListOf()
     private lateinit var noticeAdapter: NoticeAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         if(beforeTime == null) {
             println("날짜 초기 저장")
             progressBar.visibility = View.VISIBLE
-            fetchData(db, 0)
+            fetchData(db, 91)
             edit.putString("lastUpdate", f.format(Date()).toString())
             edit.commit()
         } else {
@@ -82,13 +84,13 @@ class MainActivity : AppCompatActivity() {
             if(diff >= 1) {
                 println("패치 재실행")
                 progressBar.visibility = View.VISIBLE
-                fetchData(db, 0)
+                fetchData(db, 91)
                 edit.putString("lastUpdate", f.format(Date()).toString())
                 edit.commit()
             }
         }
 
-        fetchAdapter(db)
+        fetchAdapter()
 
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
@@ -121,21 +123,39 @@ class MainActivity : AppCompatActivity() {
         noticeAdapter.filter.filter(search.text)
     }
 
-    fun fetchAdapter(appdatabase: AppDataBase) {
+    override fun onResume() {
+        super.onResume()
+        fetchAdapter()
+    }
+
+    fun fetchAdapter() {
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         var shared: SharedPreferences = getSharedPreferences("major", 0)
-//        selectedList = shared.all.toList()
+        var mutSet: MutableSet<String> = shared.all.keys
+        selectedIds = arrayListOf()
+        selectedList = ArrayList(mutSet)
+        for (sel in selectedList) {
+            if(shared.all[sel] == true) {
+                var tmp = sel.split(" ")
+                selectedIds.add(Integer.parseInt(tmp[0])+1)
+            }
+        }
 
         progressBar.visibility = View.GONE
 
+        noticeList = db.noticeDao().getFil(selectedIds)
 
-        noticeList = appdatabase.noticeDao().getFil()
         // ?: DB 내에서 정렬하여 나오는 방법은 없나?
+        println("필터적용 시작")
+        for (tmp in noticeList)
+            println(tmp.mTitle)
+        println("필터적용 끝")
         if(noticeList.isNotEmpty())
             noticeList = noticeList.sortedByDescending{ it -> it.mDate }
         // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
 
-        appdatabase.close()
+        db.close()
 
         noticeAdapter = NoticeAdapter(noticeList, "학사공지")
 
@@ -146,7 +166,7 @@ class MainActivity : AppCompatActivity() {
 
     fun fetchData(appdatabase: AppDataBase, id: Int) {
         CoroutineScope(Main).launch(Dispatchers.IO) {
-            val fk = 1
+            val fk = id
             val doc: Document? =
                 Jsoup.connect("https://www.kangwon.ac.kr/www/selectBbsNttList.do?bbsNo=37&key=1176")
                     .get()
@@ -171,7 +191,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
             CoroutineScope(Main).launch {
-                fetchAdapter(appdatabase)
+                fetchAdapter()
             }
         }
     }

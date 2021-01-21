@@ -24,8 +24,8 @@
     <color name="sCenterColor">#3392FF</color>
     <color name="sEndColor">#0DB7FE</color>
     <!-- Toolbar Gradient -->
-    <color name="startColor">#404040</color>
-    <color name="centerColor">#404040</color>
-    <color name="endColor">#404040</color>
+    <color name="startColor">#101010</color>
+    <color name="centerColor">#101010</color>
+    <color name="endColor">#101010</color>
     <color name="onlyFilterLineColor">#232323</color>
 </resources>

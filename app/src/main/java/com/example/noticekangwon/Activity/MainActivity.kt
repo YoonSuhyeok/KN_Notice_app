@@ -142,7 +142,7 @@ class MainActivity : AppCompatActivity() {
         for (sel in selectedList) {
             if (shared.all[sel] == true) {
                 var tmp = sel.split(" ")
-                selectedIds.add(Integer.parseInt(tmp[0]) + 1)
+                selectedIds.add(db.majorDao().getId(tmp[0]))
             }
         }
 

@@ -5,7 +5,7 @@
     android:id="@+id/linearLayout2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/notice_border">
+    android:background="@drawable/filter_border">
 
     <TextView
         android:id="@+id/CollegeName"
@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
-        android:fontFamily="@font/font"
+        android:fontFamily="@font/nq_aceb"
         android:paddingStart="35dp"
         android:text="간호대학"
         android:textColor="@color/fontColor"

@@ -2,9 +2,11 @@
 <resources>
     <!-- Layouts -->
     <color name="colorPrimary">#404040</color>
-    <color name="topColor">#404040</color>
-    <color name="layoutBackground">#404040</color>
-    <color name="background">#626262</color>
+    <color name="topColor">#101010</color>
+    <color name="layoutBackground">#282828</color>
+    <color name="filterBack">#101010</color>
+    <color name="background">#282828</color>
+    <color name="searchBack">#5C5C5C</color>
     <!-- Fonts -->
     <color name="mainTitleFontColor">#5076FF</color>
     <color name="mainFontColor">#FFFFFF</color>
@@ -13,22 +15,23 @@
     <!-- Button -->
     <color name="btnColor">#FFFFFF</color>
     <!-- Border -->
-    <color name="noticeBorderColor">#404040</color>
+    <color name="noticeBorderColor">#1C1C1C</color>
+    <color name="filterBorderColor">#101010</color>
     <!-- Shadow -->
-    <color name="shadow4">#404040</color>
-    <color name="shadow1">#404040</color>
-    <color name="shadow2">#404040</color>
-    <color name="shadow3">#404040</color>
+    <color name="shadow4">#00000000</color>
+    <color name="shadow1">#00000000</color>
+    <color name="shadow2">#00000000</color>
+    <color name="shadow3">#00000000</color>
     <!-- Splash Gradient -->
     <color name="sStartColor">#5076FF</color>
     <color name="sCenterColor">#3392FF</color>
     <color name="sEndColor">#0DB7FE</color>
     <!-- Toolbar Gradient -->
-    <color name="startColor">#404040</color>
-    <color name="centerColor">#404040</color>
-    <color name="endColor">#404040</color>
+    <color name="startColor">#101010</color>
+    <color name="centerColor">#101010</color>
+    <color name="endColor">#101010</color>
     <!-- Activity_Filter Color -->
-    <color name="onlyFilterLineColor">#FFB5B5B5</color>
+    <color name="onlyFilterLineColor">#101010</color>
     <color name="ClickCollegeViewColor">#FFB039</color>
     <color name="ClickMajorViewColor">#757575</color>
 </resources>

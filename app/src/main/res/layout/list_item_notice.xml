@@ -33,7 +33,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="2dp"
-        android:fontFamily="@font/nanumsquare_aceb"
+        android:fontFamily="@font/nq_aceb"
         android:maxWidth="100dp"
         android:ellipsize="marquee"
         android:marqueeRepeatLimit="3"

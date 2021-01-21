@@ -4,8 +4,8 @@ import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerDecoration(divHeight: Int): RecyclerView.ItemDecoration() {
-    private var divHeight:Int = 0
+class RecyclerDecoration(divHeight: Int) : RecyclerView.ItemDecoration() {
+    private var divHeight: Int = 0
 
     init {
         this.divHeight = divHeight

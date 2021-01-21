@@ -20,8 +20,12 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.splash_activity)
 
+        var shared = getSharedPreferences("themeSetSP", 0)
+        var mode = shared.getString("themeMode", "light")
+        ThemeSet.applyTheme(mode)
+
         Handler().postDelayed(Runnable {
-            var shared = getSharedPreferences("isFirstSP", 0)
+            shared = getSharedPreferences("isFirstSP", 0)
             var isInit = shared.getBoolean("isInitDB", false)
             var isFirst = shared.getBoolean("isFirst", false)
 

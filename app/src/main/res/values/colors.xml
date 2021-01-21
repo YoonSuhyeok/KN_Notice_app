@@ -5,6 +5,7 @@
     <color name="topColor">#5076FF</color>
     <color name="layoutBackground">#FFFFFF</color>
     <color name="background">#FFFFFF</color>
+    <color name="searchBack">#FFFFFF</color>
     <!-- Fonts -->
     <color name="mainTitleFontColor">#FFFFFF</color>
     <color name="mainFontColor">#FFFFFF</color>
@@ -20,9 +21,9 @@
     <color name="shadow2">#20CCCCCC</color>
     <color name="shadow3">#30CCCCCC</color>
     <!-- Splash Gradient -->
-    <color name="sStartColor">#5076FF</color>
+    <color name="sStartColor">#487EFF</color>
     <color name="sCenterColor">#3392FF</color>
-    <color name="sEndColor">#0DB7FE</color>
+    <color name="sEndColor">#10B4FE</color>
     <!-- Toolbar Gradient -->
     <color name="startColor">#5076FF</color>
     <color name="centerColor">#3392FF</color>

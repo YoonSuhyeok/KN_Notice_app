@@ -8,14 +8,14 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "notice",
         foreignKeys =
-            @ForeignKey(entity = Major.class,
-            parentColumns = "mId",
-            childColumns = "mIdFk",
-            onDelete = ForeignKey.CASCADE),
+        @ForeignKey(entity = Major.class,
+                parentColumns = "mId",
+                childColumns = "mIdFk",
+                onDelete = ForeignKey.CASCADE),
         indices = @Index("mIdFk"))
 public class Notice {
 
-    public Notice(int mIdFk , String mTitle, String mUrl, String mDate, boolean mExtension){
+    public Notice(int mIdFk, String mTitle, String mUrl, String mDate, boolean mExtension) {
         this.mIdFk = mIdFk;
         this.mTitle = mTitle;
         this.mUrl = mUrl;

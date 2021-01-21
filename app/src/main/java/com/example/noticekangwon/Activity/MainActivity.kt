@@ -139,6 +139,7 @@ class MainActivity : AppCompatActivity() {
         var mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
         selectedList = ArrayList(mutSet)
+      
         for (sel in selectedList) {
             if (shared.all[sel] == true) {
                 selectedIds.add(db.majorDao().getMId(sel))

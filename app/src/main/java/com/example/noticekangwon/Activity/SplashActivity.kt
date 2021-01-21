@@ -35,7 +35,9 @@ class SplashActivity : AppCompatActivity() {
             }
 
             if (!isFirst) {
-                startActivity(Intent(this, FilterActivity::class.java))
+                val intent = Intent(this, FilterActivity::class.java)
+                intent.putExtra("first", true)
+                startActivity(intent)
                 // val intent = Intent(this, MyService::class.java)
                 // startService(intent)
             } else {

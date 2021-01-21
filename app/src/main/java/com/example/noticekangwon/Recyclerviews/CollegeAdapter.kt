@@ -55,9 +55,9 @@ class CollegeAdapter(
 
     private fun offSelect(cId: Int) {
         val map = majorAdapter.getMap()
-        for (x in majorList.indices) {
-            if (majorList[x].cIdFk == cId)
-                map["${majorList[x].mName}"] = false
+        for (x in majorList) {
+            if (x.cIdFk == cId)
+                map["${x.mName}"] = false
         }
         majorAdapter.setMap(map)
     }

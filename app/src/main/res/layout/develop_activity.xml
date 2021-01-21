@@ -1,62 +1,131 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#E6E5E5">
+    android:background="@color/background">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/devToolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:background="@color/background" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="18dp"
+        android:fontFamily="@font/nq_aceb"
+        android:text="팀 정보"
+        android:textColor="@color/devTitleFontColor"
+        android:textSize="18dp" />
 
     <LinearLayout
+        android:id="@+id/logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="개발자 정보\n"
-            android:textColor="#000000"
-            android:textSize="20dp"
+            android:drawableStart="@drawable/github_logo"
+            android:paddingLeft="18dp"
+            android:text=" Github"
+            android:textColor="@color/devTitleFontColor"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:autoLink="web"
-            android:gravity="center_horizontal"
-            android:linksClickable="true"
-            android:text="Git 사이트\n\n송승재 / https://github.com/song127\n윤수혁 / https://github.com/YoonSuhyeok"
-            android:textAlignment="center"
-            android:textColorLink="@color/topColor" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:gravity="center_horizontal"
-            android:text="이메일\n\n송승재 / thdtmdwo789@naver.com\n윤수혁 / Email"
-            android:textAlignment="center" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:text="디자이너 정보"
-            android:textColor="#000000"
-            android:textSize="20dp"
+            android:layout_marginLeft="5dp"
+            android:drawableStart="@drawable/email_logo"
+            android:paddingLeft="18dp"
+            android:text=" E-mail"
+            android:textColor="@color/devTitleFontColor"
+            android:textSize="14dp"
             android:textStyle="bold" />
 
-        <TextView
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="이메일\n\n이정 / Email"
-            android:textAlignment="center" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/nq_aceb"
+                android:text="송승재"
+                android:textColor="@color/devTitleFontColor"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/nq_aceb"
+                android:text="윤수혁"
+                android:textColor="@color/devTitleFontColor"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/nq_aceb"
+                android:text="이정"
+                android:textColor="@color/devTitleFontColor"
+                android:textSize="10dp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_marginLeft="10dp"
+                android:text="  개발           @song127                  thdtmdwo789@naver.com"
+                android:textColor="@color/devTitleFontColor"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_marginLeft="10dp"
+                android:text="  개발           @YoonSuHyeok        helloWorld@naver.com"
+                android:textColor="@color/devTitleFontColor"
+                android:textSize="10dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:layout_marginLeft="10dp"
+                android:text="  디자인                                              WriteHere@naver.com"
+                android:textColor="@color/devTitleFontColor"
+                android:textSize="10dp" />
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

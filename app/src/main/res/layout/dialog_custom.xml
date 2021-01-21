@@ -19,7 +19,7 @@
             android:textAlignment="center"
             android:textColor="@color/fontColor"
             android:textSize="20dp"
-            tools:text="모드 설정" />
+            tools:text="테마" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,6 +45,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="5dp"
                     android:text="기본"
+                    android:buttonTintMode="@color/rdBtnColor"
                     android:textAlignment="center"
                     android:textColor="@color/fontColor"
                     android:textSize="20dp"/>
@@ -55,6 +56,7 @@
                     android:layout_margin="5dp"
                     android:text="다크"
                     android:textAlignment="center"
+                    android:backgroundTint="@color/rdBtnColor"
                     android:textColor="@color/fontColor"
                     android:textSize="20dp"/>
                 <RadioButton
@@ -64,6 +66,7 @@
                     android:layout_margin="5dp"
                     android:text="핸드폰 모드 따라가기"
                     android:textAlignment="center"
+                    android:buttonTintMode="@color/rdBtnColor"
                     android:textColor="@color/fontColor"
                     android:textSize="20dp"/>
             </RadioGroup>

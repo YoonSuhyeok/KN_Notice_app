@@ -195,4 +195,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun fetchExp(db: AppDataBase) {
+        var shared: SharedPreferences = getSharedPreferences("major", 0)
+        var mutSet: MutableSet<String> = shared.all.keys
+        selectedIds = arrayListOf()
+        selectedList = ArrayList(mutSet)
+    }
+
 }

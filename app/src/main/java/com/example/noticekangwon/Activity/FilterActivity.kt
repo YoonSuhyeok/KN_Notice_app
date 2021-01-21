@@ -1,8 +1,10 @@
 package com.example.noticekangwon.Activity
 
+import android.R.attr.*
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
+import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -16,11 +18,16 @@ import com.example.noticekangwon.Recyclerviews.RecyclerDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filter_page.*
 
+
 class FilterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filter_page)
+
+        if(intent.getBooleanExtra("first", false)){
+            backButton.visibility = View.GONE
+        }
 
         var db =
             Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
@@ -60,7 +67,7 @@ class FilterActivity : AppCompatActivity() {
 
         initSharedPreferencesFile(collegeList, majorList)
 
-        imageButton.setOnClickListener { onBackPressed() }
+        backButton.setOnClickListener { onBackPressed() }
 
         button.setOnClickListener {
             var sharedObject = getSharedPreferences("college", 0)

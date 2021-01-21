@@ -139,12 +139,12 @@ class MainActivity : AppCompatActivity() {
         var mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
         selectedList = ArrayList(mutSet)
-        for (sel in selectedList) {
-            if (shared.all[sel] == true) {
-                var tmp = sel.split(" ")
-                selectedIds.add(Integer.parseInt(tmp[0]) + 1)
-            }
-        }
+//        for (sel in selectedList) {
+//            if (shared.all[sel] == true) {
+//                var tmp = sel.split(" ")
+//                selectedIds.add(Integer.parseInt(tmp[0]) + 1)
+//            }
+//        }
 
         progressBar.visibility = View.GONE
 

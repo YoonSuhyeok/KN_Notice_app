@@ -27,5 +27,8 @@
     <color name="startColor">#404040</color>
     <color name="centerColor">#404040</color>
     <color name="endColor">#404040</color>
-    <color name="onlyFilterLineColor">#232323</color>
+    <!-- Activity_Filter Color -->
+    <color name="onlyFilterLineColor">#FFB5B5B5</color>
+    <color name="ClickCollegeViewColor">#FFB039</color>
+    <color name="ClickMajorViewColor">#757575</color>
 </resources>

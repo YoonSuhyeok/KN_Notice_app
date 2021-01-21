@@ -1,5 +1,7 @@
 package com.example.noticekangwon.Recyclerviews
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.LayoutInflater
@@ -14,15 +16,15 @@ import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.R
 import kotlinx.android.synthetic.main.list_item_filter_major.view.*
 
-class MajorAdapter(
-    private val MajorList: MutableList<Major>,
-    private var isSelectList: MutableMap<String, Boolean>
+class MajorAdapter(private val context: Context,
+                   private val MajorList: MutableList<Major>,
+                   private var isSelectList: MutableMap<String, Boolean>
 ) : RecyclerView.Adapter<MajorAdapter.Holder>(), Filterable {
     private val filterLists: ArrayList<Int> = ArrayList()
 
     // private val mainToLists:ArrayList<Int> = ArrayList()
     private var littleMajor: MutableList<Major>
-
+    private val clickColor = context.resources.getColor(R.color.ClickMajorViewColor)
     init {
         littleMajor = MajorList
     }
@@ -33,20 +35,20 @@ class MajorAdapter(
         return Holder(view)
     }
 
+
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.majorName.text = "${littleMajor[position].mName}"
         var name = "${holder.majorName.text}"
         if (isSelectList[name] == true) {
-            holder.majorName.setBackgroundColor(Color.YELLOW)
-        } else {
-            holder.majorName.setBackgroundColor(Color.TRANSPARENT)
+            holder.itemView.setBackgroundColor(clickColor)
         }
+
         holder.itemView.setOnClickListener {
             if (isSelectList[name] == true) {
-                holder.majorName.setBackgroundColor(Color.TRANSPARENT)
+                holder.itemView.setBackgroundColor(Color.TRANSPARENT)
                 isSelectList[name] = false
             } else {
-                holder.majorName.setBackgroundColor(Color.YELLOW)
+                holder.itemView.setBackgroundColor(clickColor)
                 isSelectList[name] = true
             }
         }

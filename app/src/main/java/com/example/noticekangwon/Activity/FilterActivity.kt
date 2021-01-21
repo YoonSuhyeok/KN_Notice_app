@@ -27,7 +27,7 @@ class FilterActivity : AppCompatActivity() {
                 .build()
 
         val majorList = db.majorDao().all
-        var majorAdapter = MajorAdapter(majorList, loadSharedPreferencesMajor(majorList))
+        var majorAdapter = MajorAdapter(this, majorList, loadSharedPreferencesMajor(majorList))
 
         majorRecyler.layoutManager = LinearLayoutManager(
             this@FilterActivity,
@@ -41,6 +41,7 @@ class FilterActivity : AppCompatActivity() {
 
         val collegeList = db.collegeDao().all
         var collegeAdapter = CollegeAdapter(
+            this,
             collegeList,
             majorList,
             majorAdapter,

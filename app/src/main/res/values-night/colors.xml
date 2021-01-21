@@ -12,6 +12,7 @@
     <color name="mainFontColor">#FFFFFF</color>
     <color name="fontColor">#FFFFFF</color>
     <color name="subFontColor">#BFBFBF</color>
+    <color name="devTitleFontColor">#FFFFFF</color>
     <!-- Button -->
     <color name="btnColor">#FFFFFF</color>
     <color name="rdBtnColor">#5076FF</color>

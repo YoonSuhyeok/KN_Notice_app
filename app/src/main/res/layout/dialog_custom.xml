@@ -19,7 +19,7 @@
             android:textAlignment="center"
             android:textColor="@color/fontColor"
             android:textSize="20dp"
-            tools:text="모드 설정" />
+            tools:text="테마" />
 
         <LinearLayout
             android:layout_width="match_parent"

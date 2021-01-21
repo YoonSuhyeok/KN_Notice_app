@@ -3,5 +3,5 @@
     <font
         android:fontStyle="normal"
         android:fontWeight="800"
-        android:font="@font/nq_aceb"/>
+        android:font="@font/nanumsquare_acr"/>
 </font-family>

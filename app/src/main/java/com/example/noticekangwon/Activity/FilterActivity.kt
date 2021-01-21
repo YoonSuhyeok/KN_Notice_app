@@ -12,6 +12,7 @@ import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.R
 import com.example.noticekangwon.Recyclerviews.CollegeAdapter
 import com.example.noticekangwon.Recyclerviews.MajorAdapter
+import com.example.noticekangwon.Recyclerviews.RecyclerDecoration
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filter_page.*
 
@@ -53,6 +54,8 @@ class FilterActivity : AppCompatActivity() {
         )
         collegeRecyler.setHasFixedSize(true)
         collegeRecyler.adapter = collegeAdapter
+        val spaceDecoration = RecyclerDecoration(0)
+        collegeRecyler.addItemDecoration(spaceDecoration)
 
         initSharedPreferencesFile(collegeList, majorList)
 
@@ -63,10 +66,10 @@ class FilterActivity : AppCompatActivity() {
             var sharedEditor = sharedObject.edit()
 
             var maps = collegeAdapter.getMap()
-            for (x in collegeList.indices) {
-                val empty = maps.get("$x ${collegeList[x].cName}")
+            for (x in collegeList) {
+                val empty = maps["${x.cName}"]
                 if (empty != null) {
-                    sharedEditor.putBoolean("$x ${collegeList[x].cName}", empty)
+                    sharedEditor.putBoolean("${x.cName}", empty)
                 }
             }
 
@@ -75,11 +78,10 @@ class FilterActivity : AppCompatActivity() {
             sharedObject = getSharedPreferences("major", 0)
             sharedEditor = sharedObject.edit()
             maps = majorAdapter.getMap()
-            for (x in majorList.indices) {
-                sharedEditor.putBoolean(
-                    "$x ${majorList[x].mName}",
-                    maps.get("$x ${majorList[x].mName}")!!
-                )
+            for (x in majorList) {
+                val empty = maps["${x.mName}"]
+                if(empty != null )
+                    sharedEditor.putBoolean("${x.mName}", empty)
             }
             sharedEditor.commit()
 
@@ -100,16 +102,16 @@ class FilterActivity : AppCompatActivity() {
         var sharedObject = getSharedPreferences("college", 0)
         var sharedEditor = sharedObject.edit()
 
-        for (x in collegeList.indices) {
-            sharedEditor.putBoolean("$x ${collegeList[x].cName}", false)
+        for (x in collegeList) {
+            sharedEditor.putBoolean("${x.cName}", false)
         }
 
         sharedEditor.commit()
 
         sharedObject = getSharedPreferences("major", 0)
         sharedEditor = sharedObject.edit()
-        for (x in majorList.indices) {
-            sharedEditor.putBoolean("$x ${majorList[x].mName}", false)
+        for (x in majorList) {
+            sharedEditor.putBoolean("${x.mName}", false)
         }
 
         sharedEditor.commit()
@@ -118,9 +120,9 @@ class FilterActivity : AppCompatActivity() {
     private fun loadSharedPreferencesCollege(collegeList: List<College>): MutableMap<String, Boolean> {
         val sharedObject = getSharedPreferences("college", 0)
         val loadMap = mutableMapOf<String, Boolean>()
-        for (x in collegeList.indices) {
-            val isSelect = sharedObject.getBoolean("$x ${collegeList[x].cName}", false)
-            loadMap["$x ${collegeList[x].cName}"] = isSelect
+        for (x in collegeList) {
+            val isSelect = sharedObject.getBoolean("${x.cName}", false)
+            loadMap["${x.cName}"] = isSelect
         }
         return loadMap
     }
@@ -128,9 +130,9 @@ class FilterActivity : AppCompatActivity() {
     private fun loadSharedPreferencesMajor(majorList: List<Major>): MutableMap<String, Boolean> {
         val sharedObject = getSharedPreferences("major", 0)
         val loadMap = mutableMapOf<String, Boolean>()
-        for (x in majorList.indices) {
-            val isSelect = sharedObject.getBoolean("$x ${majorList[x].mName}", false)
-            loadMap["$x ${majorList[x].mName}"] = isSelect
+        for (x in majorList) {
+            val isSelect = sharedObject.getBoolean("${x.mName}", false)
+            loadMap["${x.mName}"] = isSelect
         }
         return loadMap
     }

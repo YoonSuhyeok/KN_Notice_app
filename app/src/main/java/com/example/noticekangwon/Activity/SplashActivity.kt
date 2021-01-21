@@ -9,16 +9,13 @@ import androidx.room.Room
 import com.example.noticekangwon.DataBase.AppDataBase
 import com.example.noticekangwon.DataBase.College
 import com.example.noticekangwon.DataBase.Major
-import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.R
 import com.example.noticekangwon.defaultClass.ThemeSet
-import kotlinx.android.synthetic.main.dialog_custom.*
-import kotlinx.android.synthetic.main.dialog_custom.view.*
 
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.splash_activity)
+        setContentView(R.layout.activity_splash)
 
         var shared = getSharedPreferences("themeSetSP", 0)
         var mode = shared.getString("themeMode", "light")

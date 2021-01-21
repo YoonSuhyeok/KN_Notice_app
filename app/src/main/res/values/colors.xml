@@ -9,7 +9,7 @@
     <!-- Fonts -->
     <color name="mainTitleFontColor">#FFFFFF</color>
     <color name="mainFontColor">#FFFFFF</color>
-    <color name="fontColor">#000000</color>
+    <color name="fontColor">#4B4B4B</color>
     <color name="subFontColor">#787878</color>
     <!-- Button -->
     <color name="btnColor">#5076FF</color>
@@ -28,4 +28,5 @@
     <color name="startColor">#5076FF</color>
     <color name="centerColor">#3392FF</color>
     <color name="endColor">#0DB7FE</color>
+    <color name="onlyFilterLineColor">#FFB5B5B5</color>
 </resources>

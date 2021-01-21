@@ -17,30 +17,28 @@ class CollegeAdapter(
 ) : RecyclerView.Adapter<CollegeAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_item_filter_college, parent, false)
-        println("onCreateViewHolder")
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_filter_college, parent, false)
         return Holder(view)
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        println("onBindViewHolder")
         holder.collegeText.text = collegeList[position].cName
-        val name = "$position ${collegeList[position].cName}"
+        val name = "${collegeList[position].cName}"
         if (isSelectList[name] == true) {
-            holder.collegeText.setBackgroundColor(Color.BLUE)
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFB039"))
+            holder.collegeText.setTextColor(Color.WHITE)
             majorAdapter.plusFilterPatten(collegeList[position].cId)
-        } else {
-            holder.collegeText.setBackgroundColor(Color.TRANSPARENT)
-            majorAdapter.minusFilterPatten(collegeList[position].cId)
         }
+
         holder.itemView.setOnClickListener {
             if (isSelectList[name] == false) {
-                holder.collegeText.setBackgroundColor(Color.BLUE)
+                holder.itemView.setBackgroundColor(Color.parseColor("#FFB039"))
+                holder.collegeText.setTextColor(Color.WHITE)
                 isSelectList[name] = true
                 majorAdapter.plusFilterPatten(collegeList[position].cId)
             } else {
-                holder.collegeText.setBackgroundColor(Color.TRANSPARENT)
+                holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+                holder.collegeText.setTextColor(Color.parseColor("#4B4B4B"))
                 isSelectList[name] = false
                 majorAdapter.minusFilterPatten(collegeList[position].cId)
                 offSelect(collegeList[position].cId)
@@ -54,13 +52,12 @@ class CollegeAdapter(
         val map = majorAdapter.getMap()
         for (x in majorList.indices) {
             if (majorList[x].cIdFk == cId)
-                map["$x ${majorList[x].mName}"] = false
+                map["${majorList[x].mName}"] = false
         }
         majorAdapter.setMap(map)
     }
 
     override fun getItemCount(): Int {
-        println("getItemCount")
         return collegeList.size
     }
 

@@ -6,7 +6,7 @@
     <item> <shape> <padding android:top="1dp" android:right="1dp" android:bottom="2dp" android:left="1dp" /> <corners android:radius="48dp" /> <solid android:color="@color/shadow2" /> </shape> </item>
     <item> <shape> <padding android:top="1dp" android:right="1dp" android:bottom="2dp" android:left="1dp" /> <corners android:radius="48dp" /> <solid android:color="@color/shadow3" /> </shape> </item>
     <!-- Background -->
-    <item> <shape> <solid android:color="@color/background" />
+    <item> <shape> <solid android:color="@color/searchBack" />
         <corners android:radius="48dp" /> </shape>
     </item>
 </layer-list>

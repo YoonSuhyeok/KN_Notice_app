@@ -67,7 +67,7 @@ class MainActivity : AppCompatActivity() {
             false
         )
 
-        var shared: SharedPreferences = getSharedPreferences("updateDate", 0)
+        var shared = getSharedPreferences("updateDate", 0)
         var edit: SharedPreferences.Editor = shared.edit()
         var f: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.KOREA)
         var beforeTime = shared.getString("lastUpdate", null)
@@ -91,10 +91,6 @@ class MainActivity : AppCompatActivity() {
                 edit.commit()
             }
         }
-
-        shared = getSharedPreferences("themeSetSP", 0)
-        var mode = shared?.getString("themeMode", ThemeSet.LIGHT_MODE)
-        ThemeSet.applyTheme(mode)
 
         fetchAdapter()
 

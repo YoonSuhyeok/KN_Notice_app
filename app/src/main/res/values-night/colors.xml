@@ -14,6 +14,7 @@
     <color name="subFontColor">#BFBFBF</color>
     <!-- Button -->
     <color name="btnColor">#FFFFFF</color>
+    <color name="rdBtnColor">#5076FF</color>
     <!-- Border -->
     <color name="noticeBorderColor">#1C1C1C</color>
     <color name="filterBorderColor">#101010</color>
@@ -23,9 +24,9 @@
     <color name="shadow2">#00000000</color>
     <color name="shadow3">#00000000</color>
     <!-- Splash Gradient -->
-    <color name="sStartColor">#5076FF</color>
+    <color name="sStartColor">#487EFF</color>
     <color name="sCenterColor">#3392FF</color>
-    <color name="sEndColor">#0DB7FE</color>
+    <color name="sEndColor">#10B4FE</color>
     <!-- Toolbar Gradient -->
     <color name="startColor">#101010</color>
     <color name="centerColor">#101010</color>

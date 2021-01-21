@@ -24,6 +24,7 @@ class MajorAdapter(private val context: Context,
 
     // private val mainToLists:ArrayList<Int> = ArrayList()
     private var littleMajor: MutableList<Major>
+    private var nonClickColor = context.resources.getColor(R.color.background)
     private val clickColor = context.resources.getColor(R.color.ClickMajorViewColor)
     init {
         littleMajor = MajorList
@@ -42,12 +43,12 @@ class MajorAdapter(private val context: Context,
         if (isSelectList[name] == true) {
             holder.itemView.setBackgroundColor(clickColor)
         } else {
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+            holder.itemView.setBackgroundColor(nonClickColor)
         }
 
         holder.itemView.setOnClickListener {
             if (isSelectList[name] == true) {
-                holder.itemView.setBackgroundColor(Color.WHITE)
+                holder.itemView.setBackgroundColor(nonClickColor)
                 isSelectList[name] = false
             } else {
                 holder.itemView.setBackgroundColor(clickColor)

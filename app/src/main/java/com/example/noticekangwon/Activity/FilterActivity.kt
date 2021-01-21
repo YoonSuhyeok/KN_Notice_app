@@ -25,9 +25,9 @@ class FilterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filter_page)
 
-        if(intent.getBooleanExtra("first", false)){
-            backButton.visibility = View.GONE
-        }
+//        if(intent.getBooleanExtra("first", false)){
+//            backButton.visibility = View.GONE
+//        }
 
         var db =
             Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
@@ -65,7 +65,10 @@ class FilterActivity : AppCompatActivity() {
         val spaceDecoration = RecyclerDecoration(0)
         collegeRecyler.addItemDecoration(spaceDecoration)
 
-        initSharedPreferencesFile(collegeList, majorList)
+        if(intent.getBooleanExtra("first", false)){
+            backButton.visibility = View.GONE
+            initSharedPreferencesFile(collegeList, majorList)
+        }
 
         backButton.setOnClickListener { onBackPressed() }
 

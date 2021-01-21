@@ -18,7 +18,7 @@ class CollegeAdapter(
     private val majorAdapter: MajorAdapter, private val isSelectList: MutableMap<String, Boolean>
 ) : RecyclerView.Adapter<CollegeAdapter.Holder>() {
 
-    private val nonClikcColor = context.resources.getColor(R.color.fontColor)
+    private val nonClickColor = context.resources.getColor(R.color.fontColor)
     private val clickColor = context.resources.getColor(R.color.ClickCollegeViewColor)
     private val offViewBackground = context.resources.getDrawable(R.drawable.filter_border)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -43,7 +43,7 @@ class CollegeAdapter(
                 majorAdapter.plusFilterPatten(collegeList[position].cId)
             } else {
                 holder.itemView.background = offViewBackground
-                holder.collegeText.setTextColor(nonClikcColor)
+                holder.collegeText.setTextColor(nonClickColor)
                 isSelectList[name] = false
                 majorAdapter.minusFilterPatten(collegeList[position].cId)
                 offSelect(collegeList[position].cId)

@@ -47,7 +47,7 @@ class MajorAdapter(private val context: Context,
 
         holder.itemView.setOnClickListener {
             if (isSelectList[name] == true) {
-                holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+                holder.itemView.setBackgroundColor(Color.WHITE)
                 isSelectList[name] = false
             } else {
                 holder.itemView.setBackgroundColor(clickColor)

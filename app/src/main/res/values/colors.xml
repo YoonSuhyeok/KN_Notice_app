@@ -4,6 +4,7 @@
     <color name="colorPrimary">#5076FF</color>
     <color name="topColor">#5076FF</color>
     <color name="layoutBackground">#FFFFFF</color>
+    <color name="filterBack">#FFFFFF</color>
     <color name="background">#FFFFFF</color>
     <color name="searchBack">#FFFFFF</color>
     <!-- Fonts -->
@@ -15,6 +16,7 @@
     <color name="btnColor">#5076FF</color>
     <!-- Border -->
     <color name="noticeBorderColor">#E5E5E5</color>
+    <color name="filterBorderColor">#E5E5E5</color>
     <!-- Shadow -->
     <color name="shadow4">#00CCCCCC</color>
     <color name="shadow1">#10CCCCCC</color>
@@ -25,11 +27,11 @@
     <color name="sCenterColor">#3392FF</color>
     <color name="sEndColor">#10B4FE</color>
     <!-- Toolbar Gradient -->
-    <color name="startColor">#5076FF</color>
+    <color name="startColor">#587CFF</color>
     <color name="centerColor">#3392FF</color>
-    <color name="endColor">#0DB7FE</color>
+    <color name="endColor">#0EA8E8</color>
     <!-- Activity_Filter Color -->
-    <color name="onlyFilterLineColor">#FFB5B5B5</color>
+    <color name="onlyFilterLineColor">#E5E5E5</color>
     <color name="ClickCollegeViewColor">#FFB039</color>
     <color name="ClickMajorViewColor">#EAEEFF</color>
 </resources>

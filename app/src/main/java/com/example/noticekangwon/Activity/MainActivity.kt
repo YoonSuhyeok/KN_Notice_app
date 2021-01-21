@@ -139,22 +139,18 @@ class MainActivity : AppCompatActivity() {
         var mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
         selectedList = ArrayList(mutSet)
-//        for (sel in selectedList) {
-//            if (shared.all[sel] == true) {
-//                var tmp = sel.split(" ")
-//                selectedIds.add(Integer.parseInt(tmp[0]) + 1)
-//            }
-//        }
+      
+        for (sel in selectedList) {
+            if (shared.all[sel] == true) {
+                selectedIds.add(db.majorDao().getMId(sel))
+            }
+        }
 
         progressBar.visibility = View.GONE
 
         noticeList = db.noticeDao().getFil(selectedIds)
 
         // ?: DB 내에서 정렬하여 나오는 방법은 없나?
-        println("필터적용 시작")
-        for (tmp in noticeList)
-            println(tmp.mTitle)
-        println("필터적용 끝")
         if (noticeList.isNotEmpty())
             noticeList = noticeList.sortedByDescending { it -> it.mDate }
         // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행

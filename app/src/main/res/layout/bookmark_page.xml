@@ -20,7 +20,7 @@
         android:textSize="18dp" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview"
+        android:id="@+id/bookmarkRecycle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/bookToolbar"

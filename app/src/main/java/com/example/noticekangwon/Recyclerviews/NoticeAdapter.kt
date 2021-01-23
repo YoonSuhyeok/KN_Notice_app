@@ -59,6 +59,8 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
         }
     }
 
+
+
     override fun getItemCount(): Int {
         return filList.size
     }
@@ -73,7 +75,13 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
         if(filList[position].isPin == 0) {
             holder.pinTag.visibility = VISIBLE
         } else {
-            holder.pinTag.visibility = INVISIBLE
+            holder.pinTag.visibility = GONE
+        }
+
+        if(filList[position].isBookmark) {
+            holder.bookTag.visibility = VISIBLE
+        } else {
+            holder.bookTag.visibility = INVISIBLE
         }
 
         holder.noticeSubject.text = nameList[filList[position].mIdFk]
@@ -114,6 +122,7 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val newTag: TextView = itemView.new_tag
         val pinTag: TextView = itemView.pin_tag
+        val bookTag: TextView = itemView.book_tag
         val noticeTitle: TextView = itemView.Title
         val noticeSubject: TextView = itemView.department
         val date: TextView = itemView.date

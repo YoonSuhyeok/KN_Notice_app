@@ -23,9 +23,11 @@
 
         <activity android:name=".Activity.DevelopInfoActivity" android:parentActivityName=".Activity.MainActivity"></activity>
 
-        <activity android:name=".Activity.BookMarkActivity" android:parentActivityName=".Activity.MainActivity"></activity>
+        <activity android:name=".Activity.BookmarkActivity" android:parentActivityName=".Activity.MainActivity"></activity>
 
         <activity android:name=".Activity.FilterActivity"></activity>
+
+        <activity android:name=".Activity.TmpClass"></activity>
 
 <!--        <service android:name=".notifiThread.MyService"/>-->
     </application>

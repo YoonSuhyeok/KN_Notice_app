@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
+import android.view.animation.AnimationUtils
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.noticekangwon.Activity.CustomDialog
@@ -17,6 +19,7 @@ import com.example.noticekangwon.Activity.MainActivity
 import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.R
 import com.example.noticekangwon.Recyclerviews.something.Companion.nameList
+import kotlinx.android.synthetic.main.activity_main.view.*
 import kotlinx.android.synthetic.main.list_item_notice.view.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -64,6 +67,10 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
+        // 왼쪽에서 오른쪽으로 가는 animation
+        // holder.itemView.animation = AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation)
+        // holder.container.animation = AnimationUtils.loadAnimation(context, R.anim.fade_scale_animation)
+
         if (filList[position].mDate == today) {
             holder.newTag.visibility = VISIBLE
         } else {
@@ -76,7 +83,7 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
             holder.pinTag.visibility = INVISIBLE
         }
 
-        holder.noticeSubject.text = nameList[filList[position].mIdFk]
+        holder.noticeSubject.text = nameList[filList[position].mIdFk-1]
         holder.noticeTitle.text = filList[position].mTitle
         holder.date.text = filList[position].mDate
         holder.noticeTitle.isSelected = true
@@ -117,6 +124,7 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
         val noticeTitle: TextView = itemView.Title
         val noticeSubject: TextView = itemView.department
         val date: TextView = itemView.date
+        val container: RelativeLayout = itemView.container
     }
 
 }

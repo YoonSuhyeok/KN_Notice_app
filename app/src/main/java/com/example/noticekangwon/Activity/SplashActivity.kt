@@ -67,7 +67,6 @@ class SplashActivity : AppCompatActivity() {
             R.array.산림과학대학,
             R.array.수의과대학,
             R.array.약학대학,
-            R.array.의과대학,
             R.array.의생명과학대학,
             R.array.인문대학,
             R.array.자연과학대학,
@@ -76,9 +75,7 @@ class SplashActivity : AppCompatActivity() {
             R.array.주요공지사항
         )
 
-        var db =
-            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
-                .build()
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
         var num: Int
         for (x in collegeList.indices) {
             db.collegeDao().insert(College(collegeList[x]))

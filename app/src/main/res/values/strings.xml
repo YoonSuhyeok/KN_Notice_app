@@ -19,7 +19,6 @@
         <item>산림과학대학</item>
         <item>수의과대학</item>
         <item>약학대학</item>
-        <item>의과대학</item>
         <item>의생명과학대학</item>
         <item>인문대학</item>
         <item>자연과학대학</item>
@@ -40,8 +39,7 @@
         <item>국제무역학과</item>
     </string-array>
     <string-array name="농업생명과학대학">
-        <item>농생명산업학전공</item>
-        <item>시설농업학전공</item>
+        <item>농생명산업/시설농업학전공</item>
         <item>바이오시스템기계공학전공</item>
         <item>식품생명공학전공</item>
         <item>식물자원응용과학전공</item>
@@ -50,7 +48,6 @@
         <item>농업자원경제학전공</item>
         <item>바이오자원환경학전공</item>
         <item>에코환경과학전공</item>
-        <item>지역건설공학과</item>
     </string-array>
     <string-array name="동물생명과학대학">
         <item>동물산업융합학과</item>
@@ -70,31 +67,17 @@
         <item>화학공학전공</item>
         <item>생물공학전공</item>
         <item>디자인학과</item>
-        <item>무용학과</item>
         <item>미술학과</item>
-        <item>스포츠과학과</item>
-        <item>음악학과</item>
         <item>영상문화학과</item>
     </string-array>
     <string-array name="사범대학">
-        <item>가정교육과</item>
-        <item>과학교육학부</item>
-        <item>교육학과</item>
-        <item>국어교육과</item>
         <item>수학교육과</item>
         <item>역사교육과</item>
         <item>영어교육과</item>
-        <item>윤리교육과</item>
-        <item>일반사회교육과</item>
-        <item>체육교육과</item>
-        <item>한문교육과</item>
     </string-array>
     <string-array name="사회과학대학">
         <item>행정학전공</item>
         <item>심리학전공</item>
-        <item>문화인류학과</item>
-        <item>부동산학과</item>
-        <item>사회학과</item>
         <item>신문방송학과</item>
         <item>정치외교학과</item>
     </string-array>
@@ -102,18 +85,15 @@
         <item>산림경영학전공</item>
         <item>산림자원학전공</item>
         <item>산림소재공학전공</item>
+        <item>산림환경보호학전공</item>
         <item>제지공학전공</item>
         <item>생태조경디자인학과</item>
     </string-array>
     <string-array name="수의과대학">
-        <item>수의예과</item>
-        <item>수의학과</item>
+        <item>수의예/수의학과</item>
     </string-array>
     <string-array name="약학대학">
         <item>약학과</item>
-    </string-array>
-    <string-array name="의과대학">
-        <item>의예과</item>
     </string-array>
     <string-array name="의생명과학대학">
         <item>시스템면역과학전공</item>
@@ -124,11 +104,10 @@
     </string-array>
     <string-array name="인문대학">
         <item>국어국문학전공</item>
-        <item>불어불문학전공</item>
+        <item>영어영문학과</item>
         <item>독어독문학전공</item>
         <item>중어중문학전공</item>
         <item>일본학전공</item>
-        <item>철학전공</item>
         <item>사학전공</item>
     </string-array>
     <string-array name="자연과학대학">
@@ -136,9 +115,7 @@
         <item>지질학전공</item>
         <item>생화학전공</item>
         <item>화학전공</item>
-        <item>물리학과</item>
         <item>생명과학과</item>
-        <item>수학과</item>
     </string-array>
     <string-array name="아이티대학">
         <item>전기전자공학과</item>
@@ -147,14 +124,13 @@
     </string-array>
     <string-array name="기타학부">
         <item>미래융합가상학과</item>
-        <item>춘천자유전공학부</item>
-        <item>연계전공</item>
+        <item>춘천자유전공학부/연계전공</item>
     </string-array>
     <string-array name="주요공지사항">
         <item>학사공지</item>
         <item>장학안내</item>
         <item>SW중심대학</item>
-        <item>도서관</item>
+        <item>LINC+</item>
         <item>교육혁신원</item>
     </string-array>
 </resources>

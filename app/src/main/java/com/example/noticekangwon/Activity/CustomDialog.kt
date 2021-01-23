@@ -1,25 +1,18 @@
 package com.example.noticekangwon.Activity
 
-import android.app.Activity
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.Window
-import android.widget.Button
-import android.widget.RadioGroup
+import android.view.*
+import android.view.animation.AnimationUtils
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import com.example.noticekangwon.R
+import com.example.noticekangwon.R.style.AnimationPopupStyle
 import com.example.noticekangwon.defaultClass.ThemeSet
-import kotlinx.android.synthetic.main.dialog_custom.*
-import kotlinx.android.synthetic.main.dialog_custom.radioBtn1
-import kotlinx.android.synthetic.main.dialog_custom.rdG1
 import kotlinx.android.synthetic.main.dialog_custom.view.*
 
 class CustomDialog : DialogFragment() {
@@ -27,6 +20,7 @@ class CustomDialog : DialogFragment() {
     var title: String? = "모드 설정"
     var con: Context? = null
 
+    @SuppressLint("ResourceType")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -36,6 +30,9 @@ class CustomDialog : DialogFragment() {
         val view = inflater.inflate(R.layout.dialog_custom, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+        val lpwindow = WindowManager.LayoutParams()
+        lpwindow.windowAnimations = R.style.AnimationPopupStyle
+        dialog?.window?.attributes = lpwindow
         return view.rootView
     }
 

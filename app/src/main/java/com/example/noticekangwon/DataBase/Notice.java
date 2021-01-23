@@ -15,12 +15,11 @@ import androidx.room.PrimaryKey;
         indices = @Index("mIdFk"))
 public class Notice {
 
-    public Notice(int mIdFk, String mTitle, String mUrl, String mDate, boolean mExtension) {
+    public Notice(int mIdFk, String mTitle, String mUrl, String mDate) {
         this.mIdFk = mIdFk;
         this.mTitle = mTitle;
         this.mUrl = mUrl;
         this.mDate = mDate;
-        this.mExtension = mExtension;
     }
 
     public int mIdFk;
@@ -29,6 +28,4 @@ public class Notice {
     public String mTitle;
     public String mUrl;
     public String mDate;
-    public boolean mExtension;
-
 }

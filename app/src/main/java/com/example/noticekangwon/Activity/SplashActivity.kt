@@ -13,6 +13,7 @@ import com.example.noticekangwon.R
 import com.example.noticekangwon.defaultClass.ThemeSet
 
 class SplashActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -44,7 +45,13 @@ class SplashActivity : AppCompatActivity() {
                 startActivity(Intent(this, MainActivity::class.java))
             }
             finish()
+            overridePendingTransition(R.anim.none, R.anim.horizon_exit)
         }, 2000)
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.none, R.anim.horizon_exit)
     }
 
     private fun initDB() {

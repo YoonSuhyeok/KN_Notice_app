@@ -2,15 +2,16 @@ package com.example.noticekangwon.Activity
 
 import android.R.attr.*
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.noticekangwon.DataBase.AppDataBase
 import com.example.noticekangwon.DataBase.College
 import com.example.noticekangwon.DataBase.Major
+import com.example.noticekangwon.Jsoup.SoupClient
 import com.example.noticekangwon.R
 import com.example.noticekangwon.Recyclerviews.CollegeAdapter
 import com.example.noticekangwon.Recyclerviews.MajorAdapter
@@ -24,42 +25,24 @@ class FilterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.filter_page)
+        overridePendingTransition(R.anim.horizon_enter, R.anim.none)
 
-//        if(intent.getBooleanExtra("first", false)){
-//            backButton.visibility = View.GONE
-//        }
 
-        var db =
-            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
-                .build()
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         val majorList = db.majorDao().all
         var majorAdapter = MajorAdapter(this, majorList, loadSharedPreferencesMajor(majorList))
 
-        majorRecyler.layoutManager = LinearLayoutManager(
-            this@FilterActivity,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        majorRecyler.layoutManager = LinearLayoutManager(this@FilterActivity, LinearLayoutManager.VERTICAL, false)
         majorRecyler.setHasFixedSize(true)
         majorRecyler.adapter = majorAdapter
 
         majorAdapter.filter.filter("")
 
         val collegeList = db.collegeDao().all
-        var collegeAdapter = CollegeAdapter(
-            this,
-            collegeList,
-            majorList,
-            majorAdapter,
-            loadSharedPreferencesCollege(collegeList)
-        )
+        var collegeAdapter = CollegeAdapter(this, collegeList, majorList, majorAdapter, loadSharedPreferencesCollege(collegeList))
 
-        collegeRecyler.layoutManager = LinearLayoutManager(
-            this@FilterActivity,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        collegeRecyler.layoutManager = LinearLayoutManager(this@FilterActivity, LinearLayoutManager.VERTICAL, false)
         collegeRecyler.setHasFixedSize(true)
         collegeRecyler.adapter = collegeAdapter
         val spaceDecoration = RecyclerDecoration(0)
@@ -102,10 +85,15 @@ class FilterActivity : AppCompatActivity() {
                 sharedEditor = sharedObject.edit()
                 sharedEditor.putBoolean("isFirst", true)
                 sharedEditor.commit()
+                finish()
                 startActivity(Intent(this, MainActivity::class.java))
+            } else {
+                val intent = Intent(this, MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                intent.putExtra("UpdateFilter", true)
+                finish()
+                startActivity(intent)
             }
-
-            finish()
         }
     }
 
@@ -126,6 +114,11 @@ class FilterActivity : AppCompatActivity() {
         }
 
         sharedEditor.commit()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        overridePendingTransition(R.anim.none, R.anim.right_to_left)
     }
 
     private fun loadSharedPreferencesCollege(collegeList: List<College>): MutableMap<String, Boolean> {

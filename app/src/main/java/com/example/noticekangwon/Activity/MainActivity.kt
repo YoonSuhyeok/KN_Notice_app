@@ -1,80 +1,69 @@
 package com.example.noticekangwon.Activity
 
-import android.content.BroadcastReceiver
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.CompoundButton
-import android.widget.RadioButton
-import android.widget.RadioGroup
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.noticekangwon.*
 import com.example.noticekangwon.DataBase.AppDataBase
-import com.example.noticekangwon.DataBase.College
-import com.example.noticekangwon.DataBase.Major
 import com.example.noticekangwon.DataBase.Notice
+import com.example.noticekangwon.Jsoup.SoupClient
 import com.example.noticekangwon.Recyclerviews.NoticeAdapter
 import com.example.noticekangwon.Recyclerviews.RecyclerDecoration
-import com.example.noticekangwon.defaultClass.ThemeSet
-import com.example.noticekangwon.notifiThread.MyService
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_custom.*
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.select.Elements
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
-
 
 class MainActivity : AppCompatActivity() {
 
     private var noticeList: List<Notice> = arrayListOf()
     private var selectedList: List<String> = arrayListOf()
     private var selectedIds: ArrayList<Int> = arrayListOf()
-    private lateinit var noticeAdapter: NoticeAdapter
+    private var noticeAdapter: NoticeAdapter = NoticeAdapter(noticeList)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if(intent.getBooleanExtra("UpdateFilter", false)){
+            overridePendingTransition(R.anim.center_to_right, R.anim.none)
+        } else {
+            overridePendingTransition(R.anim.horizon_enter, R.anim.none)
+        }
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
 
-        var db =
-            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
-                .build()
+        val anim = AnimationUtils.loadAnimation(this@MainActivity, R.anim.load)
+        // progressBar.animation = anim
+        progressBar.visibility = View.GONE
+
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         recyclerview.setHasFixedSize(true)
-        val spaceDecoration = RecyclerDecoration(0)
-        recyclerview.addItemDecoration(spaceDecoration)
-
-        recyclerview.layoutManager = LinearLayoutManager(
-            this@MainActivity,
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        recyclerview.addItemDecoration(RecyclerDecoration(0))
+        recyclerview.layoutManager = LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
 
         var shared = getSharedPreferences("updateDate", 0)
         var edit: SharedPreferences.Editor = shared.edit()
-        var f: SimpleDateFormat = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.KOREA)
+        var f = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.KOREA)
         var beforeTime = shared.getString("lastUpdate", null)
         if (beforeTime == null) {
             println("날짜 초기 저장")
-            progressBar.visibility = View.VISIBLE
-            fetchData(db, 91)
+            fetchExp(db)
             edit.putString("lastUpdate", f.format(Date()).toString())
             edit.commit()
         } else {
@@ -85,17 +74,18 @@ class MainActivity : AppCompatActivity() {
             var diff = (now.time - beforeDate.time) / (1000 * 60 * 60)
             if (diff >= 1) {
                 println("패치 재실행")
-                progressBar.visibility = View.VISIBLE
-                fetchData(db, 91)
+                fetchExp(db)
                 edit.putString("lastUpdate", f.format(Date()).toString())
                 edit.commit()
             }
         }
 
-        fetchAdapter()
-
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
+        }
+        if(intent.getBooleanExtra("UpdateFilter", false)){
+            fetchExp(db)
+            // 이전 필터 값이랑 이후 필터값이랑 동일한지 비교하는 것이 필요할 것 같음
         }
     }
 
@@ -131,22 +121,20 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun fetchAdapter() {
-        var db =
-            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
-                .build()
+        var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         var shared: SharedPreferences = getSharedPreferences("major", 0)
         var mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
         selectedList = ArrayList(mutSet)
-      
+
         for (sel in selectedList) {
             if (shared.all[sel] == true) {
                 selectedIds.add(db.majorDao().getMId(sel))
             }
         }
 
-        progressBar.visibility = View.GONE
+        // progressBar.visibility = View.GONE
 
         noticeList = db.noticeDao().getFil(selectedIds)
 
@@ -157,43 +145,11 @@ class MainActivity : AppCompatActivity() {
 
         db.close()
 
-        noticeAdapter = NoticeAdapter(noticeList, "학사공지")
+        noticeAdapter = NoticeAdapter(noticeList)
 
         recyclerview.adapter = noticeAdapter
 
         noticeAdapter.filter.filter("")
-    }
-
-    fun fetchData(appdatabase: AppDataBase, id: Int) {
-        CoroutineScope(Main).launch(Dispatchers.IO) {
-            val fk = id
-            val doc: Document? =
-                Jsoup.connect("https://www.kangwon.ac.kr/www/selectBbsNttList.do?bbsNo=37&key=1176")
-                    .get()
-            var contents: Elements
-            if (doc != null) {
-                contents = doc.select("table.bbs_default.list tbody tr")
-
-                for (content in contents) {
-                    // 링크
-                    val url = "http://www.kangwon.ac.kr/www/" + content.select("td")[2].select("a")
-                        .attr("href").substring(2)
-                    // 제목
-                    val title = content.select("td")[2].text()
-                    // 첨부파일 유무 <td class="web_block"> </td> 의 size값에 따라 다르게 해줘야할 것 같음
-                    // val extension = content.select("td")[4]
-                    val extension = false;
-                    // 날짜
-                    val date = content.select("td")[5].text()
-
-                    appdatabase.noticeDao().insert(Notice(fk, title, url, date, extension))
-                    println(title)
-                }
-            }
-            CoroutineScope(Main).launch {
-                fetchAdapter()
-            }
-        }
     }
 
     fun fetchExp(db: AppDataBase) {
@@ -201,6 +157,22 @@ class MainActivity : AppCompatActivity() {
         var mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
         selectedList = ArrayList(mutSet)
-    }
+        val client = SoupClient(db, noticeAdapter)
 
+        for (x in selectedList) if (shared.all[x] == true)
+            client.fetchInfoList[db.majorDao().getMId(x) - 1].isSelect = true
+
+        for (x in client.fetchInfoList) {
+            if (x.isSelect) {
+                client.fetchData(x.index, x.baseUrl, x.cutBaseUrlNumber, x.cutFetchUrlNumber)
+            }
+        }
+
+        CoroutineScope(Main).launch {
+            // progressBar.visibility = View.VISIBLE
+            delay(1000)
+            fetchAdapter()
+            progressBar.visibility = View.GONE
+        }
+    }
 }

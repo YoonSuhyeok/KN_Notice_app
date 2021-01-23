@@ -20,6 +20,8 @@ public class Notice {
         this.mTitle = mTitle;
         this.mUrl = mUrl;
         this.mDate = mDate;
+        isPin = 1;
+        isBookmark = false;
     }
 
     public int mIdFk;
@@ -28,4 +30,6 @@ public class Notice {
     public String mTitle;
     public String mUrl;
     public String mDate;
+    public int isPin;
+    public boolean isBookmark;
 }

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private var noticeList: List<Notice> = arrayListOf()
     private var selectedList: List<String> = arrayListOf()
     private var selectedIds: ArrayList<Int> = arrayListOf()
-    private var noticeAdapter: NoticeAdapter = NoticeAdapter(noticeList)
+    private var noticeAdapter: NoticeAdapter = NoticeAdapter(this, noticeList)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,6 +88,8 @@ class MainActivity : AppCompatActivity() {
             fetchExp(db)
             // 이전 필터 값이랑 이후 필터값이랑 동일한지 비교하는 것이 필요할 것 같음
         }
+
+        fetchAdapter()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -116,9 +118,15 @@ class MainActivity : AppCompatActivity() {
         noticeAdapter.filter.filter(search.text)
     }
 
+    fun reloadAda(view: View) {
+        finishAffinity()
+    }
+
     override fun onResume() {
         super.onResume()
         fetchAdapter()
+        if(search.text.toString() == "")
+            noticeAdapter.filter.filter("")
     }
 
     private fun fetchAdapter() {
@@ -139,14 +147,9 @@ class MainActivity : AppCompatActivity() {
 
         noticeList = db.noticeDao().getFil(selectedIds)
 
-        // ?: DB 내에서 정렬하여 나오는 방법은 없나?
-        if (noticeList.isNotEmpty())
-            noticeList = noticeList.sortedByDescending { it -> it.mDate }
-        // 1000 = 1초 >> 1000*60*60*3 = 3시간 vvv 3 시간마다 데이터 패치 진행
-
         db.close()
 
-        noticeAdapter = NoticeAdapter(noticeList)
+        noticeAdapter = NoticeAdapter(this, noticeList)
 
         recyclerview.adapter = noticeAdapter
 

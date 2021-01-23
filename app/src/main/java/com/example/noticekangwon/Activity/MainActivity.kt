@@ -61,6 +61,7 @@ class MainActivity : AppCompatActivity() {
         var edit: SharedPreferences.Editor = shared.edit()
         var f = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.KOREA)
         var beforeTime = shared.getString("lastUpdate", null)
+
         if (beforeTime == null) {
             println("날짜 초기 저장")
             fetchExp(db)
@@ -102,7 +103,7 @@ class MainActivity : AppCompatActivity() {
             }
             R.id.switchBtn -> {
                 val dialog = CustomDialog.CustomDialogBuilder()
-                    .setTitle("모드 설정", this)
+                    .setTitle("테마", this)
                     .create()
                 dialog.show(supportFragmentManager, dialog.tag)
                 true
@@ -120,7 +121,7 @@ class MainActivity : AppCompatActivity() {
         fetchAdapter()
     }
 
-    fun fetchAdapter() {
+    private fun fetchAdapter() {
         var db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         var shared: SharedPreferences = getSharedPreferences("major", 0)
@@ -152,7 +153,7 @@ class MainActivity : AppCompatActivity() {
         noticeAdapter.filter.filter("")
     }
 
-    fun fetchExp(db: AppDataBase) {
+    private fun fetchExp(db: AppDataBase) {
         var shared: SharedPreferences = getSharedPreferences("major", 0)
         var mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
@@ -164,7 +165,7 @@ class MainActivity : AppCompatActivity() {
 
         for (x in client.fetchInfoList) {
             if (x.isSelect) {
-                client.fetchData(x.index, x.baseUrl, x.cutBaseUrlNumber, x.cutFetchUrlNumber)
+                client.fetchData(x.index, x.baseUrl, x.cutBaseUrlNumber, x.cutpatchUrlNumber)
             }
         }
 

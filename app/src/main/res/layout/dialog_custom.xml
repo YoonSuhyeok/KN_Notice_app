@@ -48,7 +48,8 @@
                     android:buttonTintMode="@color/rdBtnColor"
                     android:textAlignment="center"
                     android:textColor="@color/fontColor"
-                    android:textSize="20dp"/>
+                    android:textSize="20dp"
+                    android:theme="@style/modeRadioBtnStyle"/>
                 <RadioButton
                     android:id="@+id/radioBtn2"
                     android:layout_width="wrap_content"
@@ -58,7 +59,8 @@
                     android:textAlignment="center"
                     android:backgroundTint="@color/rdBtnColor"
                     android:textColor="@color/fontColor"
-                    android:textSize="20dp"/>
+                    android:textSize="20dp"
+                    android:theme="@style/modeRadioBtnStyle"/>
                 <RadioButton
                     android:id="@+id/radioBtn3"
                     android:layout_width="wrap_content"
@@ -68,7 +70,8 @@
                     android:textAlignment="center"
                     android:buttonTintMode="@color/rdBtnColor"
                     android:textColor="@color/fontColor"
-                    android:textSize="20dp"/>
+                    android:textSize="20dp"
+                    android:theme="@style/modeRadioBtnStyle"/>
             </RadioGroup>
         </LinearLayout>
 

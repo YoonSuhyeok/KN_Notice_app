@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.dialog_custom.view.*
 
 class CustomDialog : DialogFragment() {
 
-    var title: String? = "모드 설정"
+    var title: String? = "테마"
     var con: Context? = null
 
     @SuppressLint("ResourceType")

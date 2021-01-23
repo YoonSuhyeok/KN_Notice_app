@@ -1,15 +1,19 @@
 package com.example.noticekangwon.Recyclerviews
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnLongClickListener
+import android.view.View.*
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.noticekangwon.Activity.CustomDialog
+import com.example.noticekangwon.Activity.LongClickMenu
+import com.example.noticekangwon.Activity.MainActivity
 import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.R
 import com.example.noticekangwon.Recyclerviews.something.Companion.nameList
@@ -18,10 +22,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class NoticeAdapter(private var NoticeList: List<Notice>) : RecyclerView.Adapter<NoticeAdapter.Holder>(), Filterable {
+class NoticeAdapter(private var context: Context, private var NoticeList: List<Notice>) : RecyclerView.Adapter<NoticeAdapter.Holder>(), Filterable {
 
     private var unFilList = NoticeList
-    private var filList: List<Notice> = arrayListOf<Notice>()
+    private var filList: List<Notice> = NoticeList
     private val today =
         SimpleDateFormat("yyyy.MM.dd", Locale.KOREA).format(Calendar.getInstance().time)
 
@@ -40,13 +44,16 @@ class NoticeAdapter(private var NoticeList: List<Notice>) : RecyclerView.Adapter
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 parent.context.startActivity(intent)
             }
+
             /* itemView.setOnLongClickListener(OnLongClickListener {
             찾아본 결과 카카오톡으로 나에게 메시지 보내는 기능은 api key를 사용해야한다는 것
                 true //true 설정
             }) */
 
             itemView.setOnLongClickListener(View.OnLongClickListener() {
-                NoticeList[adapterPosition].mTitle
+                var longClick = LongClickMenu(context)
+                println(filList[adapterPosition].mTitle)
+                longClick.callFun(filList[adapterPosition].mTitle)
                 true
             })
         }
@@ -58,10 +65,17 @@ class NoticeAdapter(private var NoticeList: List<Notice>) : RecyclerView.Adapter
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         if (filList[position].mDate == today) {
-            holder.newTag.visibility = View.VISIBLE
+            holder.newTag.visibility = VISIBLE
         } else {
-            holder.newTag.visibility = View.INVISIBLE
+            holder.newTag.visibility = GONE
         }
+
+        if(filList[position].isPin == 0) {
+            holder.pinTag.visibility = VISIBLE
+        } else {
+            holder.pinTag.visibility = INVISIBLE
+        }
+
         holder.noticeSubject.text = nameList[filList[position].mIdFk]
         holder.noticeTitle.text = filList[position].mTitle
         holder.date.text = filList[position].mDate
@@ -99,6 +113,7 @@ class NoticeAdapter(private var NoticeList: List<Notice>) : RecyclerView.Adapter
 
     class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val newTag: TextView = itemView.new_tag
+        val pinTag: TextView = itemView.pin_tag
         val noticeTitle: TextView = itemView.Title
         val noticeSubject: TextView = itemView.department
         val date: TextView = itemView.date

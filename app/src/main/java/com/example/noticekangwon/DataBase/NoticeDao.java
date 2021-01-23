@@ -11,11 +11,17 @@ import java.util.List;
 
 @Dao
 public interface NoticeDao {
-    @Query("SELECT * FROM Notice ORDER BY mDate")
+    @Query("SELECT * FROM Notice ORDER BY isPin, mDate")
     List<Notice> getAll();
 
-    @Query("SELECT * FROM Notice WHERE mIdFk IN (:ids) ORDER BY mDate")
+    @Query("SELECT * FROM Notice WHERE mIdFk IN (:ids) ORDER BY isPin, mDate")
     List<Notice> getFil(List<Integer> ids);
+
+    @Query("SELECT * FROM Notice WHERE mTitle LIKE :title")
+    Notice getNotice(String title);
+
+    @Query("SELECT * FROM Notice WHERE isBookmark = :bookOn")
+    List<Notice> getBookmark(boolean bookOn);
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insert(Notice notice);

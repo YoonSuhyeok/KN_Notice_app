@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dia_round">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_margin="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <Button
+                android:id="@+id/pinBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_btn_click"
+                android:onClick="reloadAda"
+                android:text="상단 핀 고정"
+                android:textColor="@color/devTitleFontColor"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/nanumsquare_acr"/>
+            <Button
+                android:id="@+id/bookBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/menu_btn_click"
+                android:onClick="reloadAda"
+                android:text="북마크 추가"
+                android:textColor="@color/devTitleFontColor"
+                android:textAlignment="textStart"
+                android:fontFamily="@font/nanumsquare_acr"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

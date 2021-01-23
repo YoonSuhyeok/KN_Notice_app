@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Color -->
+    <color name="myGray">#787878</color>
     <!-- Layouts -->
     <color name="colorPrimary">#404040</color>
     <color name="topColor">#101010</color>

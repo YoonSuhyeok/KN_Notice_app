@@ -15,4 +15,8 @@
         <item name="colorAccent">@color/rdBtnColor</item>
         <item name="colorControlNormal">@color/fontColor</item>
     </style>
+
+    <style name="LongClickBtnAction">
+        <item name="colorControlHighlight">@color/myGray</item>
+    </style>
 </resources>

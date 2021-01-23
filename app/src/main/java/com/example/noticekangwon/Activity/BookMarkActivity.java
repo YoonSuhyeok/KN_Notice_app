@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.noticekangwon.R;
 
@@ -14,6 +15,9 @@ public class BookMarkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bookmark_page);
 
-
+        Toolbar toolbar = findViewById(R.id.bookToolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 }

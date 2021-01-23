@@ -30,7 +30,7 @@ class NoticeAdapter(private var NoticeList: List<Notice>) : RecyclerView.Adapter
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.list_item_notice, parent, false)
         return Holder(view).apply {
-            itemView.ImageButton.setOnClickListener {
+            itemView.setOnClickListener {
                 // getBindingAdapterPosition
                 val curPos: Int = adapterPosition
                 // Move to the URI_Site
@@ -44,6 +44,11 @@ class NoticeAdapter(private var NoticeList: List<Notice>) : RecyclerView.Adapter
             찾아본 결과 카카오톡으로 나에게 메시지 보내는 기능은 api key를 사용해야한다는 것
                 true //true 설정
             }) */
+
+            itemView.setOnLongClickListener(View.OnLongClickListener() {
+                NoticeList[adapterPosition].mTitle
+                true
+            })
         }
     }
 

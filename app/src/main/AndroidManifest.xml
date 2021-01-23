@@ -23,9 +23,11 @@
 
         <activity android:name=".Activity.DevelopInfoActivity" android:parentActivityName=".Activity.MainActivity"></activity>
 
+        <activity android:name=".Activity.BookMarkActivity" android:parentActivityName=".Activity.MainActivity"></activity>
+
         <activity android:name=".Activity.FilterActivity"></activity>
 
-        <service android:name=".notifiThread.MyService"/>
+<!--        <service android:name=".notifiThread.MyService"/>-->
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 

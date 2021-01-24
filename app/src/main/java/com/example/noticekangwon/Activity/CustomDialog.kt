@@ -46,9 +46,12 @@ class CustomDialog : DialogFragment() {
             var mode = shared?.getString("themeMode", ThemeSet.LIGHT_MODE)
 
             when (mode) {
-                ThemeSet.LIGHT_MODE -> radioBtn1.isChecked = true
-                ThemeSet.DARK_MODE -> radioBtn2.isChecked = true
-                ThemeSet.DEFAULT_MODE -> radioBtn3.isChecked = true
+                ThemeSet.LIGHT_MODE ->  {
+                    radioBtn1.isChecked = true}
+                ThemeSet.DARK_MODE -> {
+                    radioBtn2.isChecked = true}
+                ThemeSet.DEFAULT_MODE -> {
+                    radioBtn3.isChecked = true}
             }
 
             rdG1.setOnCheckedChangeListener { _, checkId ->
@@ -57,6 +60,8 @@ class CustomDialog : DialogFragment() {
                         edit?.clear()
                         edit?.putString("themeMode", ThemeSet.LIGHT_MODE)
                         ThemeSet.applyTheme(ThemeSet.LIGHT_MODE)
+                        radioBtn1.highlightColor = resources.getColor(R.color.rdBtnColor)
+                        radioBtn3.highlightColor = resources.getColor(R.color.rdBtnColor)
                         edit?.commit()
                     }
                     R.id.radioBtn2 -> {
@@ -69,6 +74,8 @@ class CustomDialog : DialogFragment() {
                         edit?.clear()
                         edit?.putString("themeMode", ThemeSet.DEFAULT_MODE)
                         ThemeSet.applyTheme(ThemeSet.DEFAULT_MODE)
+                        radioBtn1.highlightColor = resources.getColor(R.color.rdBtnColor)
+                        radioBtn3.highlightColor = resources.getColor(R.color.rdBtnColor)
                         edit?.commit()
                     }
                 }

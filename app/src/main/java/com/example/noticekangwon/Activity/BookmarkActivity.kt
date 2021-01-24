@@ -45,4 +45,19 @@ class BookmarkActivity : AppCompatActivity() {
         bookmarkRecycle.adapter = noticeAdapter
     }
 
+    override fun onResume() {
+        super.onResume()
+        var db =
+            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
+                .build()
+
+        noticeList = db.noticeDao().getBookmark(true)
+
+        db.close()
+
+        noticeAdapter = NoticeAdapter(this, noticeList)
+
+        bookmarkRecycle.adapter = noticeAdapter
+    }
+
 }

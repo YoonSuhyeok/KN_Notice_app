@@ -32,7 +32,7 @@ import kotlin.collections.ArrayList
 class MainActivity : AppCompatActivity() {
 
     private var noticeList: List<Notice> = arrayListOf()
-    private var selectedList: List<String> = arrayListOf()
+    private var allList: List<String> = arrayListOf()
     private var selectedIds: ArrayList<Int> = arrayListOf()
     private var noticeAdapter: NoticeAdapter = NoticeAdapter(this, noticeList)
 
@@ -68,20 +68,33 @@ class MainActivity : AppCompatActivity() {
         var f = SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.KOREA)
         var beforeTime = shared.getString("lastUpdate", null)
 
+        var lastIds = shared.getString("lastIds", "")
+
+        shared = getSharedPreferences("major", 0)
+        var mutSet: MutableSet<String> = shared.all.keys
+        var saveIds = StringBuffer("")
+        allList = ArrayList(mutSet)
+
+        for (sel in allList) {
+            if (shared.all[sel] == true) {
+                saveIds.append(db.majorDao().getMId(sel))
+            }
+        }
+
         if (beforeTime == null) {
             println("날짜 초기 저장")
             fetchExp(db)
+            edit.putString("lastIds", saveIds.toString())
             edit.putString("lastUpdate", f.format(Date()).toString())
             edit.commit()
         } else {
-            var shared: SharedPreferences = getSharedPreferences("major", 0)
-            var mutSet: MutableSet<String> = shared.all.keys
             var beforeDate: Date = f.parse(beforeTime)
             var now: Date = f.parse(f.format(Date()))
             var diff = (now.time - beforeDate.time) / (1000 * 60 * 60)
-            if (diff >= 1) {
+            if (diff >= 1 || lastIds != saveIds.toString()) {
                 println("패치 재실행")
                 fetchExp(db)
+                edit.putString("lastIds", saveIds.toString())
                 edit.putString("lastUpdate", f.format(Date()).toString())
                 edit.commit()
             }
@@ -89,11 +102,6 @@ class MainActivity : AppCompatActivity() {
 
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
-        }
-
-        if (intent.getBooleanExtra("UpdateFilter", false)) {
-            fetchExp(db)
-            // 이전 필터 값이랑 이후 필터값이랑 동일한지 비교하는 것이 필요할 것 같음
         }
     }
 
@@ -133,8 +141,6 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         fetchAdapter()
-        if (search.text.toString() == "")
-            noticeAdapter.filter.filter("")
     }
 
     private fun fetchAdapter() {
@@ -145,9 +151,9 @@ class MainActivity : AppCompatActivity() {
         var shared: SharedPreferences = getSharedPreferences("major", 0)
         var mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
-        selectedList = ArrayList(mutSet)
+        allList = ArrayList(mutSet)
 
-        for (sel in selectedList) {
+        for (sel in allList) {
             if (shared.all[sel] == true) {
                 selectedIds.add(db.majorDao().getMId(sel))
             }
@@ -171,20 +177,22 @@ class MainActivity : AppCompatActivity() {
         var mutSet: MutableSet<String> = shared.all.keys
         progressBar.visibility = View.VISIBLE
         selectedIds = arrayListOf()
-        selectedList = ArrayList(mutSet)
+        allList = ArrayList(mutSet)
         val client = SoupClient(db, noticeAdapter)
 
-        for (x in selectedList) if (shared.all[x] == true)
+        for (x in allList) if (shared.all[x] == true)
             client.fetchInfoList[db.majorDao().getMId(x) - 1].isSelect = true
 
+        var count:Long = 0
         for (x in client.fetchInfoList) {
             if (x.isSelect) {
+                count++
                 client.fetchData(x.index, x.baseUrl, x.cutBaseUrlNumber, x.cutpatchUrlNumber)
             }
         }
 
         CoroutineScope(Main).launch {
-            delay(5000)
+            delay(count * 1500)
             fetchAdapter()
             progressBar.visibility = View.GONE
         }

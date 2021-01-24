@@ -74,6 +74,8 @@ class MainActivity : AppCompatActivity() {
             edit.putString("lastUpdate", f.format(Date()).toString())
             edit.commit()
         } else {
+            var shared: SharedPreferences = getSharedPreferences("major", 0)
+            var mutSet: MutableSet<String> = shared.all.keys
             var beforeDate: Date = f.parse(beforeTime)
             var now: Date = f.parse(f.format(Date()))
             var diff = (now.time - beforeDate.time) / (1000 * 60 * 60)
@@ -181,7 +183,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        fetchAdapter()
-        progressBar.visibility = View.GONE
+        CoroutineScope(Main).launch {
+            delay(5000)
+            fetchAdapter()
+            progressBar.visibility = View.GONE
+        }
     }
 }

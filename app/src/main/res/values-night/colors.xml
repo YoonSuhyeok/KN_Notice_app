@@ -17,7 +17,7 @@
     <color name="devTitleFontColor">#FFFFFF</color>
     <!-- Button -->
     <color name="btnColor">#FFFFFF</color>
-    <color name="rdBtnColor">#5076FF</color>
+    <color name="rdBtnColor">#5E81FF</color>
     <!-- Border -->
     <color name="noticeBorderColor">#1C1C1C</color>
     <color name="filterBorderColor">#101010</color>

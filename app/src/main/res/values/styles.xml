@@ -18,10 +18,6 @@
         <item name="colorControlNormal">@color/rdBtnColor</item>
     </style>
 
-    <style name="LongClickBtnAction">
-        <item name="colorControlHighlight">@color/myGray</item>
-    </style>
-
     <style name="MenuTextColor">
         <item name="android:textColor">@color/devTitleFontColor</item>
     </style>

@@ -3,15 +3,11 @@
     <!-- Color -->
     <color name="myGray">#787878</color>
     <!-- Layouts -->
-    <color name="colorPrimary">#404040</color>
     <color name="topColor">#101010</color>
-    <color name="layoutBackground">#282828</color>
     <color name="filterBack">#101010</color>
     <color name="background">#282828</color>
     <color name="searchBack">#5C5C5C</color>
     <!-- Fonts -->
-    <color name="mainTitleFontColor">#5076FF</color>
-    <color name="mainFontColor">#FFFFFF</color>
     <color name="fontColor">#FFFFFF</color>
     <color name="subFontColor">#BFBFBF</color>
     <color name="devTitleFontColor">#FFFFFF</color>
@@ -20,7 +16,6 @@
     <color name="rdBtnColor">#5E81FF</color>
     <!-- Border -->
     <color name="noticeBorderColor">#1C1C1C</color>
-    <color name="filterBorderColor">#101010</color>
     <!-- Shadow -->
     <color name="shadow4">#00000000</color>
     <color name="shadow1">#00000000</color>

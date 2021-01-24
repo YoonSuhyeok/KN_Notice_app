@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/layoutBackground"
-    tools:context=".Activity.MainActivity">
+    tools:context=".activity.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
@@ -18,33 +17,19 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/toolbar_title"
+
+    <TextView
+        android:layout_marginTop="22dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="14dp"
-        android:layout_marginTop="19dp"
-        android:orientation="horizontal"
-        android:textSize="20dp">
-
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/title_logo" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="5dp"
-            android:fontFamily="@font/nq_aceb"
-            android:text="공지알리미"
-            android:textColor="#FFFFFF"
-            android:textSize="22dp"
-            android:textStyle="bold" />
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:layout_marginStart="25dp"
+        android:fontFamily="@font/nq_aceb"
+        android:text="공지알리미"
+        android:textColor="#FFFFFF"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:drawableLeftCompat="@drawable/title_logo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/search_lin"
@@ -70,7 +55,7 @@
             android:id="@+id/searchBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginEnd="15dp"
             android:background="@drawable/search_button"
             android:onClick="searchList"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -83,17 +68,21 @@
             android:layout_height="0dp"
             android:layout_marginStart="4dp"
             android:background="@android:color/transparent"
-            android:hint="검색할 키워드를 입력해주세요"
+            android:hint="@string/mainSearchBarHint"
             android:maxLines="1"
-            android:paddingLeft="20dp"
+            android:paddingStart="20dp"
             android:textColor="@color/fontColor"
             android:textColorHint="#C4C4C4"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/searchBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:ignore="RtlSymmetry"
+            android:inputType="text"
+            android:autofillHints="no"
+            tools:targetApi="o"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,7 +96,7 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <ImageView
+    <!-- <ImageView
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -115,6 +104,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        app:srcCompat="@drawable/ic_free_icon_bear_4057996" />
+        android:visibility="invisible"
+        app:srcCompat="@drawable/ic_free_icon_bear_4057996" />-->
 
 </RelativeLayout>

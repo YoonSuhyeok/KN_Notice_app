@@ -1,12 +1,19 @@
 <resources>
     <string name="app_name">공지알리미</string>
-    <string name="setting">setting</string>
-    <string name="news">NEW</string>
     <string name="_2020_03_18">2020.03.18</string>
     <string name="Department">예비군연대</string>
     <string name="Title">학생예비군(학부생, 대학원생) 전입신고 안내</string>
-    <string name="Barsket">꺽새 버튼</string>
-    <string name="bar"></string>
+    <string name="developer">Developed by developer</string>
+    <string name="appName">강원대학교 공지알리미</string>
+    <string name="testContent">테스트</string>
+    <string name="check">Check</string>
+    <string name="pinText">상단 핀 고정</string>
+    <string name="bookmarkText">북마크 추가</string>
+    <string name="majorFirstElement">·</string>
+    <string name="backKey">backKey</string>
+    <string name="FilterName">검색필터</string>
+    <string name="FilterTopText">학과선택</string>
+    <string name="mainSearchBarHint">검색할 키워드를 입력해주세요</string>
 
     <string-array name="college">
         <item>간호대학</item>

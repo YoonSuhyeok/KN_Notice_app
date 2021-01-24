@@ -4,6 +4,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/topColor</item>
         <item name="android:colorBackground">@color/background</item>
+        <item name="android:itemBackground">@color/background</item>
+        <item name="android:itemTextAppearance">@style/MenuTextColor</item>
     </style>
     <!-- Dialog Animation -->
     <style name="AnimationPopupStyle">
@@ -11,12 +13,16 @@
         <item name="android:windowExitAnimation">@anim/close</item>
     </style>
 
-    <style name="modeRadioBtnStyle" parent="Theme.AppCompat.Light">
+    <style name="modeRadioBtnStyle" parent="Theme.AppCompat.DayNight">
         <item name="colorAccent">@color/rdBtnColor</item>
-        <item name="colorControlNormal">@color/fontColor</item>
+        <item name="colorControlNormal">@color/rdBtnColor</item>
     </style>
 
     <style name="LongClickBtnAction">
         <item name="colorControlHighlight">@color/myGray</item>
+    </style>
+
+    <style name="MenuTextColor">
+        <item name="android:textColor">@color/devTitleFontColor</item>
     </style>
 </resources>

@@ -85,13 +85,13 @@ class FilterActivity : AppCompatActivity() {
                 sharedEditor = sharedObject.edit()
                 sharedEditor.putBoolean("isFirst", true)
                 sharedEditor.commit()
-                finish()
+                finishAffinity()
                 startActivity(Intent(this, MainActivity::class.java))
             } else {
                 val intent = Intent(this, MainActivity::class.java)
                 intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                 intent.putExtra("UpdateFilter", true)
-                finish()
+                finishAffinity()
                 startActivity(intent)
             }
         }

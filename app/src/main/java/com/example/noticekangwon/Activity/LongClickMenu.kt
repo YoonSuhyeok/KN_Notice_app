@@ -2,15 +2,23 @@ package com.example.noticekangwon.Activity
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Window
 import android.widget.Button
+import androidx.appcompat.widget.AppCompatDrawableManager
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.room.Room
 import com.example.noticekangwon.DataBase.AppDataBase
 import com.example.noticekangwon.DataBase.Notice
 import com.example.noticekangwon.R
+import com.example.noticekangwon.Recyclerviews.NoticeAdapter
 import kotlinx.android.synthetic.main.longclick_dialog_menus.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class LongClickMenu(private var context: Context) {
 
@@ -41,9 +49,15 @@ class LongClickMenu(private var context: Context) {
             if(tmp.isPin == 0) {
                 tmp.isPin = 1;
                 db.noticeDao().update(tmp)
+                CoroutineScope(Dispatchers.Main).launch {
+                    ContextCompat.startActivity(context, Intent(context, TmpClass::class.java), null)
+                }
             } else {
                 tmp.isPin = 0;
                 db.noticeDao().update(tmp)
+                CoroutineScope(Dispatchers.Main).launch {
+                    ContextCompat.startActivity(context, Intent(context, TmpClass::class.java), null)
+                }
             }
             dig.dismiss()
         }
@@ -52,9 +66,15 @@ class LongClickMenu(private var context: Context) {
             if(tmp.isBookmark) {
                 tmp.isBookmark = false;
                 db.noticeDao().update(tmp)
+                CoroutineScope(Dispatchers.Main).launch {
+                    ContextCompat.startActivity(context, Intent(context, TmpClass::class.java), null)
+                }
             } else {
                 tmp.isBookmark = true;
                 db.noticeDao().update(tmp)
+                CoroutineScope(Dispatchers.Main).launch {
+                    ContextCompat.startActivity(context, Intent(context, TmpClass::class.java), null)
+                }
             }
             dig.dismiss()
         }

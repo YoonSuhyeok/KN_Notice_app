@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/notice_border"
@@ -8,13 +7,12 @@
 
     <LinearLayout
         android:id="@+id/tags"
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal">
-
+        android:layout_alignParentTop="true">
         <TextView
             android:id="@+id/new_tag"
             android:layout_width="wrap_content"
@@ -42,13 +40,28 @@
             android:layout_marginStart="5dp"
             android:layout_marginLeft="5dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/pin_rect"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
+            android:background="@drawable/pin_rect"
             android:text="PIN"
             android:textColor="#397FAE"
             android:textSize="13dp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/book_tag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="8dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:background="@drawable/book_rect"
+            android:text="BOOK"
+            android:textColor="#19346A"
+            android:textSize="13dp"
+            android:textStyle="bold"/>
     </LinearLayout>
 
     <TextView
@@ -59,29 +72,29 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="2dp"
-        android:ellipsize="marquee"
         android:fontFamily="@font/nq_aceb"
-        android:marqueeRepeatLimit="3"
         android:maxWidth="100dp"
-        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="3"
         android:text="@string/Title"
         android:textColor="@color/fontColor"
         android:textSize="16sp"
-        android:typeface="sans" />
+        android:typeface="sans"
+        android:singleLine="true" />
 
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Title"
-        android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="3dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="@string/_2020_03_18"
         android:textColor="@color/subFontColor"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        android:layout_marginStart="10dp" />
 
     <TextView
         android:id="@+id/bar"
@@ -112,18 +125,5 @@
         android:text="@string/Department"
         android:textColor="@color/subFontColor"
         android:textSize="12sp" />
-
-    <ImageButton
-        android:id="@+id/ImageButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/Barsket"
-        android:src="@drawable/bracket2" />
 
 </RelativeLayout>

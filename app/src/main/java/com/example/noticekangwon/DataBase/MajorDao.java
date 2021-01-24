@@ -16,7 +16,7 @@ public interface MajorDao {
     @Query("SELECT * FROM Major")
     List<Major> getAll();
 
-    @Query("SELECT mId FROM Major WHERE mName LIKE :name")
+    @Query("SELECT mId FROM Major WHERE mName LIKE :name ORDER BY mName")
     int getMId(String name);
 
     @Insert

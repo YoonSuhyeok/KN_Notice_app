@@ -11,7 +11,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notice.activity.LongClickMenu
+import com.example.notice.dialog.LongClickMenu
 import com.example.notice.dataBase.Notice
 import com.example.notice.R
 import com.example.notice.Recyclerviews.Something.Companion.nameList

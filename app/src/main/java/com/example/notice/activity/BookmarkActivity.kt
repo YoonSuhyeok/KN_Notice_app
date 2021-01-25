@@ -20,6 +20,7 @@ class BookmarkActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bookmark_page)
+        overridePendingTransition(R.anim.horizon_enter, R.anim.none)
 
         val toolbar: Toolbar = findViewById(R.id.bookToolbar)
         setSupportActionBar(toolbar)
@@ -31,9 +32,7 @@ class BookmarkActivity : AppCompatActivity() {
         bookmarkRecycle.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        val db =
-            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
-                .build()
+        val db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         noticeList = db.noticeDao().getBookmark(true)
 

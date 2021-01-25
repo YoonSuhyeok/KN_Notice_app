@@ -11,11 +11,13 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.notice.*
-import com.example.notice.dataBase.AppDataBase
-import com.example.notice.dataBase.Notice
 import com.example.notice.Jsoup.SoupClient
 import com.example.notice.Recyclerviews.NoticeAdapter
 import com.example.notice.Recyclerviews.RecyclerDecoration
+import com.example.notice.dataBase.AppDataBase
+import com.example.notice.dataBase.Notice
+import com.example.notice.dialog.CustomDialog
+import com.example.notice.dialog.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_custom.*
 import kotlinx.android.synthetic.main.longclick_dialog_menus.*
@@ -27,12 +29,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
+
 class MainActivity : AppCompatActivity() {
 
     private var noticeList: List<Notice> = arrayListOf()
     private var allList: List<String> = arrayListOf()
     private var selectedIds: ArrayList<Int> = arrayListOf()
     private var noticeAdapter: NoticeAdapter = NoticeAdapter(this, noticeList)
+    //Initialize Loader
+    private val loadingDialogFragment by lazy { LoadingDialog() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,11 +53,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
 
-//        val anim = AnimationUtils.loadAnimation(this@MainActivity, R.anim.load)
-//        // progressBar.animation = anim
-//        progressBar.visibility = View.GONE
-
-        val db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
+        val db =
+            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
+                .build()
 
         recyclerview.setHasFixedSize(true)
         recyclerview.addItemDecoration(RecyclerDecoration(0))
@@ -99,6 +102,7 @@ class MainActivity : AppCompatActivity() {
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
         }
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -141,7 +145,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun fetchAdapter() {
         val db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
-
         val shared: SharedPreferences = getSharedPreferences("major", 0)
         val mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
@@ -152,8 +155,6 @@ class MainActivity : AppCompatActivity() {
                 selectedIds.add(db.majorDao().getMId(sel))
             }
         }
-
-        // progressBar.visibility = View.GONE
 
         noticeList = db.noticeDao().getFil(selectedIds)
 
@@ -169,7 +170,7 @@ class MainActivity : AppCompatActivity() {
     private fun fetchExp(db: AppDataBase) {
         val shared: SharedPreferences = getSharedPreferences("major", 0)
         val mutSet: MutableSet<String> = shared.all.keys
-        // progressBar.visibility = View.VISIBLE
+
         selectedIds = arrayListOf()
         allList = ArrayList(mutSet)
         val client = SoupClient(db, noticeAdapter)
@@ -184,11 +185,25 @@ class MainActivity : AppCompatActivity() {
                 client.fetchData(x.index, x.baseUrl, x.cutBaseUrlNumber, x.cutFetchUrlNumber)
             }
         }
-
+        // show Loader
+        showProgressDialog()
         CoroutineScope(Main).launch {
             delay(count * 1500)
             fetchAdapter()
-            //progressBar.visibility = View.GONE
+            //Hide Loader
+            hideProgressDialog()
+        }
+    }
+
+    private fun showProgressDialog() {
+        if (!loadingDialogFragment.isAdded) {
+            loadingDialogFragment.show(supportFragmentManager, "loader")
+        }
+    }
+
+    private fun hideProgressDialog() {
+        if (loadingDialogFragment.isAdded) {
+            loadingDialogFragment.dismissAllowingStateLoss()
         }
     }
 }

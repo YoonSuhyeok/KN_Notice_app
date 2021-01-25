@@ -1,6 +1,7 @@
 package com.example.notice.Recyclerviews
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -36,7 +37,7 @@ class MajorAdapter(
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
         holder.majorName.text = littleMajor[position].mName
-        val name = "${holder.majorName.text}"
+        val name = littleMajor[position].mName
         if (isSelectList[name] == true) {
             holder.itemView.setBackgroundColor(clickColor)
         } else {
@@ -44,7 +45,7 @@ class MajorAdapter(
         }
 
         holder.itemView.setOnClickListener {
-            if (isSelectList[name] == true) {
+            if (isSelectList[name] == true) { // nonClick
                 holder.itemView.setBackgroundColor(nonClickColor)
                 isSelectList[name] = false
             } else {

@@ -2,6 +2,7 @@ package com.example.notice.Recyclerviews
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,6 +21,7 @@ class CollegeAdapter(
 
     private val nonClickColor = context.resources.getColor(R.color.fontColor)
     private val clickColor = context.resources.getColor(R.color.ClickCollegeViewColor)
+    private val clickFont = context.resources.getColor(R.color.subCollege)
 
     private val offViewBackground = context.resources.getDrawable(R.drawable.filter_border, null)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
@@ -32,22 +34,26 @@ class CollegeAdapter(
         val name = collegeList[position].cName
         if (isSelectList[name] == true) {
             holder.itemView.setBackgroundColor(clickColor)
-            holder.collegeText.setTextColor(Color.WHITE)
+            holder.collegeText.setTextColor(clickFont)
             majorAdapter.plusFilterPatten(collegeList[position].cId)
+        } else {
+            holder.checkImg.visibility = View.GONE
         }
 
         holder.itemView.setOnClickListener {
-            if (isSelectList[name] == false) {
-                holder.itemView.setBackgroundColor(clickColor)
-                holder.collegeText.setTextColor(Color.WHITE)
-                isSelectList[name] = true
-                majorAdapter.plusFilterPatten(collegeList[position].cId)
-            } else {
+            if (isSelectList[name] == true) { // nonClick
                 holder.itemView.background = offViewBackground
                 holder.collegeText.setTextColor(nonClickColor)
                 isSelectList[name] = false
                 majorAdapter.minusFilterPatten(collegeList[position].cId)
                 offSelect(collegeList[position].cId)
+                holder.checkImg.visibility = View.GONE
+            } else {
+                holder.itemView.setBackgroundColor(clickColor)
+                holder.collegeText.setTextColor(clickFont)
+                isSelectList[name] = true
+                majorAdapter.plusFilterPatten(collegeList[position].cId)
+                holder.checkImg.visibility = View.VISIBLE
             }
             majorAdapter.filter.filter("")
         }
@@ -70,6 +76,7 @@ class CollegeAdapter(
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //var collegeText: TextView = itemView.findViewById(R.id.CollegeName)
         var collegeText: TextView = itemView.CollegeName
+        var checkImg = itemView.check
     }
 
     fun getMap(): Map<String, Boolean> {

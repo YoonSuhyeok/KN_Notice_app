@@ -54,7 +54,7 @@
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:text="BOOK"
-            android:textColor="#19346A"
+            android:textColor="#43e97b"
             android:textSize="13sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -67,13 +67,14 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="2dp"
         android:ellipsize="marquee"
-        android:fontFamily="@font/nq_aceb"
+        android:fontFamily="@font/filter_font"
         android:marqueeRepeatLimit="3"
         android:maxWidth="100dp"
         android:singleLine="true"
         android:text="@string/Title"
         android:textColor="@color/fontColor"
         android:textSize="16sp"
+        android:textStyle="bold"
         android:typeface="sans" />
 
     <TextView

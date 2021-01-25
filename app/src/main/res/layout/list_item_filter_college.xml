@@ -12,14 +12,16 @@
         android:layout_marginStart="35dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
-        android:fontFamily="@font/nq_aceb"
+        android:fontFamily="@font/nanumsquare_eb"
         android:text="@string/testContent"
         android:textColor="@color/fontColor"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
+        android:id="@+id/check"
         android:contentDescription="@string/check"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

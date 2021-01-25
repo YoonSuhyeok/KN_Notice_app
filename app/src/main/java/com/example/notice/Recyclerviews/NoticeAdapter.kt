@@ -56,12 +56,6 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
         }
     }
 
-
-
-    override fun getItemCount(): Int {
-        return filList.size
-    }
-
     override fun onBindViewHolder(holder: Holder, position: Int) {
         // Animation 넣는다면 -> holder.itemView.animation = AnimationUtils.loadAnimation(context, R.anim.fade_transition_animation)
 
@@ -89,6 +83,10 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
         holder.noticeTitle.isSelected = true
     }
 
+    override fun getItemCount(): Int {
+        return filList.size
+    }
+
     override fun getFilter(): Filter {
         return object : Filter() {
             override fun performFiltering(str: CharSequence?): FilterResults {
@@ -114,7 +112,12 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
         }
     }
 
-    class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    fun changeList(lists: List<Notice>){
+        filList = lists
+        notifyDataSetChanged()
+    }
+
+    inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val newTag: TextView = itemView.new_tag
         val pinTag: TextView = itemView.pin_tag
         val bookTag: TextView = itemView.book_tag

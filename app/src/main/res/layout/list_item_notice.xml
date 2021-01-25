@@ -68,7 +68,7 @@
         android:layout_marginTop="2dp"
         android:ellipsize="marquee"
         android:fontFamily="@font/filter_font"
-        android:marqueeRepeatLimit="3"
+        android:marqueeRepeatLimit="1"
         android:maxWidth="100dp"
         android:singleLine="true"
         android:text="@string/Title"

@@ -7,15 +7,15 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Window
 import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.startActivity
 import androidx.room.Room
 import com.example.notice.R
+import com.example.notice.activity.MainActivity
 import com.example.notice.activity.TmpClass
 import com.example.notice.dataBase.AppDataBase
 import com.example.notice.dataBase.Notice
-import com.google.gson.JsonParser
 import com.kakao.kakaolink.v2.KakaoLinkResponse
 import com.kakao.kakaolink.v2.KakaoLinkService
-import com.kakao.message.template.*
 import com.kakao.network.ErrorResult
 import com.kakao.network.callback.ResponseCallback
 import kotlinx.android.synthetic.main.longclick_dialog_menus.*
@@ -27,9 +27,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.UnsupportedEncodingException
-import java.net.URLEncoder
-
 
 class LongClickMenu(private var context: Context) {
 
@@ -61,24 +58,22 @@ class LongClickMenu(private var context: Context) {
             if(tmp.isPin == 0) {
                 tmp.isPin = 1
                 db.noticeDao().update(tmp)
-                CoroutineScope(Dispatchers.Main).launch {
-                    ContextCompat.startActivity(
-                        context,
-                        Intent(context, TmpClass::class.java),
-                        null
-                    )
-                }
+                // 액티비티 재활용으로 해결 가능함
+//                CoroutineScope(Dispatchers.Main).launch {
+//                    ContextCompat.startActivity(
+//                        context,
+//                        Intent(context, TmpClass::class.java),
+//                        null
+//                    )
+//                }
             } else {
                 tmp.isPin = 0
                 db.noticeDao().update(tmp)
-                CoroutineScope(Dispatchers.Main).launch {
-                    ContextCompat.startActivity(
-                        context,
-                        Intent(context, TmpClass::class.java),
-                        null
-                    )
-                }
             }
+            val intent = Intent(context, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("noAnimation", true)
+            startActivity(context, intent, null)
             dig.dismiss()
         }
 
@@ -86,24 +81,14 @@ class LongClickMenu(private var context: Context) {
             if(tmp.isBookmark) {
                 tmp.isBookmark = false
                 db.noticeDao().update(tmp)
-                CoroutineScope(Dispatchers.Main).launch {
-                    ContextCompat.startActivity(
-                        context,
-                        Intent(context, TmpClass::class.java),
-                        null
-                    )
-                }
             } else {
                 tmp.isBookmark = true
                 db.noticeDao().update(tmp)
-                CoroutineScope(Dispatchers.Main).launch {
-                    ContextCompat.startActivity(
-                        context,
-                        Intent(context, TmpClass::class.java),
-                        null
-                    )
-                }
             }
+            val intent = Intent(context, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+            intent.putExtra("noAnimation", true)
+            startActivity(context, intent, null)
             dig.dismiss()
         }
 
@@ -139,7 +124,22 @@ class LongClickMenu(private var context: Context) {
                 }
 
                 override fun onFailure(call: Call<ShortUrlResult?>, t: Throwable) {
+                    val serverCallbackArgs: MutableMap<String, String> = HashMap()
+                    serverCallbackArgs["title"] = tmp.mTitle
+                    serverCallbackArgs["url"] = tmp.mUrl
+                    val templateId = "45708"
+                    KakaoLinkService.getInstance().sendCustom(
+                        context,
+                        templateId,
+                        serverCallbackArgs,
+                        object : ResponseCallback<KakaoLinkResponse?>() {
+                            override fun onFailure(errorResult: ErrorResult?) {
+                            }
 
+                            override fun onSuccess(result: KakaoLinkResponse?) {
+                            }
+                        }
+                    )
                 }
             })
 

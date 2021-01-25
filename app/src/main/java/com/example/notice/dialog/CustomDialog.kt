@@ -57,9 +57,6 @@ class CustomDialog : DialogFragment() {
                         edit?.clear()
                         edit?.putString("themeMode", ThemeSet.LIGHT_MODE)
                         ThemeSet.applyTheme(ThemeSet.LIGHT_MODE)
-                        // dialog_custom.xml 에 있는 buttonTint 사용함으로 코드 사용이 불필요해짐
-//                        radioBtn1.highlightColor = resources.getColor(R.color.rdBtnColor)
-//                        radioBtn3.highlightColor = resources.getColor(R.color.rdBtnColor)
                         edit?.apply()
                     }
                     R.id.radioBtn2 -> {
@@ -72,8 +69,6 @@ class CustomDialog : DialogFragment() {
                         edit?.clear()
                         edit?.putString("themeMode", ThemeSet.DEFAULT_MODE)
                         ThemeSet.applyTheme(ThemeSet.DEFAULT_MODE)
-//                        radioBtn1.highlightColor = resources.getColor(R.color.rdBtnColor)
-//                        radioBtn3.highlightColor = resources.getColor(R.color.rdBtnColor)
                         edit?.commit()
                     }
                 }

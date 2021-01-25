@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="275dp"
     android:layout_height="wrap_content"
     android:background="@drawable/dia_round">
 
     <TextView
         android:id="@+id/themeText"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:layout_marginBottom="5dp"
+        android:fontFamily="@font/nanumsquare_acr"
         android:textColor="@color/fontColor"
         android:textSize="20sp"
-        android:fontFamily="@font/nanumsquare_acr"
+        android:textStyle="bold"
         tools:text="테마" />
 
     <RadioGroup
@@ -26,45 +27,47 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="15dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RadioButton
             android:id="@+id/radioBtn1"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:buttonTint="@color/rdBtnColor"
             android:fontFamily="@font/nanumsquare_acr"
             android:text="기본"
-            android:textAlignment="center"
             android:textColor="@color/fontColor"
             android:textSize="20sp"
+            android:textStyle="bold"
             android:theme="@style/modeRadioBtnStyle" />
+
         <RadioButton
             android:id="@+id/radioBtn2"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:text="다크"
+            android:buttonTint="@color/rdBtnColor"
             android:fontFamily="@font/nanumsquare_acr"
-            android:textAlignment="center"
-            android:buttonTint= "@color/rdBtnColor"
+            android:text="다크"
             android:textColor="@color/fontColor"
             android:textSize="20sp"
-            android:theme="@style/modeRadioBtnStyle"/>
+            android:textStyle="bold"
+            android:theme="@style/modeRadioBtnStyle" />
+
         <RadioButton
             android:id="@+id/radioBtn3"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
+            android:buttonTint="@color/rdBtnColor"
             android:fontFamily="@font/nanumsquare_acr"
             android:text="핸드폰 설정과 동일하게"
-            android:textAlignment="center"
-            android:buttonTint= "@color/rdBtnColor"
             android:textColor="@color/fontColor"
             android:textSize="20sp"
-            android:theme="@style/modeRadioBtnStyle"/>
+            android:textStyle="bold"
+            android:theme="@style/modeRadioBtnStyle" />
     </RadioGroup>
 
 </RelativeLayout>

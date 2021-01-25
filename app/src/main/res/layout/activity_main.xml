@@ -91,7 +91,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/filterRecycle"
         android:layout_width="match_parent"
-        android:layout_height="21dp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/search_lin"
         android:background="@color/background">
 

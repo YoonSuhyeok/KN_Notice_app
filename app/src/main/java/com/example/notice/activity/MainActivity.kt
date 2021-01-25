@@ -18,6 +18,7 @@ import com.example.notice.Recyclerviews.NoticeAdapter
 import com.example.notice.Recyclerviews.RecyclerDecoration
 import com.example.notice.dataBase.AppDataBase
 import com.example.notice.dataBase.Notice
+import com.example.notice.defaultClass.notice_name_id
 import com.example.notice.dialog.CustomDialog
 import com.example.notice.dialog.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -34,12 +35,12 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    private var filters: ArrayList<String> = arrayListOf()
+    private var filters: ArrayList<notice_name_id> = arrayListOf()
     private var noticeList: List<Notice> = arrayListOf()
     private var allList: List<String> = arrayListOf()
     private var selectedIds: ArrayList<Int> = arrayListOf()
-    private var filterAdapter: FilterAdapter = FilterAdapter(filters)
     private var noticeAdapter: NoticeAdapter = NoticeAdapter(this, noticeList)
+    private var filterAdapter: FilterAdapter = FilterAdapter(filters, noticeAdapter)
     //Initialize Loader
     private val loadingDialogFragment by lazy { LoadingDialog() }
 
@@ -49,6 +50,8 @@ class MainActivity : AppCompatActivity() {
 
         if (intent.getBooleanExtra("UpdateFilter", false)) {
             overridePendingTransition(R.anim.center_to_right, R.anim.none)
+        } else if(intent.getBooleanExtra("noAnimation", false)){
+            overridePendingTransition(0, 0)
         } else {
             overridePendingTransition(R.anim.horizon_enter, R.anim.none)
         }
@@ -57,9 +60,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar?.title = ""
 
-        val db =
-            Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries()
-                .build()
+        val db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         recyclerview.setHasFixedSize(true)
         recyclerview.addItemDecoration(RecyclerDecoration(0))
@@ -163,14 +164,15 @@ class MainActivity : AppCompatActivity() {
         val mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
         allList = ArrayList(mutSet)
-        filters = arrayListOf()
+        val filters = ArrayList<notice_name_id>()
         
         println("시작")
         for (sel in allList) {
             if (shared.all[sel] == true) {
                 println(sel)
-                filters.add(sel)
-                selectedIds.add(db.majorDao().getMId(sel))
+                val num = db.majorDao().getMId(sel)
+                filters.add(notice_name_id(sel, arrayListOf(num)))
+                selectedIds.add(num)
             }
         }
 
@@ -178,8 +180,10 @@ class MainActivity : AppCompatActivity() {
 
         db.close()
 
-        filterAdapter = FilterAdapter(filters)
         noticeAdapter = NoticeAdapter(this, noticeList)
+
+        filters.add(0, notice_name_id("전체", selectedIds))
+        filterAdapter = FilterAdapter(filters, noticeAdapter)
 
         filterRecycle.adapter = filterAdapter
         recyclerview.adapter = noticeAdapter
@@ -208,7 +212,7 @@ class MainActivity : AppCompatActivity() {
         // show Loader
         showProgressDialog()
         CoroutineScope(Main).launch {
-            delay(count * 1500)
+            delay(count * 1000)
             fetchAdapter()
             //Hide Loader
             hideProgressDialog()

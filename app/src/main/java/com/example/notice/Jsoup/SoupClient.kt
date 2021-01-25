@@ -36,8 +36,7 @@ class SoupClient(private val AppDataBase: AppDataBase) {
             // 3. HTML 가져오기
 
             val doc = Jsoup.connect(baseUrl).header("Content-Type", "application/json;charset=UTF-8").userAgent(USER_AGENT).method(Connection.Method.GET).ignoreContentType(true).get()
-
-            delay(500)
+            delay(100)
 
             var contents: Elements
             if (doc != null)
@@ -49,7 +48,7 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                     var title:String; var url:String; var date:String
                     for( x in contents){
                         title = x.select(".title").text()
-                        url   = x.select("a").attr("href")
+                        url   = "${baseUrl.substring(0..cutNumberBaseUrl)}${x.select("a").attr("href")}"
                         date  = x.select(".reg_date").text().replace('-', '.')
                         AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }

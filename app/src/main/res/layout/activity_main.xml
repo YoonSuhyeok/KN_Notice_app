@@ -17,18 +17,19 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-
     <TextView
-        android:layout_marginTop="22dp"
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="22dp"
+        android:drawablePadding="6dp"
         android:fontFamily="@font/nq_aceb"
         android:text="공지알리미"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
-        android:textStyle="bold"
+        android:textStyle="normal"
         app:drawableLeftCompat="@drawable/title_logo" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -67,8 +68,11 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginStart="4dp"
+            android:autofillHints="no"
             android:background="@android:color/transparent"
+            android:fontFamily="@font/nanumsquare_eb"
             android:hint="@string/mainSearchBarHint"
+            android:inputType="text"
             android:maxLines="1"
             android:paddingStart="20dp"
             android:textColor="@color/fontColor"
@@ -80,9 +84,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="RtlSymmetry"
-            android:inputType="text"
-            android:autofillHints="no"
-            tools:targetApi="o"/>
+            tools:targetApi="o" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

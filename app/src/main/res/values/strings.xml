@@ -1,9 +1,12 @@
 <resources>
+    <string name="kakao_app_key">9b8943a4447b46c4685812a2886ee0c2</string>
+    <string name="kakao_scheme">kakao9b8943a4447b46c4685812a2886ee0c2</string>
+    <string name="kakaolink_host">kakao9b8943a4447b46c4685812a2886ee0c2</string>
     <string name="app_name">공지알리미</string>
     <string name="_2020_03_18">2020.03.18</string>
     <string name="Department">예비군연대</string>
     <string name="Title">학생예비군(학부생, 대학원생) 전입신고 안내</string>
-    <string name="developer">Developed by developer</string>
+    <string name="developer">Developed by DeadLine</string>
     <string name="appName">강원대학교 공지알리미</string>
     <string name="testContent">테스트</string>
     <string name="check">Check</string>
@@ -14,6 +17,7 @@
     <string name="FilterName">검색필터</string>
     <string name="FilterTopText">학과선택</string>
     <string name="mainSearchBarHint">검색할 키워드를 입력해주세요</string>
+    <string name="kakaoText">카카오톡으로 보내기</string>
 
     <string-array name="college">
         <item>간호대학</item>

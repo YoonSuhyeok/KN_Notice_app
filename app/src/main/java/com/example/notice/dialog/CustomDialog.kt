@@ -1,4 +1,4 @@
-package com.example.notice.activity
+package com.example.notice.dialog
 
 import android.annotation.SuppressLint
 import android.content.Context

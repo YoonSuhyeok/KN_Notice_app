@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="350dp"
     android:layout_height="wrap_content"
     android:background="@drawable/dia_round">
@@ -33,4 +34,19 @@
         android:text="@string/bookmarkText"
         android:textAlignment="textStart"
         android:textColor="@color/devTitleFontColor"/>
+
+    <Button
+        android:paddingTop="15dp"
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingBottom="15dp"
+        android:id="@+id/linkBtn"
+        android:layout_below="@+id/bookBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/menu_btn_click"
+        android:fontFamily="@font/nanumsquare_acr"
+        android:text="@string/kakaoText"
+        android:textAlignment="textStart"
+        android:textColor="@color/devTitleFontColor" />
 </RelativeLayout>

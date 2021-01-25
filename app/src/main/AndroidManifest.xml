@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.notice">
 
+    <queries>
+        <package android:name="com.kakao.talk" />
+    </queries>
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -20,16 +24,24 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.example.notice.activity.MainActivity" />
+        <activity android:name="com.example.notice.activity.MainActivity">
+            <intent-filter>
+                <data android:host="@string/kakaolink_host"
+                    android:scheme="@string/kakao_scheme" />
+            </intent-filter>
+        </activity>
 
         <activity android:name="com.example.notice.activity.DevelopInfoActivity" android:parentActivityName=".activity.MainActivity"/>
 
         <activity android:name="com.example.notice.activity.BookmarkActivity" android:parentActivityName=".activity.MainActivity"/>
 
-        <activity android:name="com.example.notice.activity.FilterActivity" />
+        <activity android:name="com.example.notice.activity.FilterActivity" android:parentActivityName=".activity.MainActivity"/>
 
         <activity android:name="com.example.notice.activity.TmpClass"/>
 
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="@string/kakao_app_key" />
     </application>
 
 </manifest>

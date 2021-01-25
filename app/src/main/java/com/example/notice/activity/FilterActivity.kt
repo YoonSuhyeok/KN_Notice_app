@@ -25,7 +25,6 @@ class FilterActivity : AppCompatActivity() {
         setContentView(R.layout.filter_page)
         overridePendingTransition(R.anim.horizon_enter, R.anim.none)
 
-
         val db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
         val majorList = db.majorDao().all

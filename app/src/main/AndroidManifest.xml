@@ -22,9 +22,9 @@
 
         <activity android:name="com.example.notice.activity.MainActivity" />
 
-        <activity android:name="com.example.notice.activity.DevelopInfoActivity" />
+        <activity android:name="com.example.notice.activity.DevelopInfoActivity" android:parentActivityName=".activity.MainActivity"/>
 
-        <activity android:name="com.example.notice.activity.BookmarkActivity" />
+        <activity android:name="com.example.notice.activity.BookmarkActivity" android:parentActivityName=".activity.MainActivity"/>
 
         <activity android:name="com.example.notice.activity.FilterActivity" />
 

@@ -89,11 +89,19 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/filterRecycle"
+        android:layout_width="match_parent"
+        android:layout_height="21dp"
+        android:layout_below="@id/search_lin"
+        android:background="@color/background">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/search_lin"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/filterRecycle"
         android:background="@color/background">
 
     </androidx.recyclerview.widget.RecyclerView>

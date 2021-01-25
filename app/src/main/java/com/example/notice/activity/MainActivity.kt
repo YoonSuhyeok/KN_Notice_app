@@ -2,6 +2,7 @@ package com.example.notice.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
 import com.example.notice.*
 import com.example.notice.Jsoup.SoupClient
+import com.example.notice.Recyclerviews.FilterAdapter
 import com.example.notice.Recyclerviews.NoticeAdapter
 import com.example.notice.Recyclerviews.RecyclerDecoration
 import com.example.notice.dataBase.AppDataBase
@@ -32,9 +34,11 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
+    private var filters: ArrayList<String> = arrayListOf()
     private var noticeList: List<Notice> = arrayListOf()
     private var allList: List<String> = arrayListOf()
     private var selectedIds: ArrayList<Int> = arrayListOf()
+    private var filterAdapter: FilterAdapter = FilterAdapter(filters)
     private var noticeAdapter: NoticeAdapter = NoticeAdapter(this, noticeList)
     //Initialize Loader
     private val loadingDialogFragment by lazy { LoadingDialog() }
@@ -61,6 +65,12 @@ class MainActivity : AppCompatActivity() {
         recyclerview.addItemDecoration(RecyclerDecoration(0))
         recyclerview.layoutManager =
             LinearLayoutManager(this@MainActivity, LinearLayoutManager.VERTICAL, false)
+
+        filterRecycle.setHasFixedSize(true)
+        filterRecycle.addItemDecoration(RecyclerDecoration(0))
+        filterRecycle.layoutManager =
+            LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
+
 
         var shared = getSharedPreferences("updateDate", 0)
         val edit: SharedPreferences.Editor = shared.edit()
@@ -96,6 +106,8 @@ class MainActivity : AppCompatActivity() {
                 edit.putString("lastIds", saveIds.toString())
                 edit.putString("lastUpdate", f.format(Date()).toString())
                 edit.commit()
+            } else {
+
             }
         }
 
@@ -103,6 +115,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, FilterActivity::class.java))
         }
 
+        fetchAdapter()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -117,6 +130,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.question -> {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/forms/d/e/1FAIpQLScb-WfexuBzW8dnyYME1L_5maBrtozwQT6XdCXp9iTez-Z4og/viewform?usp=pp_url")))
                 true
             }
             R.id.bookmark -> {
@@ -149,9 +163,13 @@ class MainActivity : AppCompatActivity() {
         val mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
         allList = ArrayList(mutSet)
-
+        filters = arrayListOf()
+        
+        println("시작")
         for (sel in allList) {
             if (shared.all[sel] == true) {
+                println(sel)
+                filters.add(sel)
                 selectedIds.add(db.majorDao().getMId(sel))
             }
         }
@@ -160,8 +178,10 @@ class MainActivity : AppCompatActivity() {
 
         db.close()
 
+        filterAdapter = FilterAdapter(filters)
         noticeAdapter = NoticeAdapter(this, noticeList)
 
+        filterRecycle.adapter = filterAdapter
         recyclerview.adapter = noticeAdapter
 
         noticeAdapter.filter.filter("")

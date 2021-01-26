@@ -93,6 +93,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/search_lin"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:background="@color/background">
 
     </androidx.recyclerview.widget.RecyclerView>
@@ -102,6 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/filterRecycle"
+        android:layout_marginTop="6dp"
         android:background="@color/background">
 
     </androidx.recyclerview.widget.RecyclerView>

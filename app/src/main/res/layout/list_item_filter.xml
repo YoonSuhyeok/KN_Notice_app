@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/filter_list_border"
+    android:background="@drawable/filter_rec"
+    android:layout_marginRight="6dp"
     android:id="@+id/filterList">
 
     <TextView
@@ -14,7 +15,7 @@
         android:id="@+id/filterName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="컴퓨터공학과"
+        android:text="컴공"
         android:textSize="14sp"
         android:textColor="@color/fontColor"
         android:fontFamily="@font/nq_aceb"/>

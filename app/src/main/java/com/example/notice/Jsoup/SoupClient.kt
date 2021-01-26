@@ -19,10 +19,6 @@ import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
 class SoupClient(private val AppDataBase: AppDataBase) {
-    private lateinit var mNoticeAdapter: NoticeAdapter
-    constructor(AppDataBase: AppDataBase, noticeAdapter: NoticeAdapter) : this(AppDataBase){
-         mNoticeAdapter = noticeAdapter
-    }
 
     private val currentTime = Date()
     private val mYear: String = SimpleDateFormat("yyyy", Locale.KOREA).format ( currentTime )
@@ -277,6 +273,7 @@ class SoupClient(private val AppDataBase: AppDataBase) {
         private const val USER_AGENT =
             "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/33.0.1750.152 Safari/537.36"
     }
+
     val fetchInfoList = arrayListOf(
         FetchMajorInfo(1, 1, false, "https://nurse.kangwon.ac.kr/nurse/bbs_list.php?code=sub07a&keyvalue=sub07", 34, 1),
         FetchMajorInfo(2, 2, false, "https://biz.kangwon.ac.kr/bbs/board.php?bo_table=sub06_1", 55, 32),

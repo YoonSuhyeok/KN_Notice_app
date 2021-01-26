@@ -193,7 +193,7 @@ class MainActivity : AppCompatActivity() {
 
         selectedIds = arrayListOf()
         allList = ArrayList(mutSet)
-        val client = SoupClient(db, noticeAdapter)
+        val client = SoupClient(db)
 
         for (x in allList) if (shared.all[x] == true)
             client.fetchInfoList[db.majorDao().getMId(x) - 1].isSelect = true

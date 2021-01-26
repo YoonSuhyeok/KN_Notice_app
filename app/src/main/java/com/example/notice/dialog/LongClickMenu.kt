@@ -71,6 +71,8 @@ class LongClickMenu(private val context: Context, private val noticeAdapter: Not
         }
 
         linkBtn.setOnClickListener {
+
+
             val mNaverService = Retrofit.Builder().baseUrl("https://openapi.naver.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

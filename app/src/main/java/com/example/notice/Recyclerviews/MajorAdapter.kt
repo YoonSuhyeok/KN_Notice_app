@@ -1,7 +1,6 @@
 package com.example.notice.Recyclerviews
 
 import android.content.Context
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +8,8 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.notice.dataBase.Major
 import com.example.notice.R
+import com.example.notice.dataBase.Major
 import kotlinx.android.synthetic.main.list_item_filter_major.view.*
 
 class MajorAdapter(

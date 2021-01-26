@@ -18,7 +18,7 @@ public class ShortUrlResult{
         return code;
     }
 
-    public class ShortUrlData {
+    public static class ShortUrlData {
         String hash;
         String url;
         String orgUrl;

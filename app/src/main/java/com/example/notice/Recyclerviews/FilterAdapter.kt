@@ -8,21 +8,23 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
 import com.example.notice.R
+import com.example.notice.activity.MainActivity
 import com.example.notice.dataBase.AppDataBase
-import com.example.notice.defaultClass.notice_name_id
+import com.example.notice.defaultClass.NoticeNameId
 import kotlinx.android.synthetic.main.list_item_filter.view.*
 
-class FilterAdapter(private var NoticeList: ArrayList<notice_name_id>, private val noticeAdapter: NoticeAdapter) : RecyclerView.Adapter<FilterAdapter.Holder>() {
+class FilterAdapter(noticeList: ArrayList<NoticeNameId>, private val noticeAdapter: NoticeAdapter) : RecyclerView.Adapter<FilterAdapter.Holder>() {
 
-    private var filterList = NoticeList
+    private var filterList = noticeList
     private lateinit var context:Context
     private var initNum = 0
+
     // 화면을 최초 로딩하여 만들어진 View 가 없는 경우, xml 파일을 inflate 하여 ViewHolder 를 생성한다.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_filter, parent, false)
         if(initNum==0){
             context = parent.context
-            initNum++;
+            initNum++
         }
         return Holder(view)
     }
@@ -33,6 +35,7 @@ class FilterAdapter(private var NoticeList: ArrayList<notice_name_id>, private v
         holder.itemView.setOnClickListener {
             val db = Room.databaseBuilder(context, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
             noticeAdapter.changeList(db.noticeDao().getFil(filterList[position].id))
+            MainActivity.position = position
         }
     }
 

@@ -1,16 +1,15 @@
 package com.example.notice.Recyclerviews
 
 import android.content.Context
-import android.graphics.Color
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.notice.R
 import com.example.notice.dataBase.College
 import com.example.notice.dataBase.Major
-import com.example.notice.R
 import kotlinx.android.synthetic.main.list_item_filter_college.view.*
 
 class CollegeAdapter(
@@ -76,7 +75,7 @@ class CollegeAdapter(
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         //var collegeText: TextView = itemView.findViewById(R.id.CollegeName)
         var collegeText: TextView = itemView.CollegeName
-        var checkImg = itemView.check
+        var checkImg: ImageView = itemView.check
     }
 
     fun getMap(): Map<String, Boolean> {

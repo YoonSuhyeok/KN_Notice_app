@@ -15,18 +15,26 @@ import com.example.notice.dialog.LongClickMenu
 import com.example.notice.dataBase.Notice
 import com.example.notice.R
 import com.example.notice.Recyclerviews.Something.Companion.nameList
+import com.example.notice.activity.MainActivity
+import com.example.notice.defaultClass.NoticeNameId
 import kotlinx.android.synthetic.main.list_item_notice.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class NoticeAdapter(private var context: Context, private var NoticeList: List<Notice>) : RecyclerView.Adapter<NoticeAdapter.Holder>(), Filterable {
+class NoticeAdapter(
+    context: Context,
+    private var NoticeList: List<Notice>
+) : RecyclerView.Adapter<NoticeAdapter.Holder>(), Filterable {
+    lateinit var filters: ArrayList<NoticeNameId>
+    constructor(context: Context, NoticeList: List<Notice>, filters: ArrayList<NoticeNameId>) : this(context, NoticeList) {
+        this.filters = filters
+    }
 
     private var unFilList = NoticeList
     private var filList: List<Notice> = NoticeList
-    private val today =
-        SimpleDateFormat("yyyy.MM.dd", Locale.KOREA).format(Calendar.getInstance().time)
-
+    private val today = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA).format(Calendar.getInstance().time)
+    private val longClick = LongClickMenu(context, this)
     // 화면을 최초 로딩하여 만들어진 View 가 없는 경우, xml 파일을 inflate 하여 ViewHolder 를 생성한다.
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_notice, parent, false)
@@ -42,14 +50,8 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
                 parent.context.startActivity(intent)
             }
 
-            /* itemView.setOnLongClickListener(OnLongClickListener {
-            찾아본 결과 카카오톡으로 나에게 메시지 보내는 기능은 api key 를 사용해야한다는 것
-                true //true 설정
-            }) */
-
             itemView.setOnLongClickListener{
-                val longClick = LongClickMenu(context)
-                println(filList[adapterPosition].mTitle)
+                val curPos: Int = adapterPosition
                 longClick.callFun(filList[adapterPosition].mTitle)
                 true
             }
@@ -85,6 +87,10 @@ class NoticeAdapter(private var context: Context, private var NoticeList: List<N
 
     override fun getItemCount(): Int {
         return filList.size
+    }
+
+    fun getSelectIds(): List<Int> {
+        return filters[MainActivity.position].id
     }
 
     override fun getFilter(): Filter {

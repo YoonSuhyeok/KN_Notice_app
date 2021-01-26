@@ -2,16 +2,12 @@ package com.example.notice.dialog
 
 import android.app.Dialog
 import android.content.Context
-import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Window
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.room.Room
 import com.example.notice.R
-import com.example.notice.activity.MainActivity
-import com.example.notice.activity.TmpClass
+import com.example.notice.Recyclerviews.NoticeAdapter
 import com.example.notice.dataBase.AppDataBase
 import com.example.notice.dataBase.Notice
 import com.kakao.kakaolink.v2.KakaoLinkResponse
@@ -19,20 +15,16 @@ import com.kakao.kakaolink.v2.KakaoLinkService
 import com.kakao.network.ErrorResult
 import com.kakao.network.callback.ResponseCallback
 import kotlinx.android.synthetic.main.longclick_dialog_menus.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class LongClickMenu(private var context: Context) {
+class LongClickMenu(private val context: Context, private val noticeAdapter: NoticeAdapter) {
 
     fun callFun(title: String) {
         val dig = Dialog(context)
-
         dig.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dig.setContentView(R.layout.longclick_dialog_menus)
         dig.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -42,15 +34,12 @@ class LongClickMenu(private var context: Context) {
         val pinBtn = dig.pinBtn
         val bookBtn = dig.bookBtn
         val linkBtn = dig.linkBtn
-        if(tmp.isPin == 0)
-            pinBtn.text = "핀 고정 해제"
-        else
-            dig.pinBtn.text = "핀 고정"
 
-        if(tmp.isBookmark)
-            bookBtn.text = "북마크 해제"
-        else
-            bookBtn.text = "북마크 추가"
+        if(tmp.isPin == 0) pinBtn.text = "핀 고정 해제"
+        else dig.pinBtn.text = "핀 고정"
+
+        if(tmp.isBookmark) bookBtn.text = "북마크 해제"
+        else bookBtn.text = "북마크 추가"
 
         dig.show()
 
@@ -58,22 +47,13 @@ class LongClickMenu(private var context: Context) {
             if(tmp.isPin == 0) {
                 tmp.isPin = 1
                 db.noticeDao().update(tmp)
-                // 액티비티 재활용으로 해결 가능함
-//                CoroutineScope(Dispatchers.Main).launch {
-//                    ContextCompat.startActivity(
-//                        context,
-//                        Intent(context, TmpClass::class.java),
-//                        null
-//                    )
-//                }
+                noticeAdapter.notifyDataSetChanged()
             } else {
                 tmp.isPin = 0
                 db.noticeDao().update(tmp)
             }
-            val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            intent.putExtra("noAnimation", true)
-            startActivity(context, intent, null)
+            noticeAdapter.changeList(db.noticeDao().getFil(noticeAdapter.getSelectIds()))
+            db.close()
             dig.dismiss()
         }
 
@@ -85,10 +65,8 @@ class LongClickMenu(private var context: Context) {
                 tmp.isBookmark = true
                 db.noticeDao().update(tmp)
             }
-            val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            intent.putExtra("noAnimation", true)
-            startActivity(context, intent, null)
+            noticeAdapter.changeList(db.noticeDao().getFil(noticeAdapter.getSelectIds()))
+            db.close()
             dig.dismiss()
         }
 
@@ -142,7 +120,7 @@ class LongClickMenu(private var context: Context) {
                     )
                 }
             })
-
+            db.close()
             dig.dismiss()
         }
     }

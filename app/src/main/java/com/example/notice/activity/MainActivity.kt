@@ -18,7 +18,7 @@ import com.example.notice.Recyclerviews.NoticeAdapter
 import com.example.notice.Recyclerviews.RecyclerDecoration
 import com.example.notice.dataBase.AppDataBase
 import com.example.notice.dataBase.Notice
-import com.example.notice.defaultClass.notice_name_id
+import com.example.notice.defaultClass.NoticeNameId
 import com.example.notice.dialog.CustomDialog
 import com.example.notice.dialog.LoadingDialog
 import kotlinx.android.synthetic.main.activity_main.*
@@ -35,26 +35,24 @@ import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
-    private var filters: ArrayList<notice_name_id> = arrayListOf()
+    private var filters: ArrayList<NoticeNameId> = arrayListOf()
     private var noticeList: List<Notice> = arrayListOf()
     private var allList: List<String> = arrayListOf()
     private var selectedIds: ArrayList<Int> = arrayListOf()
-    private var noticeAdapter: NoticeAdapter = NoticeAdapter(this, noticeList)
+    private var noticeAdapter: NoticeAdapter = NoticeAdapter(this, noticeList, filters)
     private var filterAdapter: FilterAdapter = FilterAdapter(filters, noticeAdapter)
     //Initialize Loader
     private val loadingDialogFragment by lazy { LoadingDialog() }
 
+    companion object {
+        var position = 0
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (intent.getBooleanExtra("UpdateFilter", false)) {
-            overridePendingTransition(R.anim.center_to_right, R.anim.none)
-        } else if(intent.getBooleanExtra("noAnimation", false)){
-            overridePendingTransition(0, 0)
-        } else {
-            overridePendingTransition(R.anim.horizon_enter, R.anim.none)
-        }
+        if (intent.getBooleanExtra("UpdateFilter", false)) overridePendingTransition(R.anim.center_to_right, R.anim.none)
+        else overridePendingTransition(R.anim.horizon_enter, R.anim.none)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -107,8 +105,6 @@ class MainActivity : AppCompatActivity() {
                 edit.putString("lastIds", saveIds.toString())
                 edit.putString("lastUpdate", f.format(Date()).toString())
                 edit.commit()
-            } else {
-
             }
         }
 
@@ -164,25 +160,25 @@ class MainActivity : AppCompatActivity() {
         val mutSet: MutableSet<String> = shared.all.keys
         selectedIds = arrayListOf()
         allList = ArrayList(mutSet)
-        val filters = ArrayList<notice_name_id>()
+        val filters = ArrayList<NoticeNameId>()
         
         println("시작")
         for (sel in allList) {
             if (shared.all[sel] == true) {
                 println(sel)
                 val num = db.majorDao().getMId(sel)
-                filters.add(notice_name_id(sel, arrayListOf(num)))
+                filters.add(NoticeNameId(sel, arrayListOf(num)))
                 selectedIds.add(num)
             }
         }
+        filters.add(0, NoticeNameId("전체", selectedIds))
 
         noticeList = db.noticeDao().getFil(selectedIds)
 
         db.close()
 
-        noticeAdapter = NoticeAdapter(this, noticeList)
+        noticeAdapter = NoticeAdapter(this, noticeList, filters)
 
-        filters.add(0, notice_name_id("전체", selectedIds))
         filterAdapter = FilterAdapter(filters, noticeAdapter)
 
         filterRecycle.adapter = filterAdapter

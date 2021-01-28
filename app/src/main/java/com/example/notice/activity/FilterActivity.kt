@@ -4,6 +4,7 @@ import android.R.attr.*
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
@@ -69,27 +70,36 @@ class FilterActivity : AppCompatActivity() {
             sharedObject = getSharedPreferences("major", 0)
             sharedEditor = sharedObject.edit()
             maps = majorAdapter.getMap()
+            var isClicked = false
             for (x in majorList) {
                 val empty = maps[x.mName]
-                if(empty != null )
+                if(empty != null ){
                     sharedEditor.putBoolean(x.mName, empty)
+                    if(empty == true){
+                        isClicked = true;
+                    }
+                }
             }
             sharedEditor.commit()
 
             sharedObject = getSharedPreferences("isFirstSP", 0)
             val isFirst = sharedObject.getBoolean("isFirst", false)
-            if (!isFirst) {
-                sharedEditor = sharedObject.edit()
-                sharedEditor.putBoolean("isFirst", true)
-                sharedEditor.commit()
-                finishAffinity()
-                startActivity(Intent(this, MainActivity::class.java))
+            if(isClicked){
+                if (!isFirst) {
+                    sharedEditor = sharedObject.edit()
+                    sharedEditor.putBoolean("isFirst", true)
+                    sharedEditor.commit()
+                    finishAffinity()
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    intent.putExtra("UpdateFilter", true)
+                    finishAffinity()
+                    startActivity(intent)
+                }
             } else {
-                val intent = Intent(this, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-                intent.putExtra("UpdateFilter", true)
-                finishAffinity()
-                startActivity(intent)
+                Toast.makeText(this, "하나 이상을 선택해주세요", Toast.LENGTH_SHORT).show()
             }
         }
     }

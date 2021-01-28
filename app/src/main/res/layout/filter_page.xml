@@ -15,15 +15,17 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageButton
-            android:contentDescription="@string/backKey"
             android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="4dp"
             android:background="@null"
-            app:layout_constraintBottom_toBottomOf="@+id/filterPageName"
+            android:contentDescription="@string/backKey"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/filterPageName"
-            app:layout_constraintTop_toTopOf="@+id/filterPageName"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_allow_left" />
 
         <TextView
@@ -35,17 +37,17 @@
             android:text="@string/FilterName"
             android:textColor="#FFFFFF"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/backButton"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/backButton" />
 
         <ImageButton
-            android:contentDescription="@string/check"
             android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="29dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="6dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/check"
             app:layout_constraintBottom_toBottomOf="@+id/filterPageName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/filterPageName"
@@ -65,6 +67,7 @@
     </androidx.recyclerview.widget.RecyclerView>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:contentDescription="Major Screen"
         android:id="@+id/majorRecycler"
         android:layout_width="0dp"
         android:layout_height="0dp"

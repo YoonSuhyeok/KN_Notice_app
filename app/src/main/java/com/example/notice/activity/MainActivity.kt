@@ -167,11 +167,11 @@ class MainActivity : AppCompatActivity() {
             if (shared.all[sel] == true) {
                 println(sel)
                 val num = db.majorDao().getMId(sel)
-                filters.add(NoticeNameId(sel, arrayListOf(num)))
+                filters.add(NoticeNameId(sel, arrayListOf(num), false))
                 selectedIds.add(num)
             }
         }
-        filters.add(0, NoticeNameId("전체", selectedIds))
+        filters.add(0, NoticeNameId("전체", selectedIds, true))
 
         noticeList = db.noticeDao().getFil(selectedIds)
 

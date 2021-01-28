@@ -35,4 +35,6 @@
     <color name="onlyFilterLineColor">#101010</color>
     <color name="ClickCollegeViewColor">#FFB039</color>
     <color name="ClickMajorViewColor">#757575</color>
+    <color name="buttonColor">#404040</color>
+
 </resources>

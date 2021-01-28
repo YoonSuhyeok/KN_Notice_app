@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.example.noticekangwon",
+  "applicationId": "com.knusComputer.noticekangwon",
   "variantName": "processReleaseResources",
   "elements": [
     {

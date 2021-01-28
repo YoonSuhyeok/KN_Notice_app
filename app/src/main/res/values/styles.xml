@@ -21,4 +21,5 @@
     <style name="MenuTextColor">
         <item name="android:textColor">@color/devTitleFontColor</item>
     </style>
+
 </resources>

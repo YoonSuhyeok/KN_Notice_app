@@ -15,6 +15,7 @@
     <!-- Button -->
     <color name="btnColor">#FFFFFF</color>
     <color name="rdBtnColor">#5E81FF</color>
+    <color name="filterBtnColor">#5E81FF</color>
     <!-- Border -->
     <color name="noticeBorderColor">#1C1C1C</color>
     <color name="customDialog">#5E81FF</color>

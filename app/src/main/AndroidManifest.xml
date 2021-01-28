@@ -42,8 +42,6 @@
 
         <activity android:name="com.example.notice.activity.FilterActivity" android:parentActivityName=".activity.MainActivity"/>
 
-        <activity android:name="com.example.notice.activity.TmpClass"/>
-
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />

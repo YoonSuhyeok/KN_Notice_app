@@ -16,11 +16,11 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
-
         var shared = getSharedPreferences("themeSetSP", 0)
         val mode = shared.getString("themeMode", "light")
         ThemeSet.applyTheme(mode)
+
+        setContentView(R.layout.activity_splash)
 
         Handler().postDelayed({
             shared = getSharedPreferences("isFirstSP", 0)

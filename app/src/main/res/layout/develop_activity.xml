@@ -30,25 +30,13 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingStart="18dp"
+            android:paddingStart="98dp"
             android:paddingEnd="18dp"
             android:text=" Github"
             android:textColor="@color/devTitleFontColor"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:drawableStartCompat="@drawable/ic_rectangle_9" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
-            android:paddingStart="18dp"
-            android:paddingEnd="18dp"
-            android:text=" E-mail"
-            android:textColor="@color/devTitleFontColor"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:drawableStartCompat="@drawable/email_logo" />
 
     </LinearLayout>
 
@@ -101,30 +89,65 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_marginStart="10dp"
-                android:text="  개발           @song127                  thdtmdwo789@naver.com"
-                android:textColor="@color/devTitleFontColor"
-                android:textSize="13sp" />
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_marginStart="10dp"
+                    android:text="  개발         "
+                    android:textColor="@color/devTitleFontColor"
+                    android:textSize="13sp">
+                </TextView>
+                <TextView
+                    android:id="@+id/linkSong"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="\@song127"
+                    android:textSize="13sp"
+                    android:textColor="@color/rdBtnColor"
+                    android:linksClickable="true"
+                    android:autoLink="web"
+                    android:onClick="toSong"/>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:layout_marginStart="10dp"
+                    android:text="  개발         "
+                    android:textColor="@color/devTitleFontColor"
+                    android:textSize="13sp">
+                </TextView>
+                <TextView
+                    android:id="@+id/linkYoon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="3dp"
+                    android:text="\@YoonSuhyeok"
+                    android:textSize="13sp"
+                    android:textColor="@color/rdBtnColor"
+                    android:linksClickable="true"
+                    android:autoLink="web"
+                    android:onClick="toYoon"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="3dp"
                 android:layout_marginStart="10dp"
-                android:text="  개발           @YoonSuHyeok        helloWorld@naver.com"
-                android:textColor="@color/devTitleFontColor"
-                android:textSize="13sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:layout_marginStart="10dp"
-                android:text="  디자인                                              WriteHere@naver.com"
+                android:text="  디자인"
                 android:textColor="@color/devTitleFontColor"
                 android:textSize="13sp" />
         </LinearLayout>

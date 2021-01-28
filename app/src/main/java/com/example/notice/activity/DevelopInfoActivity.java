@@ -1,6 +1,9 @@
 package com.example.notice.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,5 +24,13 @@ public class DevelopInfoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public void toSong(View view) {
+        startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/song127")));
+    }
+
+    public void toYoon(View view) {
+        startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/YoonSuhyeok")));
     }
 }

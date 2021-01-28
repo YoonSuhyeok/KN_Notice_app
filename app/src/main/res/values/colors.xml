@@ -12,9 +12,11 @@
     <color name="fontColor">#4B4B4B</color>
     <color name="subFontColor">#787878</color>
     <color name="devTitleFontColor">#000000</color>
+    <color name="chkFilterFontColor">#FFFFFF</color>
     <!-- Button -->
     <color name="btnColor">#5076FF</color>
     <color name="rdBtnColor">#5E81FF</color>
+    <color name="chkFilterBtnColor">#5E81FF</color>
     <color name="filterBtnColor">#EAEAEA</color>
     <!-- Border -->
     <color name="noticeBorderColor">#E5E5E5</color>

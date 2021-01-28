@@ -27,9 +27,9 @@
     <color name="shadow2">#20CCCCCC</color>
     <color name="shadow3">#30CCCCCC</color>
     <!-- Splash Gradient -->
-    <color name="sStartColor">#487EFF</color>
+    <color name="sStartColor">#587CFF</color>
     <color name="sCenterColor">#3392FF</color>
-    <color name="sEndColor">#10B4FE</color>
+    <color name="sEndColor">#0EA8E8</color>
     <!-- Toolbar Gradient -->
     <color name="startColor">#587CFF</color>
     <color name="centerColor">#3392FF</color>

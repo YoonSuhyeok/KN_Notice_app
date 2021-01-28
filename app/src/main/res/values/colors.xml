@@ -31,9 +31,9 @@
     <color name="sCenterColor">#3392FF</color>
     <color name="sEndColor">#0EA8E8</color>
     <!-- Toolbar Gradient -->
-    <color name="startColor">#5076FF</color>
-    <color name="centerColor">#5076FF</color>
-    <color name="endColor">#5076FF</color>
+    <color name="sStartColor">#587CFF</color>
+    <color name="sCenterColor">#3392FF</color>
+    <color name="sEndColor">#0EA8E8</color>
     <!-- Activity_Filter Color -->
     <color name="onlyFilterLineColor">#E5E5E5</color>
     <color name="ClickCollegeViewColor">#FFB039</color>

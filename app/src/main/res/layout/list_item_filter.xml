@@ -4,7 +4,7 @@
     android:id="@+id/filterList"
     android:layout_width="wrap_content"
     android:layout_height="48dp"
-    android:layout_marginRight="6dp">
+    android:layout_marginEnd="6dp">
 
     <TextView
         android:id="@+id/filterName"

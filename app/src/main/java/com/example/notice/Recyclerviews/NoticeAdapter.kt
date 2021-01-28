@@ -26,7 +26,7 @@ class NoticeAdapter(
     context: Context,
     private var NoticeList: List<Notice>
 ) : RecyclerView.Adapter<NoticeAdapter.Holder>(), Filterable {
-    lateinit var filters: ArrayList<NoticeNameId>
+    private lateinit var filters: ArrayList<NoticeNameId>
     constructor(context: Context, NoticeList: List<Notice>, filters: ArrayList<NoticeNameId>) : this(context, NoticeList) {
         this.filters = filters
     }

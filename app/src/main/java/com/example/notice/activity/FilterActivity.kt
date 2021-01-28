@@ -76,7 +76,7 @@ class FilterActivity : AppCompatActivity() {
                 if(empty != null ){
                     sharedEditor.putBoolean(x.mName, empty)
                     if(empty == true){
-                        isClicked = true;
+                        isClicked = true
                     }
                 }
             }

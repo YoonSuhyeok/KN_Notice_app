@@ -12,6 +12,7 @@
         android:paddingBottom="15dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
+        android:fontFamily="@font/nanumsquare_acr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/menu_btn_click"

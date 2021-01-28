@@ -2,7 +2,6 @@ package com.example.notice.Jsoup
 
 import com.example.notice.dataBase.AppDataBase
 import com.example.notice.dataBase.Notice
-import com.example.notice.Recyclerviews.NoticeAdapter
 import kotlinx.coroutines.*
 import org.jsoup.Connection
 import org.jsoup.Jsoup

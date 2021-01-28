@@ -35,9 +35,11 @@ class FilterAdapter(noticeList: ArrayList<NoticeNameId>, private val noticeAdapt
         holder.filName.text = filterList[position].name
 
         if(filterList[position].isClicked){
-            holder.filName.backgroundTintList = ContextCompat.getColorStateList(context, R.color.rdBtnColor)
+            holder.filName.setTextColor(ContextCompat.getColorStateList(context, R.color.chkFilterFontColor))
+            holder.filName.backgroundTintList = ContextCompat.getColorStateList(context, R.color.chkFilterBtnColor)
         } else {
-            holder.filName.backgroundTintList = ContextCompat.getColorStateList(context, R.color.myGray)
+            holder.filName.setTextColor(ContextCompat.getColorStateList(context, R.color.fontColor))
+            holder.filName.backgroundTintList = ContextCompat.getColorStateList(context, R.color.filterBtnColor)
         }
 
         holder.itemView.setOnClickListener{

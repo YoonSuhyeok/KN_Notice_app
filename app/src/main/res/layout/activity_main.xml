@@ -26,7 +26,7 @@
         android:layout_marginTop="22dp"
         android:drawablePadding="6dp"
         android:fontFamily="@font/nq_aceb"
-        android:text="공지알리미"
+        android:text="공지도우미"
         android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="normal"

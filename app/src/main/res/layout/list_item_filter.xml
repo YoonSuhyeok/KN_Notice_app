@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nq_aceb"
-        android:background="@drawable/filter_rec"
+        android:background="@drawable/filter_border"
         android:gravity="center"
         android:paddingStart="10dp"
         android:paddingTop="8dp"

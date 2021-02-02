@@ -3,6 +3,7 @@
     <!-- Color -->
     <color name="myGray">#787878</color>
     <!-- Layouts -->
+    <color name="tmpTopColor">#101010</color>
     <color name="topColor">#101010</color>
     <color name="filterBack">#101010</color>
     <color name="background">#282828</color>
@@ -32,7 +33,7 @@
     <color name="sEndColor">#101010</color>
     <!-- Toolbar Gradient -->
     <color name="startColor">#101010</color>
-    <color name="centerColor">#101010</color>
+<!--    <color name="centerColor">#101010</color>-->
     <color name="endColor">#101010</color>
     <!-- Activity_Filter Color -->
     <color name="onlyFilterLineColor">#101010</color>

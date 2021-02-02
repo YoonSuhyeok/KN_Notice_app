@@ -9,7 +9,7 @@
         android:topRightRadius="16dp" />
     <stroke
         android:width="0.55dp"
-        android:color="#397FAE" />
+        android:color="#FF6939" />
   </shape>
 </item>
 </layer-list>

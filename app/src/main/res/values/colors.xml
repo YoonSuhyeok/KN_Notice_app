@@ -3,7 +3,8 @@
     <!-- Color -->
     <color name="myGray">#787878</color>
     <!-- Layouts -->
-    <color name="topColor">#5076FF</color>
+    <color name="tmpTopColor">#3E7CDF</color>
+    <color name="topColor">#5E81FF</color>
     <color name="filterBack">#FFFFFF</color>
     <color name="background">#FFFFFF</color>
     <color name="searchBack">#FFFFFF</color>
@@ -31,11 +32,11 @@
     <color name="sCenterColor">#3392FF</color>
     <color name="sEndColor">#0EA8E8</color>
     <!-- Toolbar Gradient -->
-    <color name="startColor">#587CFF</color>
-    <color name="centerColor">#3392FF</color>
-    <color name="endColor">#0EA8E8</color>
+    <color name="startColor">#566FEF</color>
+<!--    <color name="centerColor">#3392FF</color>-->
+    <color name="endColor">#10B4FE</color>
     <!-- Activity_Filter Color -->
     <color name="onlyFilterLineColor">#E5E5E5</color>
-    <color name="ClickCollegeViewColor">#FFB039</color>
+    <color name="ClickCollegeViewColor">#FFB950</color>
     <color name="ClickMajorViewColor">#EAEEFF</color>
 </resources>

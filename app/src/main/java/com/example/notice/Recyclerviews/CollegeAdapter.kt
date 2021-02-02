@@ -22,7 +22,7 @@ class CollegeAdapter(
     private val clickColor = context.resources.getColor(R.color.ClickCollegeViewColor)
     private val clickFont = context.resources.getColor(R.color.subCollege)
 
-    private val offViewBackground = context.resources.getDrawable(R.drawable.filter_border, null)
+    private val offViewBackground = context.resources.getDrawable(R.drawable.college_border, null)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_filter_college, parent, false)
         return Holder(view)

@@ -8,6 +8,8 @@
 
     <LinearLayout
         android:id="@+id/tags"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="8dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -18,14 +20,14 @@
             android:id="@+id/new_tag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="5dp"
             android:layout_marginTop="6dp"
-            android:background="@drawable/ic_rectangle_8"
+            android:layout_marginStart="5dp"
+            android:background="@drawable/new_rect"
             android:paddingStart="10dp"
             android:paddingEnd="10dp"
             android:text="NEW"
             android:textColor="#FF6939"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -39,7 +41,7 @@
             android:paddingEnd="10dp"
             android:text="PIN"
             android:textColor="#397FAE"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <TextView
@@ -53,7 +55,7 @@
             android:paddingEnd="10dp"
             android:text="BOOK"
             android:textColor="#806ACC"
-            android:textSize="13sp"
+            android:textSize="12sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -62,16 +64,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tags"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="15dp"
         android:ellipsize="marquee"
         android:fontFamily="@font/filter_font"
         android:marqueeRepeatLimit="1"
         android:maxWidth="100dp"
         android:singleLine="true"
+        android:letterSpacing="0.03"
         android:text="@string/Title"
         android:textColor="@color/fontColor"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:typeface="sans" />
 
@@ -80,18 +84,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Title"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="13dp"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="@string/_2020_03_18"
         android:textColor="@color/subFontColor"
-        android:textSize="12sp" />
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Title"
+        android:layout_marginTop="3dp"
         android:layout_marginStart="4sp"
         android:layout_marginLeft="4sp"
         android:layout_marginEnd="4sp"
@@ -100,17 +106,19 @@
         android:fontFamily="@font/nanumsquare_acr"
         android:text="|"
         android:textColor="@color/subFontColor"
-        android:textSize="12sp" />
+        android:textSize="11sp" />
 
     <TextView
         android:id="@+id/department"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/Title"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="3dp"
         android:layout_toEndOf="@+id/bar"
         android:fontFamily="@font/nanumsquare_acr"
         android:text="@string/Department"
         android:textColor="@color/subFontColor"
-        android:textSize="12sp" />
+        android:textSize="11sp" />
 
 </RelativeLayout>

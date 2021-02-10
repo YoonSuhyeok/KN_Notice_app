@@ -348,6 +348,6 @@ class SoupClient(private val AppDataBase: AppDataBase) {
         FetchMajorInfo(71, 16, false, "https://www.kangwon.ac.kr/www/selectBbsNttList.do?bbsNo=34&key=232", 29, 2),
         FetchMajorInfo(72, 16, false, "https://sw.kangwon.ac.kr:44315/index.php?mp=5_1", 30, 0),
         FetchMajorInfo(73, 16, false, "https://linc.kangwon.ac.kr/index.php?mp=4_1", 26, 0),
-        FetchMajorInfo(74, 16, false, "https://itl.kangwon.ac.kr/ko/community/notice/list/1", 24, 0),
+        FetchMajorInfo(74, 16, false, "https://itl.kangwon.ac.kr/ko/community/notice/list/1", 24, 0)
     )
 }

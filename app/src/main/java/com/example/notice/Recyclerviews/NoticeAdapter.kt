@@ -3,6 +3,7 @@ package com.example.notice.Recyclerviews
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
@@ -10,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notice.dialog.LongClickMenu
 import com.example.notice.dataBase.Notice
@@ -37,6 +39,7 @@ class NoticeAdapter(
     private val today = SimpleDateFormat("yyyy.MM.dd", Locale.KOREA).format(Calendar.getInstance().time)
     private val longClick = LongClickMenu(context, this)
     // 화면을 최초 로딩하여 만들어진 View 가 없는 경우, xml 파일을 inflate 하여 ViewHolder 를 생성한다.
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.list_item_notice, parent, false)
         return Holder(view).apply {

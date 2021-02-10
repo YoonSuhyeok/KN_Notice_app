@@ -44,7 +44,7 @@ class NoticeAdapter(
                 val curPos: Int = adapterPosition
                 // Move to the URI_Site
                 val url: String =
-                    NoticeList[curPos].mUrl.substring(7, NoticeList[curPos].mUrl.length)
+                    filList[curPos].mUrl.substring(7, filList[curPos].mUrl.length)
                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://$url"))
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 parent.context.startActivity(intent)
@@ -52,7 +52,7 @@ class NoticeAdapter(
 
             itemView.setOnLongClickListener{
                 val curPos: Int = adapterPosition
-                longClick.callFun(filList[adapterPosition].mTitle)
+                longClick.callFun(filList[curPos].mTitle)
                 true
             }
         }

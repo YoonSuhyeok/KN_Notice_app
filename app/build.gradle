@@ -7,7 +7,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.knusComputer.noticekangwon"
+        applicationId "com.knus.noticekangwon"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 2

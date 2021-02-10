@@ -2,27 +2,22 @@ package com.example.notice.dialog
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.view.Window
+import androidx.annotation.RequiresApi
 import androidx.room.Room
 import com.example.notice.R
 import com.example.notice.Recyclerviews.NoticeAdapter
 import com.example.notice.dataBase.AppDataBase
 import com.example.notice.dataBase.Notice
-import com.kakao.kakaolink.v2.KakaoLinkResponse
-import com.kakao.kakaolink.v2.KakaoLinkService
-import com.kakao.network.ErrorResult
-import com.kakao.network.callback.ResponseCallback
 import kotlinx.android.synthetic.main.longclick_dialog_menus.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class LongClickMenu(private val context: Context, private val noticeAdapter: NoticeAdapter) {
 
+    @RequiresApi(Build.VERSION_CODES.N)
     fun callFun(title: String) {
         val dig = Dialog(context)
         dig.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -72,56 +67,12 @@ class LongClickMenu(private val context: Context, private val noticeAdapter: Not
 
         linkBtn.setOnClickListener {
 
-
-            val mNaverService = Retrofit.Builder().baseUrl("https://openapi.naver.com/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(NaverService::class.java)
-
-            val call = mNaverService.getShortUrl(tmp.mUrl)!!
-            call.enqueue(object : Callback<ShortUrlResult?>{
-                override fun onResponse(
-                    call: Call<ShortUrlResult?>,
-                    response: Response<ShortUrlResult?>
-                ) {
-                    val serverCallbackArgs: MutableMap<String, String> = HashMap()
-                    serverCallbackArgs["title"] = tmp.mTitle
-                    val empty = response.body() as ShortUrlResult
-                    serverCallbackArgs["url"] = empty.result.url
-                    val templateId = "45708"
-                    KakaoLinkService.getInstance().sendCustom(
-                        context,
-                        templateId,
-                        serverCallbackArgs,
-                        object : ResponseCallback<KakaoLinkResponse?>() {
-                            override fun onFailure(errorResult: ErrorResult?) {
-                            }
-
-                            override fun onSuccess(result: KakaoLinkResponse?) {
-                            }
-                        }
-                    )
-                }
-
-                override fun onFailure(call: Call<ShortUrlResult?>, t: Throwable) {
-                    val serverCallbackArgs: MutableMap<String, String> = HashMap()
-                    serverCallbackArgs["title"] = tmp.mTitle
-                    serverCallbackArgs["url"] = tmp.mUrl
-                    val templateId = "45708"
-                    KakaoLinkService.getInstance().sendCustom(
-                        context,
-                        templateId,
-                        serverCallbackArgs,
-                        object : ResponseCallback<KakaoLinkResponse?>() {
-                            override fun onFailure(errorResult: ErrorResult?) {
-                            }
-
-                            override fun onSuccess(result: KakaoLinkResponse?) {
-                            }
-                        }
-                    )
-                }
-            })
+            val intents = Intent(Intent.ACTION_SEND)
+            intents.type = "text/plain"
+            val text = tmp.mTitle + tmp.mUrl
+            intents.putExtra(Intent.EXTRA_TEXT, text)
+            val chooser = Intent.createChooser(intents, "친구에게 공유하기")
+            context.startActivity(chooser)
             db.close()
             dig.dismiss()
         }

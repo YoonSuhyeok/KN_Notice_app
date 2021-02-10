@@ -51,7 +51,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (intent.getBooleanExtra("UpdateFilter", false)) overridePendingTransition(R.anim.center_to_right, R.anim.none)
+        if (intent.getBooleanExtra("UpdateFilter", false)) overridePendingTransition(
+            R.anim.center_to_right,
+            R.anim.none
+        )
         else overridePendingTransition(R.anim.horizon_enter, R.anim.none)
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
@@ -127,7 +130,12 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.question -> {
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://docs.google.com/forms/d/e/1FAIpQLScb-WfexuBzW8dnyYME1L_5maBrtozwQT6XdCXp9iTez-Z4og/viewform?usp=pp_url")))
+                startActivity(
+                    Intent(
+                        Intent.ACTION_VIEW,
+                        Uri.parse("https://docs.google.com/forms/d/e/1FAIpQLScb-WfexuBzW8dnyYME1L_5maBrtozwQT6XdCXp9iTez-Z4og/viewform?usp=pp_url")
+                    )
+                )
                 true
             }
             R.id.bookmark -> {

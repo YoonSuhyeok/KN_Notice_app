@@ -221,6 +221,7 @@ class MainActivity : AppCompatActivity() {
             //Hide Loader
             hideProgressDialog()
             noticeAdapter.notifyDataSetChanged()
+
         }
     }
 

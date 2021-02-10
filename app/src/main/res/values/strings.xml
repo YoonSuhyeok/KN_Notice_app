@@ -17,7 +17,7 @@
     <string name="FilterName">검색필터</string>
     <string name="FilterTopText">학과선택</string>
     <string name="mainSearchBarHint">검색할 키워드를 입력해주세요</string>
-    <string name="kakaoText">카카오톡으로 보내기</string>
+    <string name="kakaoText">공유하기</string>
 
     <string-array name="college">
         <item>간호대학</item>

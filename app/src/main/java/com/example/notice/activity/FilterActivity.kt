@@ -46,6 +46,9 @@ class FilterActivity : AppCompatActivity() {
         val spaceDecoration = RecyclerDecoration(0)
         collegeRecycler.addItemDecoration(spaceDecoration)
 
+        collegeRecycler.smoothScrollToPosition(collegeList.size)
+        collegeRecycler.smoothScrollToPosition(0)
+
         if(intent.getBooleanExtra("first", false)){
             backButton.visibility = View.GONE
             initSharedPreferencesFile(collegeList, majorList)

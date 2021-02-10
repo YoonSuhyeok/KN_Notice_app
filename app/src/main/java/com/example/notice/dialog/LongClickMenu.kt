@@ -69,7 +69,7 @@ class LongClickMenu(private val context: Context, private val noticeAdapter: Not
 
             val intents = Intent(Intent.ACTION_SEND)
             intents.type = "text/plain"
-            val text = tmp.mTitle + tmp.mUrl
+            val text = tmp.mUrl
             intents.putExtra(Intent.EXTRA_TEXT, text)
             val chooser = Intent.createChooser(intents, "친구에게 공유하기")
             context.startActivity(chooser)

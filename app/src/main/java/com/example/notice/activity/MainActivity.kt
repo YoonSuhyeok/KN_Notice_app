@@ -220,6 +220,7 @@ class MainActivity : AppCompatActivity() {
             fetchAdapter()
             //Hide Loader
             hideProgressDialog()
+            noticeAdapter.notifyDataSetChanged()
         }
     }
 

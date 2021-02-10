@@ -95,8 +95,8 @@ class FilterActivity : AppCompatActivity() {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                     intent.putExtra("UpdateFilter", true)
-                    finishAffinity()
                     startActivity(intent)
+                    finish()
                 }
             } else {
                 Toast.makeText(this, "하나 이상을 선택해주세요", Toast.LENGTH_SHORT).show()

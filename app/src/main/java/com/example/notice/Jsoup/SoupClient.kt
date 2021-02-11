@@ -283,7 +283,7 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                         AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
                 }
-                else if(fk == 61)
+                else if(fk == 61) // 지질학
                 {
                     var titleNumber = 0
                     var dateNumber = 0
@@ -318,7 +318,8 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                                 }
                             }
                         }
-                        AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
+                        if(title != "")
+                            AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
                 }
                 else if(contents.size > 0)
@@ -356,7 +357,8 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                                 }
                             }
                         }
-                        AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
+                        if(title != "")
+                            AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
                 }
             }

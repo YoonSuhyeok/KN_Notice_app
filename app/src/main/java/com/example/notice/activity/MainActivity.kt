@@ -157,11 +157,6 @@ class MainActivity : AppCompatActivity() {
         noticeAdapter.filter.filter(search.text)
     }
 
-    override fun onResume() {
-        super.onResume()
-        fetchAdapter()
-    }
-
     private fun fetchAdapter() {
         val db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
         val shared: SharedPreferences = getSharedPreferences("major", 0)

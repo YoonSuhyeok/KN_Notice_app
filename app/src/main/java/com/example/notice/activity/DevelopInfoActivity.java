@@ -33,4 +33,8 @@ public class DevelopInfoActivity extends AppCompatActivity {
     public void toYoon(View view) {
         startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://github.com/YoonSuhyeok")));
     }
+
+    public void toJell(View view) {
+        startActivity(new Intent(Intent.ACTION_VIEW).setData(Uri.parse("https://lottiefiles.com/45422-jelly-box")));
+    }
 }

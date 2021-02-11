@@ -166,7 +166,7 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                 {
                     contents = contents.select("[height=25]")
                     val titleNumber = 1
-                    val dateNumber = 4
+                    val dateNumber = 3
                     var title:String; var url:String; var date:String
                     for (x in 0 until contents.size) {
                         val content = contents[x].select("td")
@@ -208,6 +208,119 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                         AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
                 }
+                else if(fk == 22)
+                {
+                    var titleNumber = 1
+                    var dateNumber = 3
+                    var content:Elements
+
+                    for (x in 1 until contents.size) {
+                        content = contents[x].select("td")
+                        var title = "";
+                        var url = "";
+                        var date = ""
+                        for (y in content.indices) {
+                            if (y == titleNumber) {
+                                title = content[y].text()
+                                url = baseUrl.substring(0..cutNumberBaseUrl)
+                                url += content[y].select("a").attr("href").replace("amp;", "")
+                                    .substring(cutNumberFetchUrl)
+                            }
+                            if (y == dateNumber) {
+                                date = content[y].text().replace('-', '.').replace('/', '.')
+                                if (date.length == 5) {
+                                    val old: Int = date.substring(0..1).toInt()
+                                    val current: Int = mDate.substring(0..1).toInt()
+                                    date = if (current >= old)
+                                        if (date.substring(3..4).toInt() >= mDate.substring(3..4)
+                                                .toInt()
+                                        )
+                                            "$mYear.$date"
+                                        else
+                                            "${mYear.toInt() - 1}.$date"
+                                    else
+                                        "${mYear.toInt() - 1}.$date"
+                                } else if (date.length == 8) {
+                                    date = "${mYear.substring(0..1)}$date"
+                                }
+                            }
+                        }
+                        AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
+                    }
+                }
+                else if( fk == 38)
+                {
+                    contents = doc.select(".board_list")
+                    var titleNumber = 1
+                    var dateNumber = 3
+                    contents = contents.select("tr")
+                    for (x in 1 until contents.size) {
+                        var content = contents[x].select("td")
+                        var title = ""
+                        var url = "https://psych.kangwon.ac.kr/gnuboard4/bbs/board.php?bo_table=bbs41&page="
+                        var date = ""
+                        for (y in content.indices) {
+                            if (y == titleNumber) {
+                                title = content[y].text()
+                            }
+                            if( y == dateNumber ){
+                                date = content[y].text().replace('-', '.').replace('/', '.')
+                                if( date.length == 5){
+                                    val old:Int = date.substring(0..1).toInt()
+                                    val current:Int = mDate.substring(0..1).toInt()
+                                    date = if( current >= old )
+                                        if( date.substring(3..4).toInt() >= mDate.substring(3..4).toInt())
+                                            "$mYear.$date"
+                                        else
+                                            "${mYear.toInt()-1}.$date"
+                                    else
+                                        "${mYear.toInt()-1}.$date"
+                                } else if( date.length == 8) {
+                                    date = "${mYear.substring(0..1)}$date"
+                                }
+                            }
+                        }
+                        AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
+                    }
+                }
+                else if(fk == 61)
+                {
+                    var titleNumber = 0
+                    var dateNumber = 0
+                    var content = contents[0].select("th")
+                    for( y in content.indices){
+                        if(content[y].text() == "제목" || content[y].text() == "제 목" ) titleNumber = y
+                        else if( content[y].text() == "등록일" || content[y].text() == "작성일" || content[y].text() == "날짜") dateNumber = y
+                    }
+                    for (x in 0 until contents.size){
+                        content = contents[x].select("td")
+                        var title = ""; var url = ""; var date = ""
+                        for( y in content.indices ){
+                            if( y == titleNumber ){
+                                title = content[y].text()
+                                url = baseUrl.substring(0..cutNumberBaseUrl)
+                                url += content[y].select("a").attr("href").replace("amp;", "").substring(cutNumberFetchUrl)
+                            }
+                            if( y == dateNumber ){
+                                date = content[y].text().replace('-', '.').replace('/', '.')
+                                if( date.length == 5){
+                                    val old:Int = date.substring(0..1).toInt()
+                                    val current:Int = mDate.substring(0..1).toInt()
+                                    date = if( current >= old )
+                                        if( date.substring(3..4).toInt() >= mDate.substring(3..4).toInt())
+                                            "$mYear.$date"
+                                        else
+                                            "${mYear.toInt()-1}.$date"
+                                    else
+                                        "${mYear.toInt()-1}.$date"
+                                } else if( date.length == 8) {
+                                    date = "${mYear.substring(0..1)}$date"
+                                }
+                            }
+                        }
+                        AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
+                    }
+                }
                 else if(contents.size > 0)
                 {
                     var titleNumber = 0
@@ -246,7 +359,6 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                         AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
                 }
-
             }
         }
     }
@@ -275,7 +387,7 @@ class SoupClient(private val AppDataBase: AppDataBase) {
 
     val fetchInfoList = arrayListOf(
         FetchMajorInfo(1, 1, false, "https://nurse.kangwon.ac.kr/nurse/bbs_list.php?code=sub07a&keyvalue=sub07", 34, 1),
-        FetchMajorInfo(2, 2, false, "https://biz.kangwon.ac.kr/bbs/board.php?bo_table=sub06_1", 55, 32),
+        FetchMajorInfo(2, 2, false, "https://biz.kangwon.ac.kr/bbs/board.php?bo_table=sub06_1", 24, 2),
         FetchMajorInfo(3, 2, false, "http://account.kangwon.ac.kr/bbs/board.php?bo_table=notice", -1, 0),
         FetchMajorInfo(4, 2, false, "https://economics.kangwon.ac.kr/bbs/board.php?bo_table=sub07_1", -1, 0),
         FetchMajorInfo(5, 2, false, "https://statistics.kangwon.ac.kr/board/bbs/board.php?bo_table=notice_bbs", 38, 3),
@@ -308,11 +420,11 @@ class SoupClient(private val AppDataBase: AppDataBase) {
         FetchMajorInfo(31, 5, false, "https://design.kangwon.ac.kr/design/bbs_list.php?code=sub07a&keyvalue=sub07", 35, 0),
         FetchMajorInfo(32, 5, false, "http://art.kangwon.ac.kr/wp/?page_id=1782", 24, 0),
         FetchMajorInfo(33, 5, false, "https://vculture.kangwon.ac.kr/vculture/bbs_list.php?code=sub07a&keyvalue=sub07", 39, 0),
-        FetchMajorInfo(34, 6, false, "http://mathedu.kangwon.ac.kr/index.php?mt=page&mp=3_1&mm=oxbbs&oxid=2", 28, 0),
+        FetchMajorInfo(34, 6, false, "http://mathedu.kangwon.ac.kr/main.php?mt=page&mp=3_1&mm=oxbbs&oxid=2", 28, 0),
         FetchMajorInfo(35, 6, false, "https://history.kangwon.ac.kr/index.php?mp=5_1", 29, 0),
         FetchMajorInfo(36, 6, false, "https://engedu.kangwon.ac.kr/twb_bbs/user_bbs_list.php?bcd=01_06_04_00_00", 36, 0),
         FetchMajorInfo(37, 7, false, "https://padm.kangwon.ac.kr/bbs/board.php?bo_table=sub3_2", -1, 0),
-        FetchMajorInfo(38, 7, false, "https://psych.kangwon.ac.kr/gnuboard4/bbs/board.php?bo_table=bbs41", 0, 0),
+        FetchMajorInfo(38, 7, false, "https://psych.kangwon.ac.kr/gnuboard4/bbs/board.php?bo_table=bbs41", 36, 2),
         FetchMajorInfo(39, 7, false, "https://masscom.kangwon.ac.kr/bbs/board.php?bo_table=sub3_1", 29, 2),
         FetchMajorInfo(40, 7, false, "https://politics.kangwon.ac.kr/bbs/board.php?bo_table=sub9_3", 30, 2),
         FetchMajorInfo(41, 8, false, "https://fm.kangwon.ac.kr/bbs/board.php?bo_table=sub06_1", -1, 0),

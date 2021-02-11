@@ -49,7 +49,7 @@ class NoticeAdapter(
                 // Move to the URI_Site
                 val url: String =
                     filList[curPos].mUrl.substring(7, filList[curPos].mUrl.length)
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://$url"))
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse("http://$url"))
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
                 parent.context.startActivity(intent)
             }

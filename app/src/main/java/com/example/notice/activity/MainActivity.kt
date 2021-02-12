@@ -211,7 +211,7 @@ class MainActivity : AppCompatActivity() {
         // show Loader
         showProgressDialog()
         CoroutineScope(Main).launch {
-            delay(count * 1000)
+            delay(count * 1300)
             fetchAdapter()
             //Hide Loader
             hideProgressDialog()

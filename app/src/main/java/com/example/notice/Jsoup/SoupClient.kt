@@ -39,7 +39,7 @@ class SoupClient(private val AppDataBase: AppDataBase) {
             var contents: Elements
             if (doc != null) {
                 contents = doc.select("tr")
-                if (fk == 74) // 교육혁신원
+                if (fk == 73) // 교육혁신원
                 {
                     contents = doc.select("li.tbody")
                     var title: String;
@@ -92,7 +92,8 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                         }
                         AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
-                } else if (fk == 27 || fk == 29) {
+                } else if (fk == 27 || fk == 29)
+                {
                     contents = doc.select("table.bbs_list").select("tr")
                     var titleNumber = 0
                     var dateNumber = 0
@@ -214,7 +215,7 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                         date = "$mYear.$date"
                         AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
-                } else if (fk == 54) //국어국문과
+                } else if (fk == 53) //국어국문과
                 {
                     val contents = doc.select("tr").select("[height=28]")
                     var title: String;
@@ -229,7 +230,8 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                         date = content[4].text().replace('-', '.')
                         AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
-                } else if (fk == 22) {
+                } else if (fk == 22)
+                {
                     var titleNumber = 1
                     var dateNumber = 3
                     var content: Elements
@@ -267,7 +269,8 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                         }
                         AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
-                } else if (fk == 38) {
+                } else if (fk == 38)
+                {
                     contents = doc.select(".board_list")
                     var titleNumber = 1
                     var dateNumber = 3
@@ -303,7 +306,7 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                         }
                         AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
-                } else if (fk == 61) // 지질학
+                } else if (fk == 60) // 지질학
                 {
                     var titleNumber = 0
                     var dateNumber = 0
@@ -347,7 +350,8 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                         if (title != "")
                             AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
-                } else if (fk == 7) {
+                } else if (fk == 7)
+                {
 
                     var titleNumber = 0
                     var dateNumber = 0

@@ -15,6 +15,7 @@ import com.example.notice.R
 import com.example.notice.Recyclerviews.CollegeAdapter
 import com.example.notice.Recyclerviews.MajorAdapter
 import com.example.notice.Recyclerviews.RecyclerDecoration
+import com.example.notice.dataBase.Model
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.filter_page.*
 
@@ -131,6 +132,15 @@ class FilterActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.none, R.anim.right_to_left)
     }
 
+    private fun <T: Model> loadSharedPreferences(list: List<T>, name:String): MutableMap<String, Boolean>{
+        val sharedObject = getSharedPreferences(name, 0)
+        val loadMap = mutableMapOf<String, Boolean>()
+        for (x in list) {
+            val isSelect = sharedObject.getBoolean(x.getModel(), false)
+            loadMap[x.getModel()] = isSelect
+        }
+        return loadMap
+    }
     private fun loadSharedPreferencesCollege(collegeList: List<College>): MutableMap<String, Boolean> {
         val sharedObject = getSharedPreferences("college", 0)
         val loadMap = mutableMapOf<String, Boolean>()

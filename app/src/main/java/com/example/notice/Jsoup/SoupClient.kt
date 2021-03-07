@@ -396,7 +396,47 @@ class SoupClient(private val AppDataBase: AppDataBase) {
                             AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
                     }
                 }
-                else if (contents.size > 0) {
+                else if( fk == 65 )
+                {
+                    var titleNumber = 1
+                    var dateNumber = 3
+                    for (x in 1 until contents.size) {
+                        val content = contents[x].select("td")
+                        var title = "";
+                        var url = "";
+                        var date = ""
+                        for (y in content.indices) {
+                            if (y == titleNumber) {
+                                title = content[y].select("a").text()
+                                url = baseUrl.substring(0..cutNumberBaseUrl)
+                                url += content[y].select("a").attr("href").replace("amp;", "")
+                                    .substring(cutNumberFetchUrl)
+                            }
+                            if (y == dateNumber) {
+                                date = content[y].text().replace('-', '.').replace('/', '.')
+                                if (date.length == 5) {
+                                    val old: Int = date.substring(0..1).toInt()
+                                    val current: Int = mDate.substring(0..1).toInt()
+                                    date = if (current >= old)
+                                        if (date.substring(3..4).toInt() >= mDate.substring(3..4)
+                                                .toInt()
+                                        )
+                                            "$mYear.$date"
+                                        else
+                                            "${mYear.toInt() - 1}.$date"
+                                    else
+                                        "${mYear.toInt() - 1}.$date"
+                                } else if (date.length == 8) {
+                                    date = "${mYear.substring(0..1)}$date"
+                                }
+                            }
+                        }
+                        if (title != "")
+                            AppDataBase.noticeDao().insert(Notice(fk, title, url, date))
+                    }
+                }
+                else if (contents.size > 0)
+                {
                     var titleNumber = 0
                     var dateNumber = 0
                     var content = contents[0].select("th")
@@ -917,7 +957,14 @@ class SoupClient(private val AppDataBase: AppDataBase) {
             29,
             0
         ),
-        FetchMajorInfo(65, 14, false, "https://ee.kangwon.ac.kr/index.php?mp=5_1", 24, 0),
+        FetchMajorInfo(
+            65,
+            14,
+            false,
+            "https://ee.kangwon.ac.kr/ee/community/notice01.do",
+            48,
+            0
+        ),
         FetchMajorInfo(66, 14, false, "https://computer.kangwon.ac.kr/index.php?mp=5_1_1", 30, 0),
         FetchMajorInfo(
             67,

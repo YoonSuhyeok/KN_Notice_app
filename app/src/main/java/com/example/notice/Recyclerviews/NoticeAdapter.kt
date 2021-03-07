@@ -18,6 +18,7 @@ import com.example.notice.dataBase.Notice
 import com.example.notice.R
 import com.example.notice.Recyclerviews.Something.Companion.nameList
 import com.example.notice.activity.MainActivity
+import com.example.notice.activity.WebViewActivity
 import com.example.notice.defaultClass.NoticeNameId
 import kotlinx.android.synthetic.main.list_item_notice.view.*
 import java.text.SimpleDateFormat
@@ -25,12 +26,13 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 class NoticeAdapter(
+    private var isBrowser:Boolean,
     context: Context,
-    private var NoticeList: List<Notice>
+    NoticeList: List<Notice>
 ) : RecyclerView.Adapter<NoticeAdapter.Holder>(), Filterable {
     private lateinit var filters: ArrayList<NoticeNameId>
 
-    constructor(context: Context, NoticeList: List<Notice>, filter: ArrayList<NoticeNameId>) : this(context, NoticeList) {
+    constructor(isBrowser: Boolean, context: Context, NoticeList: List<Notice>, filter: ArrayList<NoticeNameId>) : this(isBrowser, context, NoticeList) {
         filters = filter
     }
 
@@ -47,9 +49,17 @@ class NoticeAdapter(
                 // getBindingAdapterPosition
                 val curPos: Int = adapterPosition
                 // Move to the URI_Site
-                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(filList[curPos].mUrl))
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
-                parent.context.startActivity(intent)
+                // isBrowser == false => !isBrowser
+                if(isBrowser) {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(filList[curPos].mUrl))
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                    parent.context.startActivity(intent)
+                } else {
+                    val intent = Intent(parent.context, WebViewActivity::class.java)
+                    intent.putExtra("url", filList[curPos].mUrl)
+                    parent.context.startActivity(intent)
+                }
+
             }
 
             itemView.setOnLongClickListener{
@@ -123,6 +133,10 @@ class NoticeAdapter(
     fun changeList(lists: List<Notice>){
         filList = lists
         notifyDataSetChanged()
+    }
+
+    fun changeIsBrowser(value: Boolean){
+        isBrowser = value
     }
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {

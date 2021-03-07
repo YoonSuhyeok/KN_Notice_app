@@ -39,14 +39,15 @@ class MainActivity : AppCompatActivity() {
     private var noticeList: List<Notice> = arrayListOf()
     private var allList: List<String> = arrayListOf()
     private var selectedIds: ArrayList<Int> = arrayListOf()
-    private var noticeAdapter: NoticeAdapter = NoticeAdapter(this, noticeList, filters)
+    private var noticeAdapter: NoticeAdapter = NoticeAdapter(true, this, noticeList, filters)
     private var filterAdapter: FilterAdapter = FilterAdapter(filters, noticeAdapter)
     //Initialize Loader
     private val loadingDialogFragment by lazy { LoadingDialog() }
-
+    private var isBrowser: Boolean = false
     companion object {
         var position = 0
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -72,7 +73,6 @@ class MainActivity : AppCompatActivity() {
         filterRecycle.addItemDecoration(RecyclerDecoration(0))
         filterRecycle.layoutManager =
             LinearLayoutManager(this@MainActivity, LinearLayoutManager.HORIZONTAL, false)
-
 
         var shared = getSharedPreferences("updateDate", 0)
         val edit: SharedPreferences.Editor = shared.edit()
@@ -114,13 +114,24 @@ class MainActivity : AppCompatActivity() {
         filBtn.setOnClickListener {
             startActivity(Intent(this, FilterActivity::class.java))
         }
-
+        shared = getSharedPreferences("etcSetValues", 0)
+        isBrowser = shared.getBoolean("isBrowser", false)
         fetchAdapter()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        val shared = getSharedPreferences("etcSetValues", 0)
+
+        if (menu != null) {
+            menu.getItem(4).isChecked = shared.getBoolean("isBrowser", true)
+        }
+
+        return super.onPrepareOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -147,6 +158,19 @@ class MainActivity : AppCompatActivity() {
                     .setTitle("테마", this)
                     .create()
                 dialog.show(supportFragmentManager, dialog.tag)
+                true
+            }
+            R.id.browserKind -> {
+                val shared = getSharedPreferences("etcSetValues", 0)
+                val edit: SharedPreferences.Editor = shared.edit()
+                item.isChecked = shared.getBoolean("isBrowser", true)
+                item.isChecked = !item.isChecked
+
+                edit.putBoolean("isBrowser", item.isChecked)
+
+                // 꺼졌다 켜져도 변경되어있나 궁금.
+                noticeAdapter.changeIsBrowser(item.isChecked)
+                edit.apply()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -180,7 +204,7 @@ class MainActivity : AppCompatActivity() {
 
         db.close()
 
-        noticeAdapter = NoticeAdapter(this, noticeList, filters)
+        noticeAdapter = NoticeAdapter(isBrowser, this, noticeList, filters)
 
         filterAdapter = FilterAdapter(filters, noticeAdapter)
 
@@ -198,8 +222,9 @@ class MainActivity : AppCompatActivity() {
         allList = ArrayList(mutSet)
         val client = SoupClient(db)
 
-        for (x in allList) if (shared.all[x] == true)
+        for (x in allList) if (shared.all[x] == true){
             client.fetchInfoList[db.majorDao().getMId(x) - 1].isSelect = true
+        }
 
         var count:Long = 0
         for (x in client.fetchInfoList) {

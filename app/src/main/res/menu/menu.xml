@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:title="앱 정보"
         android:id="@+id/developInfo"/>
     <item android:title="문의하기"
@@ -8,4 +9,9 @@
         android:id="@+id/bookmark"/>
     <item android:title="다크 모드 설정"
         android:id="@+id/switchBtn"/>
+    <item android:title="타 브라우저 사용"
+        android:id="@+id/browserKind"
+        android:checkable="true"
+        app:showAsAction="never"/>
+
 </menu>

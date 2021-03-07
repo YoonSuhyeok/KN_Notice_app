@@ -15,8 +15,8 @@ import kotlinx.android.synthetic.main.bookmark_page.*
 class BookmarkActivity : AppCompatActivity() {
 
     private var noticeList: List<Notice> = arrayListOf()
-    private var noticeAdapter: NoticeAdapter = NoticeAdapter(this, noticeList)
-
+    private var noticeAdapter: NoticeAdapter = NoticeAdapter(true, this, noticeList)
+    private var isBrowser = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.bookmark_page)
@@ -37,8 +37,9 @@ class BookmarkActivity : AppCompatActivity() {
         noticeList = db.noticeDao().getBookmark(true)
 
         db.close()
-
-        noticeAdapter = NoticeAdapter(this, noticeList)
+        val shared = getSharedPreferences("etcSetValues", 0)
+        isBrowser = shared.getBoolean("isBrowser", true)
+        noticeAdapter = NoticeAdapter(isBrowser, this, noticeList)
 
         bookmarkRecycle.adapter = noticeAdapter
     }
@@ -51,7 +52,7 @@ class BookmarkActivity : AppCompatActivity() {
 
         db.close()
 
-        noticeAdapter = NoticeAdapter(this, noticeList)
+        noticeAdapter = NoticeAdapter(isBrowser, this, noticeList)
 
         bookmarkRecycle.adapter = noticeAdapter
     }

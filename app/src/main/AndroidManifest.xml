@@ -42,9 +42,7 @@
 
         <activity android:name="com.example.notice.activity.FilterActivity" android:parentActivityName=".activity.MainActivity"/>
 
-        <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="@string/kakao_app_key" />
+        <activity android:name=".activity.WebViewActivity" android:parentActivityName=".activity.MainActivity"/>
     </application>
 
 </manifest>

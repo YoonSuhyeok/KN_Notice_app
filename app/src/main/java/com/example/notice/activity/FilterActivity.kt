@@ -29,6 +29,12 @@ class FilterActivity : AppCompatActivity() {
 
         val db = Room.databaseBuilder(this, AppDataBase::class.java, "Major-DB").allowMainThreadQueries().build()
 
+        // 학과 추가
+        // 불어불문학과
+        if(db.majorDao().getMId("불어불문학과") == 0 ) {
+            db.majorDao().insert(Major(12, "불어불문학과"))
+        }
+
         val majorList = db.majorDao().all
         val majorAdapter = MajorAdapter(this, majorList, loadSharedPreferencesMajor(majorList))
 

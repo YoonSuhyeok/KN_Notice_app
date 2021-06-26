@@ -10,8 +10,8 @@ android {
         applicationId "com.knus.noticekangwon"
         minSdkVersion 22
         targetSdkVersion 30
-        versionCode 5
-        versionName "1.4"
+        versionCode 8
+        versionName "1.5.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true

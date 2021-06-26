@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -115,7 +116,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, FilterActivity::class.java))
         }
         shared = getSharedPreferences("etcSetValues", 0)
-        isBrowser = shared.getBoolean("isBrowser", false)
+        isBrowser = shared.getBoolean("isBrowser", true)
         fetchAdapter()
     }
 

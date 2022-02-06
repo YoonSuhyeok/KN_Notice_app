@@ -1,1 +1,1 @@
-# EmptyProject
+# KNU_NOTICE

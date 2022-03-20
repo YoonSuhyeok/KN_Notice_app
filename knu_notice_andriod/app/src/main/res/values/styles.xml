@@ -1,0 +1,27 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/topColor</item>
+        <item name="android:colorBackground">@color/background</item>
+        <item name="android:itemBackground">@color/background</item>
+        <item name="android:itemTextAppearance">@style/MenuTextColor</item>
+        <item name="homeAsUpIndicator">@drawable/back_btn</item>
+        <item name="colorAccent">@color/btnColor</item>
+    </style>
+    <!-- Dialog Animation -->
+    <style name="AnimationPopupStyle">
+        <item name="android:windowEnterAnimation">@anim/open</item>
+        <item name="android:windowExitAnimation">@anim/close</item>
+    </style>
+
+    <style name="modeRadioBtnStyle" parent="Theme.AppCompat.DayNight">
+        <item name="colorAccent">@color/rdBtnColor</item>
+        <item name="colorControlNormal">@color/rdBtnColor</item>
+    </style>
+
+    <style name="MenuTextColor">
+        <item name="android:textColor">@color/devTitleFontColor</item>
+    </style>
+
+</resources>

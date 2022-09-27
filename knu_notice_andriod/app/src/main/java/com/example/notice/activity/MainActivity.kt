@@ -4,10 +4,10 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,22 +17,32 @@ import com.example.notice.Jsoup.SoupClient
 import com.example.notice.Recyclerviews.FilterAdapter
 import com.example.notice.Recyclerviews.NoticeAdapter
 import com.example.notice.Recyclerviews.RecyclerDecoration
+import com.example.notice.api.RetrofitClient
+import com.example.notice.api.oauth
+import com.example.notice.api.request.validateRequest
 import com.example.notice.dataBase.AppDataBase
 import com.example.notice.dataBase.Notice
 import com.example.notice.defaultClass.NoticeNameId
 import com.example.notice.dialog.CustomDialog
 import com.example.notice.dialog.LoadingDialog
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
+import com.google.gson.JsonElement
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_custom.*
-import kotlinx.android.synthetic.main.longclick_dialog_menus.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
-
+import javax.annotation.Nullable
 
 class MainActivity : AppCompatActivity() {
 
@@ -48,6 +58,9 @@ class MainActivity : AppCompatActivity() {
     companion object {
         var position = 0
     }
+
+    private final val RC_GET_TOKEN = 9002
+    private lateinit var mGoogleSignInClient: GoogleSignInClient;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -118,6 +131,106 @@ class MainActivity : AppCompatActivity() {
         shared = getSharedPreferences("etcSetValues", 0)
         isBrowser = shared.getBoolean("isBrowser", true)
         fetchAdapter()
+
+        // GOOGLE
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken(getString(R.string.server_client_id))
+            .requestEmail()
+            .build()
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
+
+    private fun getIdToken() {
+        val signInIntent = mGoogleSignInClient.signInIntent
+        startActivityForResult(signInIntent, RC_GET_TOKEN)
+    }
+
+    private fun refreshIdToken() {
+        // Attempt to silently refresh the GoogleSignInAccount. If the GoogleSignInAccount
+        // already has a valid token this method may complete immediately.
+        //
+        // If the user has not previously signed in on this device or the sign-in has expired,
+        // this asynchronous branch will attempt to sign in the user silently and get a valid
+        // ID token. Cross-device single sign on will occur in this branch.
+
+        mGoogleSignInClient.silentSignIn()
+            .addOnCompleteListener(
+                this
+            ) { task -> handleSignInResult(task) }
+    }
+
+    // [START handle_sign_in_result]
+    private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
+        try {
+            val account: GoogleSignInAccount = completedTask.getResult(ApiException::class.java)
+            val idToken = account.idToken
+
+            if( idToken != null ) {
+                val requestDTO = validateRequest(idToken = idToken)
+
+                val client = RetrofitClient.getClient()?.create(oauth::class.java)
+                val temp = client?.validate(requestDTO)?.enqueue(object : Callback<String> {
+                    override fun onResponse(call: Call<String>, response: Response<String>) {
+                        TODO("Not yet implemented")
+                        Log.w("resonse", response.toString())
+                    }
+
+                    override fun onFailure(call: Call<String>, t: Throwable) {
+                        Log.w("resonse", t)
+                    }
+                })
+
+            }
+
+            // TODO(developer): send ID Token to server and validate
+            updateUI(account)
+        } catch (e: ApiException) {
+            Log.w("TAG", "handleSignInResult:error", e)
+            updateUI(null)
+        }
+    }
+    // [END handle_sign_in_result]
+
+    private fun signOut() {
+        mGoogleSignInClient.signOut().addOnCompleteListener(
+            this
+        ) { updateUI(null) }
+    }
+
+    private fun revokeAccess() {
+        mGoogleSignInClient.revokeAccess().addOnCompleteListener(
+            this
+        ) { updateUI(null) }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == RC_GET_TOKEN) {
+            // [START get_id_token]
+            // This task is always completed immediately, there is no need to attach an
+            // asynchronous listener.
+            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
+            handleSignInResult(task)
+            // [END get_id_token]
+        }
+    }
+
+    private fun updateUI(@Nullable account: GoogleSignInAccount?) {
+        if (account != null) {
+//            (findViewById<View>(R.id.status) as TextView).setText(R.string.signed_in)
+            val idToken = account.idToken
+            //mIdTokenTextView.setText(getString(R.string.id_token_fmt, idToken))
+//            findViewById<View>(R.id.sign_in_button).visibility = View.GONE
+//            findViewById<View>(R.id.sign_out_and_disconnect).visibility = View.VISIBLE
+//            mRefreshButton.setVisibility(View.VISIBLE)
+        } else {
+//            (findViewById<View>(R.id.status) as TextView).setText(R.string.signed_out)
+//            mIdTokenTextView.setText(getString(R.string.id_token_fmt, "null"))
+//            findViewById<View>(R.id.sign_in_button).visibility = View.VISIBLE
+//            findViewById<View>(R.id.sign_out_and_disconnect).visibility = View.GONE
+//            mRefreshButton.setVisibility(View.GONE)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -137,6 +250,10 @@ class MainActivity : AppCompatActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
+            R.id.login -> {
+                getIdToken()
+                true
+            }
             R.id.developInfo -> {
                 startActivity(Intent(this, DevelopInfoActivity::class.java))
                 true
